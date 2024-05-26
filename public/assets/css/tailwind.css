@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.error-message {
+    color: red;
+    /*font-size: 20px;*/
+}
+
+.error-message {
+    visibility: hidden;
+}
+.content.error input {
+    border: 2px solid red !important;
+}
+.content.error select {
+    border: 2px solid red !important;
+}
+.content.error span {
+    visibility: visible;
+}
+.content {
+    flex-wrap: wrap;
+}

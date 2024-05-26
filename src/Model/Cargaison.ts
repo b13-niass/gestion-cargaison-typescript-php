@@ -1,0 +1,164 @@
+import {ICargaison} from "../Interface/DataBinding.js";
+import {FormatDate} from "./FormatDate.js";
+
+export abstract class Cargaison {
+
+    protected numero?: string;
+    protected poidsMax?: number;
+    protected nbrProduitMax?: number;
+    protected montantTotal?: number;
+    protected lieuDepart?: string;
+    protected lieuArrive?: string;
+    protected dateDepart?: string;
+    protected dateArrive?: string;
+    protected departX?: number;
+    protected departY?: number;
+    protected arriveX?: number;
+    protected arriveY?: number;
+    protected typec?: string;
+    protected image?: string;
+    protected distance?: number;
+    protected etatAvancement?: string;
+    protected etatGlobal?: string;
+
+    constructor(init?: Partial<ICargaison>) {
+        Object.assign(this, init);
+    }
+
+    getNumeros(): string {
+        return this.numero!;
+    }
+    setNumeros(numero: string){
+        this.numero = numero;
+    }
+    getPoidsMax(): number {
+        return this.poidsMax!;
+    }
+    setPoidsMax(poidsMax: number){
+        this.poidsMax = poidsMax;
+    }
+    getNbrProduitMax(): number {
+        return this.nbrProduitMax!;
+    }
+    setNbrProduitMax(nbrProduitMax: number){
+        this.nbrProduitMax = nbrProduitMax;
+    }
+    getMontantTotal(): number {
+        return this.montantTotal!;
+    }
+    setMontantTotal(montantTotal: number){
+        this.montantTotal = montantTotal;
+    }
+    getLieuDepart(): string {
+        return this.lieuDepart!;
+    }
+    setLieuDepart(lieuDepart: string){
+        this.lieuDepart = lieuDepart;
+    }
+    getLieuArrive(): string {
+        return this.lieuArrive!;
+    }
+    setLieuArrive(lieuArrive: string){
+        this.lieuArrive = lieuArrive;
+    }
+    getDateDepart(): string {
+        return this.dateDepart!;
+    }
+    setDateDepart(dateDepart: string){
+        this.dateDepart = dateDepart;
+    }
+    getDateArrive(): string {
+        return this.dateArrive!;
+    }
+    setDateArrive(dateArrive: string){
+        this.dateArrive = dateArrive;
+    }
+    getDepartX(): number {
+        return this.departX!;
+    }
+    setDepartX(departX: number){
+        this.departX = departX;
+    }
+    getDepartY(): number {
+        return this.departY!;
+    }
+    setDepartY(departY: number){
+        this.departY = departY;
+    }
+    getArriveX(): number {
+        return this.arriveX!;
+    }
+    setArriveX(arriveX: number){
+        this.arriveX = arriveX;
+    }
+    getArriveY(): number {
+        return this.arriveY!;
+    }
+    setArriveY(arriveY: number){
+        this.arriveY = arriveY;
+    }
+    getTypec(): string {
+        return this.typec!;
+    }
+
+    setTypec(typec: string){
+        this.typec = typec;
+    }
+
+    getImage(): string {
+        return this.image!;
+    }
+    setImage(image: string){
+        this.image = image;
+    }
+    getDistance(): number {
+        return this.distance!;
+    }
+    setDistance(distance: number){
+        this.distance = distance;
+    }
+    getEtatAvancement(): string {
+        return this.etatAvancement!;
+    }
+    setEtatAvancement(etatAvancement: string){
+        this.etatAvancement = etatAvancement;
+    }
+    getEtatGlobal(): string {
+        return this.etatGlobal!;
+    }
+    setEtatGlobal(etatGlobal: string){
+        this.etatGlobal = etatGlobal;
+    }
+
+    info(): HTMLTableRowElement {
+        const formatDate = new FormatDate();
+        const tr: HTMLTableRowElement = document.createElement("tr");
+        tr.className = "tr-hoverable border-b";
+        tr.innerHTML = `
+         <td class="border border-gray-400 w-24 px-4 py-2">
+            <img src="https://via.placeholder.com/50" alt="Product Image" class="rounded">
+        </td>
+        <td class="border border-gray-400 px-4 py-2">${this.typec}</td>
+        <td class="border border-gray-400 px-4 py-2">
+            <span class="inline-block bg-blue-200 text-blue-800 text-sm px-2 rounded-full">${this.poidsMax == 0? this.nbrProduitMax +"produits" : this.poidsMax+"Kg"}</span>
+        </td>
+        <td class="border border-gray-400 px-4 py-2">${formatDate.formatDate3(this.dateDepart!) +" au "+formatDate.formatDate3(this.dateArrive!)}</td>
+        <td class="border border-gray-400 px-4 py-2">${this.lieuDepart} - ${this.lieuArrive}</td>
+        <td class="border border-gray-400 px-4 py-2">${this.distance}</td>
+        <td class="border border-gray-400 px-4 py-2">5h</td>
+        <td class="border border-gray-400 px-4 py-2">
+            <span class="inline-block ${(this.etatAvancement == "EN ATTENTE")? "bg-gray-200":(this.etatAvancement == "EN COURS")?"bg-orange-200":"bg-green-200"}  text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatAvancement}</span>
+        </td>
+         <td class="border border-gray-400 px-4 py-2">
+            <span class="inline-block ${this.etatGlobal == "OUVERT"? "bg-green-200":"bg-red-200"} text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatGlobal}</span>
+        </td>
+        <td class="border border-gray-400 px-4 py-2">
+            <a href="/detcargo/${this.numero}" class="bg-gray-800 font-semibold text-white py-1 px-2 border border-transparent rounded">
+                Détails
+            </a>
+        </td>
+        `;
+        return tr;
+    }
+
+}
