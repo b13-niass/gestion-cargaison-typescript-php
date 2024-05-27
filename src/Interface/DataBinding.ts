@@ -55,6 +55,7 @@ export interface ISubmitCargaison {
     cityName1?: string,
     cityName2?: string,
     dateDepart?: string,
+    dateArrive?: string,
     distance?: number,
     duration?: number,
     nbrProduitMax?: string,

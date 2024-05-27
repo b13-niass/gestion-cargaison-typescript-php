@@ -18,6 +18,17 @@
                 <span class="error-message">error</span>
             </div>
 
+            <div class="relative content w-[30%]">
+                <label for="dateDepart" class="block text-sm font-medium text-gray-700">Date Départ</label>
+                <input type="date" id="dateDepart" name="dateDepart" class="date-depart-add text-gray-900 form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <span class="error-message">error</span>
+            </div>
+            <div class="relative content w-[30%]">
+                <label for="dateArrive" class="block text-sm font-medium text-gray-700">Date Arrive</label>
+                <input type="date" id="dateArrive" name="dateArrive" class="date-arrive-add text-gray-900 form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <span class="error-message">error</span>
+            </div>
+
             <div id="mapContainer" class="content w-[30%]">
                 <div class="border border-gray-300 p-2 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 cursor-pointer hover:bg-blue-50">
                     <div class="shrink-0">
@@ -33,27 +44,24 @@
                 <span class="map-error-message error-message">Le trajet est requis</span>
             </div>
 
-            <div class="relative content w-[30%]">
-                <label for="dateDepart" class="block text-sm font-medium text-gray-700">Date Départ</label>
-                <input type="date" id="dateDepart" name="dateDepart" class="date-depart-add text-gray-900 form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                <span class="error-message">error</span>
-            </div>
             <div class="content w-[30%]">
                 <label for="volume" class="block text-sm font-medium text-gray-700">Type de volume</label>
                 <select id="volume" name="volume" class="form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Sélectionner Type de volume</option>
-                    <option value="poids">Poids</option>
+                    <option value="poids" selected>Poids</option>
                     <option value="nbrProduit">Nbr de Produit</option>
                 </select>
                 <span class="error-message">error</span>
             </div>
+
             <div id="volumeContent" class="content w-[30%]">
-
+                <label for="poidsMax" class="block text-sm font-medium text-gray-700">Poids</label>
+                <input type="text" id="poidsMax" name="poidsMax" class="form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">(kg)
+                <span class="error-message">error</span>
             </div>
-            <div class="invisible content w-[30%]">
-
+            <div class="text-center flex pt-5 justify-start w-full">
+                <button id="btnEnregistrer" class="w-1/3 px-4 py-2 bg-gray-800 text-white font-medium rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enregistrer</button>
             </div>
-
             <div id="result-table" class="invisible w-[100%]">
                 <h1>Info Supplémentaire</h1>
                 <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
@@ -63,7 +71,6 @@
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Lieu Départ</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Lieu Arrivé</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Durée</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Arrivée</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,7 +79,6 @@
                         <td id="lieuDepart" class="px-6 py-4 border-b border-gray-200">sss</td>
                         <td id="lieuArrive" class="px-6 py-4 border-b border-gray-200">sss</td>
                         <td id="duree" class="px-6 py-4 border-b border-gray-200">sss</td>
-                        <td id="dateArrive" class="px-6 py-4 border-b border-gray-200">date</td>
                     </tr>
                     </tbody>
                 </table>
@@ -82,9 +88,7 @@
 <!--                <img src="https://placehold.co/50" id="image-cargaison" alt="" srcset="">-->
 <!--            </div>-->
             <!-- Button -->
-            <div class="text-center flex pt-5 justify-start w-full">
-                <button id="btnEnregistrer" class="w-1/3 px-4 py-2 bg-gray-800 text-white font-medium rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enregistrer</button>
-            </div>
+
         </form>
     </div>
 

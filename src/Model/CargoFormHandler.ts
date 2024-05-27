@@ -38,8 +38,9 @@ export class FormHandler {
         let isValid = true;
         let listeToCheck: NodeListOf<HTMLInputElement>;
         const inputDate = document.querySelector(".date-depart-add") as HTMLInputElement;
+        const inputDateArrive = document.querySelector(".date-arrive-add") as HTMLInputElement;
         const inputs = this.formElement.querySelectorAll('input, textarea, select') as NodeListOf<HTMLInputElement>;
-        return Validation.checkRequireGlobal2(inputs) && Validation.validerDateAddCargo(inputDate);
+        return Validation.checkRequireGlobal2(inputs) && Validation.validerDateAddCargo(inputDate) && Validation.validerDateAddCargo(inputDateArrive);
     }
     handleSubmit(callback: (data: Record<string, any>) => void): void {
         this.formElement.addEventListener('submit', (event: Event) => {

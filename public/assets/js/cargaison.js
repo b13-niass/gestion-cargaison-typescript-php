@@ -104,6 +104,13 @@ import { FormatDate } from "./Model/FormatDate.js";
         date.setMinutes(date.getMinutes() + minutes);
         return date.toISOString();
     }
+    function betweenTwoDate(dateDepart, dateArrive) {
+        const startDate = new Date(dateDepart);
+        const endDate = new Date(dateArrive);
+        const differenceInMilliseconds = endDate.getTime() - startDate.getTime();
+        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+        return differenceInMinutes;
+    }
     /** Initialisation **/
     filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
     paginationObject.setItems(filterListeCargaison);
@@ -124,13 +131,13 @@ import { FormatDate } from "./Model/FormatDate.js";
             }
             else {
                 const dateDepart = document.getElementById("dateDepart");
+                const dateArrive = document.getElementById("dateArrive");
                 const formatDate = new FormatDate();
                 document.getElementById("result-table")?.classList.remove("invisible");
                 document.getElementById("distance").innerHTML = (parseInt(infoSupp.distance) / 1000) + " Km";
                 document.getElementById("lieuDepart").innerHTML = infoSupp.cityName1;
                 document.getElementById("lieuArrive").innerHTML = infoSupp.cityName2;
-                document.getElementById("duree").innerHTML = convertMinutesToHours(parseInt(infoSupp.duration));
-                document.getElementById("dateArrive").innerHTML = formatDate.formatDate3(formatDate.formatDate5(addMinutesToDate(dateDepart.value ?? "", parseInt(infoSupp.duration))));
+                document.getElementById("duree").innerHTML = convertMinutesToHours(betweenTwoDate(dateDepart.value, dateArrive.value)) ?? 0;
             }
         }
         else {
@@ -149,7 +156,7 @@ import { FormatDate } from "./Model/FormatDate.js";
         else if (d.typec == "aerienne") {
             cargaison = new CargaisonBuilder(new Aerienne());
         }
-        cargaison.withDuree(d.duration)
+        cargaison.withDuree(betweenTwoDate(d.dateDepart, d.dateArrive))
             .withPoidsMax(isNaN(parseInt(d.poidsMax)) ? 0 : parseInt(d.poidsMax))
             .withDistance(d.distance / 1000)
             .withEtatAvancement("EN ATTENTE")
@@ -161,7 +168,7 @@ import { FormatDate } from "./Model/FormatDate.js";
             .withLieuArrive(d.cityName2)
             .withMontantTotal(1000)
             .withDateDepart(d.dateDepart)
-            .withDateArrive(formatDate.formatDate5(addMinutesToDate(d.dateDepart ?? "", d.duration)))
+            .withDateArrive(d.dateArrive)
             .withNumero(generateRandomCode());
         let data = { ...cargaison.build() };
         dbQuery.setDB(await dbQuery.addCargaison(data));
@@ -177,7 +184,7 @@ import { FormatDate } from "./Model/FormatDate.js";
     volumeChange.addEventListener("change", (event) => {
         if (volumeChange.value == "poids") {
             volumeContent.innerHTML = `<label for="poidsMax" class="block text-sm font-medium text-gray-700">Poids</label>
-                <input type="text" id="poidsMax" name="poidsMax" class="form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <input type="text" id="poidsMax" name="poidsMax" class="form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">(kg)
                 <span class="error-message">error</span>`;
         }
         else if (volumeChange.value == "nbrProduit") {
@@ -188,5 +195,10 @@ import { FormatDate } from "./Model/FormatDate.js";
         else {
             volumeContent.innerHTML = '';
         }
+    });
+    const dateArrive = document.getElementById("dateArrive");
+    dateArrive.addEventListener("change", (e) => {
+        const dateDepart = document.getElementById("dateDepart");
+        console.log(betweenTwoDate(dateDepart.value, dateArrive.value));
     });
 })();

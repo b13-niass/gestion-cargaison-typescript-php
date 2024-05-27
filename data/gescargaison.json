@@ -1,11 +1,7 @@
 {
     "cargaison": {
         "maritime": {
-            "produitsAccepter": [
-                "chimique",
-                "materiel",
-                "alimentaire"
-            ],
+            "produitsAccepter": ["chimique", "materiel", "alimentaire"],
             "fraisTransport": [
                 {
                     "typep": 1,
@@ -39,9 +35,9 @@
                     "lieuArrive": "Paris",
                     "dateDepart": "2024-10-01",
                     "dateArrive": "2024-11-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
@@ -55,9 +51,9 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
@@ -71,36 +67,17 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#6190JVM48",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 5,
-                    "montantTotal": 1000,
-                    "lieuDepart": "Communaut\u00e9 rurale de Notto",
-                    "lieuArrive": "Communaut\u00e9 rurale de Nghaye",
-                    "dateDepart": "2024-05-29",
-                    "dateArrive": "2024-05-29",
-                    "duree": 1016.7121267316869,
-                    "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 84.7260105609739,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
                 }
             ]
         },
         "aerienne": {
-            "produitsAccepter": [
-                "materiel",
-                "alimentaire"
-            ],
+            "produitsAccepter": ["materiel", "alimentaire"],
             "fraisTransport": [
                 {
                     "typep": 1,
@@ -127,9 +104,9 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "aerienne",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN COURS",
                     "etatGlobal": "OUVERT"
@@ -143,9 +120,9 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "aerienne",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"
@@ -159,9 +136,9 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "aerienne",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
@@ -169,10 +146,7 @@
             ]
         },
         "routiere": {
-            "produitsAccepter": [
-                "materiel",
-                "alimentaire"
-            ],
+            "produitsAccepter": ["materiel", "alimentaire"],
             "fraisTransport": [
                 {
                     "typep": 1,
@@ -199,9 +173,9 @@
                     "lieuArrive": "Paris",
                     "dateDepart": "2024-08-01",
                     "dateArrive": "2024-09-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "routiere",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
@@ -215,9 +189,9 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "routiere",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"
@@ -231,9 +205,9 @@
                     "lieuArrive": "Italie",
                     "dateDepart": "2024-06-01",
                     "dateArrive": "2024-07-01",
-                    "duree": 0,
+                    "duree": 1000,
                     "typec": "routiere",
-                    "image": "https:\/\/placehold.co\/500",
+                    "image": "https://placehold.co/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"

@@ -117,6 +117,15 @@ import {FormatDate} from "./Model/FormatDate.js";
 
         return date.toISOString();
     }
+
+    function betweenTwoDate(dateDepart: string, dateArrive: string): number {
+            const startDate = new Date(dateDepart);
+            const endDate = new Date(dateArrive);
+            const differenceInMilliseconds = endDate.getTime() - startDate.getTime();
+            const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+            return differenceInMinutes;
+    }
+
     /** Initialisation **/
     filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
     paginationObject.setItems(filterListeCargaison);
@@ -141,13 +150,13 @@ import {FormatDate} from "./Model/FormatDate.js";
                 document.getElementById("mapContainer")?.classList.add("error");
             }else {
                 const dateDepart = document.getElementById("dateDepart") as HTMLInputElement;
+                const dateArrive = document.getElementById("dateArrive") as HTMLInputElement;
                 const formatDate = new FormatDate();
                 document.getElementById("result-table")?.classList.remove("invisible");
                 (document.getElementById("distance") as HTMLTableCellElement).innerHTML = (parseInt(infoSupp.distance)/1000) +" Km";
                 (document.getElementById("lieuDepart") as HTMLTableCellElement).innerHTML = infoSupp.cityName1;
                 (document.getElementById("lieuArrive") as HTMLTableCellElement).innerHTML = infoSupp.cityName2;
-                (document.getElementById("duree") as HTMLTableCellElement).innerHTML = convertMinutesToHours(parseInt(infoSupp.duration));
-                (document.getElementById("dateArrive") as HTMLTableCellElement).innerHTML = formatDate.formatDate3(formatDate.formatDate5(addMinutesToDate(dateDepart.value??"", parseInt(infoSupp.duration))));
+                (document.getElementById("duree") as HTMLTableCellElement).innerHTML = convertMinutesToHours(betweenTwoDate(dateDepart.value, dateArrive.value))??0;
             }
         }else {
             document.getElementById("result-table")?.classList.add("invisible");
@@ -165,7 +174,7 @@ import {FormatDate} from "./Model/FormatDate.js";
             cargaison = new CargaisonBuilder<Aerienne>(new Aerienne())
         }
 
-        cargaison.withDuree(d.duration!)
+        cargaison.withDuree(betweenTwoDate(d.dateDepart!, d.dateArrive!))
             .withPoidsMax(isNaN(parseInt(d.poidsMax!))?0:parseInt(d.poidsMax!))
             .withDistance(d.distance!/1000)
             .withEtatAvancement("EN ATTENTE")
@@ -177,7 +186,7 @@ import {FormatDate} from "./Model/FormatDate.js";
             .withLieuArrive(d.cityName2!)
             .withMontantTotal(1000)
             .withDateDepart(d.dateDepart!)
-            .withDateArrive(formatDate.formatDate5(addMinutesToDate(d.dateDepart??"", d.duration!)))
+            .withDateArrive(d.dateArrive!)
             .withNumero(generateRandomCode());
         let data : ICargaison= {...cargaison.build()};
         dbQuery.setDB(await dbQuery.addCargaison(data));
@@ -195,7 +204,7 @@ import {FormatDate} from "./Model/FormatDate.js";
     volumeChange.addEventListener("change", (event: Event)=>{
         if (volumeChange.value == "poids"){
             volumeContent.innerHTML = `<label for="poidsMax" class="block text-sm font-medium text-gray-700">Poids</label>
-                <input type="text" id="poidsMax" name="poidsMax" class="form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <input type="text" id="poidsMax" name="poidsMax" class="form-control mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">(kg)
                 <span class="error-message">error</span>`;
         }else if(volumeChange.value == "nbrProduit"){
             volumeContent.innerHTML = `<label for="nbrProduitMax" class="block text-sm font-medium text-gray-700">Nbre de produits</label>
@@ -206,4 +215,10 @@ import {FormatDate} from "./Model/FormatDate.js";
         }
     })
 
-    })()
+    const dateArrive = document.getElementById("dateArrive") as HTMLInputElement;
+    dateArrive.addEventListener("change", (e) => {
+        const dateDepart = document.getElementById("dateDepart") as HTMLInputElement;
+        console.log(betweenTwoDate(dateDepart.value, dateArrive.value));
+    })
+
+})()
