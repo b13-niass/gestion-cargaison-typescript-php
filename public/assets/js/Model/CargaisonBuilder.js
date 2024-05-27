@@ -19,20 +19,8 @@ export class CargaisonBuilder {
         this.cargaison.setMontantTotal(montantTotal);
         return this;
     }
-    withDepartX(departX) {
-        this.cargaison.setDepartX(departX);
-        return this;
-    }
-    withDepartY(departY) {
-        this.cargaison.setDepartY(departY);
-        return this;
-    }
-    withArriveX(arriveX) {
-        this.cargaison.setArriveX(arriveX);
-        return this;
-    }
-    withArriveY(arriveY) {
-        this.cargaison.setArriveY(arriveY);
+    withDepartX(duree) {
+        this.cargaison.setDuree(duree);
         return this;
     }
     withTypec(typec) {

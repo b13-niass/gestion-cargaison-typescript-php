@@ -22,22 +22,11 @@ export class CargaisonBuilder<T extends Cargaison> {
         this.cargaison.setMontantTotal(montantTotal);
         return this;
     }
-    withDepartX(departX: number): CargaisonBuilder<T> {
-        this.cargaison.setDepartX(departX);
+    withDepartX(duree: number): CargaisonBuilder<T> {
+        this.cargaison.setDuree(duree);
         return this;
     }
-    withDepartY(departY: number): CargaisonBuilder<T> {
-        this.cargaison.setDepartY(departY);
-        return this;
-    }
-    withArriveX(arriveX: number): CargaisonBuilder<T> {
-        this.cargaison.setArriveX(arriveX);
-        return this;
-    }
-    withArriveY(arriveY: number): CargaisonBuilder<T> {
-        this.cargaison.setArriveY(arriveY);
-        return this;
-    }
+
     withTypec(typec: string): CargaisonBuilder<T> {
         this.cargaison.setTypec(typec);
         return this;

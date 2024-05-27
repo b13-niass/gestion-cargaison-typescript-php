@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/*@import "../../../node_modules/ol/ol.css";*/
+
+/*input[type="date"] {*/
+/*    !* Remove default appearance *!*/
+/*    appearance: none;*/
+/*    !* Ensure the calendar icon is still visible *!*/
+/*    padding-right: 1em;*/
+/*    !* Optional: Adjust other styles as needed *!*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*    padding: 8px;*/
+/*    font-size: 16px;*/
+/*}*/
+
+/* Change color of the calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%)!important;
+}
+
 .error-message {
     color: red;
     /*font-size: 20px;*/

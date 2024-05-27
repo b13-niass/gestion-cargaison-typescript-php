@@ -15,10 +15,7 @@ export interface ICargaison{
      lieuArrive?: string;
      dateDepart?: string;
      dateArrive?: string;
-     departX?: number;
-     departY?: number;
-     arriveX?: number;
-     arriveY?: number;
+     duree?: number;
      typec?: string;
      image?: string;
      distance?: number;
