@@ -11,6 +11,10 @@ export class DbQuery{
         this.dao = new DAO();
     }
 
+    setDB(DB: DBStructure){
+        this.DB = DB;
+    }
+
     findAllTypeCargaison(): Cargaison[] {
         let maritime: Cargaison[] = this.DB.cargaison.maritime.values.map((c) => new Maritime(c));
         let routiere: Cargaison[] = this.DB.cargaison.routiere.values.map((c) => new Routiere(c));
@@ -146,5 +150,15 @@ export class DbQuery{
         return newDB;
     }
 
-    // addCargaison()
+    async addCargaison(cargaison: ICargaison): Promise<DBStructure>{
+        let result : DBStructure;
+        if (cargaison.typec == "maritime"){
+            result = await this.addMaritime(cargaison);
+        }else if(cargaison.typec == "aerienne"){
+            result = await this.addAerienne(cargaison);
+        }else if(cargaison.typec == "routiere"){
+            result = await this.addRoutiere(cargaison);
+        }
+        return result!;
+    }
 }

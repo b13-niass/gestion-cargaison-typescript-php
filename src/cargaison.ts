@@ -1,5 +1,5 @@
 import {DAO} from "./Model/DAO.js";
-import {DBStructure, ISubmitCargaison} from "./Interface/DataBinding.js";
+import {DBStructure, ICargaison, ISubmitCargaison} from "./Interface/DataBinding.js";
 import {DbQuery} from "./Model/DbQuery.js";
 import {Cargaison} from "./Model/Cargaison.js";
 import {Pagination} from "./Model/Pagination.js";
@@ -8,6 +8,7 @@ import {CargaisonBuilder} from "./Model/CargaisonBuilder.js";
 import {Maritime} from "./Model/Maritime.js";
 import {Routiere} from "./Model/Routiere.js";
 import {Aerienne} from "./Model/Aerienne.js";
+import {FormatDate} from "./Model/FormatDate.js";
 (async () => {
     /** Variable Declaration **/
     const dao = new DAO();
@@ -103,6 +104,19 @@ import {Aerienne} from "./Model/Aerienne.js";
         return code;
     }
 
+    function convertMinutesToHours(minutes: number): string {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        return `${hours} h-${remainingMinutes}min`;
+    }
+
+    function addMinutesToDate(dateString: string, minutes: number): string {
+        const date = new Date(dateString);
+
+        date.setMinutes(date.getMinutes() + minutes);
+
+        return date.toISOString();
+    }
     /** Initialisation **/
     filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
     paginationObject.setItems(filterListeCargaison);
@@ -125,11 +139,23 @@ import {Aerienne} from "./Model/Aerienne.js";
             infoSupp = {...JSON.parse(localStorage.getItem("infoSupp")!) as Record<string, any>}
             if (Object.keys(infoSupp).length != 4){
                 document.getElementById("mapContainer")?.classList.add("error");
+            }else {
+                const dateDepart = document.getElementById("dateDepart") as HTMLInputElement;
+                const formatDate = new FormatDate();
+                document.getElementById("result-table")?.classList.remove("invisible");
+                (document.getElementById("distance") as HTMLTableCellElement).innerHTML = (parseInt(infoSupp.distance)/1000) +" Km";
+                (document.getElementById("lieuDepart") as HTMLTableCellElement).innerHTML = infoSupp.cityName1;
+                (document.getElementById("lieuArrive") as HTMLTableCellElement).innerHTML = infoSupp.cityName2;
+                (document.getElementById("duree") as HTMLTableCellElement).innerHTML = convertMinutesToHours(parseInt(infoSupp.duration));
+                (document.getElementById("dateArrive") as HTMLTableCellElement).innerHTML = formatDate.formatDate3(formatDate.formatDate5(addMinutesToDate(dateDepart.value??"", parseInt(infoSupp.duration))));
             }
+        }else {
+            document.getElementById("result-table")?.classList.add("invisible");
         }
     })
 
-    formAddCargoHandle.handleSubmit((d: ISubmitCargaison) => {
+    formAddCargoHandle.handleSubmit(async (d: ISubmitCargaison) => {
+        const formatDate = new FormatDate();
         let cargaison! : CargaisonBuilder<Cargaison>;
         if (d.typec == "maritime"){
             cargaison = new CargaisonBuilder<Maritime>(new Maritime())
@@ -138,9 +164,10 @@ import {Aerienne} from "./Model/Aerienne.js";
         }else if (d.typec == "aerienne"){
             cargaison = new CargaisonBuilder<Aerienne>(new Aerienne())
         }
+
         cargaison.withDuree(d.duration!)
             .withPoidsMax(isNaN(parseInt(d.poidsMax!))?0:parseInt(d.poidsMax!))
-            .withDistance(d.distance!)
+            .withDistance(d.distance!/1000)
             .withEtatAvancement("EN ATTENTE")
             .withEtatGlobal("OUVERT")
             .withImage("https://placehold.co/500")
@@ -150,11 +177,19 @@ import {Aerienne} from "./Model/Aerienne.js";
             .withLieuArrive(d.cityName2!)
             .withMontantTotal(1000)
             .withDateDepart(d.dateDepart!)
-            .withDateArrive("2024-10-01")
+            .withDateArrive(formatDate.formatDate5(addMinutesToDate(d.dateDepart??"", d.duration!)))
             .withNumero(generateRandomCode());
+        let data : ICargaison= {...cargaison.build()};
+        dbQuery.setDB(await dbQuery.addCargaison(data));
+        formAddCargoHandle.resetForm();
+        infoSupp = {};
+        document.getElementById("result-table")?.classList.add("invisible");
 
-
-
+        filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
+        paginationObject.setItems(filterListeCargaison);
+        updateCagaisonTable();
+        onFilterBar();
+        onClickPaginationNav();
     })
 
     volumeChange.addEventListener("change", (event: Event)=>{

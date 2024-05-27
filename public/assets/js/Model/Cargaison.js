@@ -101,6 +101,11 @@ export class Cargaison {
     setEtatGlobal(etatGlobal) {
         this.etatGlobal = etatGlobal;
     }
+    convertMinutesToHours(minutes) {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        return `${hours} h-${remainingMinutes}min`;
+    }
     info() {
         const formatDate = new FormatDate();
         const tr = document.createElement("tr");
@@ -116,7 +121,7 @@ export class Cargaison {
         <td class="border border-gray-400 text-gray-900 px-4 py-2">${formatDate.formatDate3(this.dateDepart) + " au " + formatDate.formatDate3(this.dateArrive)}</td>
         <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.lieuDepart} - ${this.lieuArrive}</td>
         <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.distance}</td>
-        <td class="border border-gray-400 text-gray-900 px-4 py-2">5h</td>
+        <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.convertMinutesToHours(this.duree)}</td>
         <td class="border border-gray-400 px-4 py-2">
             <span class="inline-block ${(this.etatAvancement == "EN ATTENTE") ? "bg-gray-200" : (this.etatAvancement == "EN COURS") ? "bg-orange-200" : "bg-green-200"}  text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatAvancement}</span>
         </td>

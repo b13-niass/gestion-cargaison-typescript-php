@@ -54,8 +54,8 @@
 
             </div>
 
-            <div id="result-table" class="w-[100%]">
-                <h1>Résume</h1>
+            <div id="result-table" class="invisible w-[100%]">
+                <h1>Info Supplémentaire</h1>
                 <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
                     <thead>
                     <tr>

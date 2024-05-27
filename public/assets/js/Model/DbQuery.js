@@ -9,6 +9,9 @@ export class DbQuery {
         this.DB = DB;
         this.dao = new DAO();
     }
+    setDB(DB) {
+        this.DB = DB;
+    }
     findAllTypeCargaison() {
         let maritime = this.DB.cargaison.maritime.values.map((c) => new Maritime(c));
         let routiere = this.DB.cargaison.routiere.values.map((c) => new Routiere(c));
@@ -136,5 +139,18 @@ export class DbQuery {
         this.DB.cargaison.aerienne.values.push(cargaison);
         const newDB = await this.dao.postData(this.DB);
         return newDB;
+    }
+    async addCargaison(cargaison) {
+        let result;
+        if (cargaison.typec == "maritime") {
+            result = await this.addMaritime(cargaison);
+        }
+        else if (cargaison.typec == "aerienne") {
+            result = await this.addAerienne(cargaison);
+        }
+        else if (cargaison.typec == "routiere") {
+            result = await this.addRoutiere(cargaison);
+        }
+        return result;
     }
 }
