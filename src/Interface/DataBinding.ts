@@ -6,21 +6,21 @@ export interface FraisTransport {
     autreFrais: number;
 }
 
-export interface ICargaison{
-     numero?: string;
-     poidsMax?: number;
-     nbrProduitMax?: number;
-     montantTotal?: number;
-     lieuDepart?: string;
-     lieuArrive?: string;
-     dateDepart?: string;
-     dateArrive?: string;
-     duree?: number;
-     typec?: string;
-     image?: string;
-     distance?: number;
-     etatAvancement?: string;
-     etatGlobal?: string;
+export interface ICargaison {
+    numero?: string;
+    poidsMax?: number;
+    nbrProduitMax?: number;
+    montantTotal?: number;
+    lieuDepart?: string;
+    lieuArrive?: string;
+    dateDepart?: string;
+    dateArrive?: string;
+    duree?: number;
+    typec?: string;
+    image?: string;
+    distance?: number;
+    etatAvancement?: string;
+    etatGlobal?: string;
 }
 
 export interface ICargoStructure {
@@ -49,4 +49,16 @@ export interface DBStructure {
         aerienne: ICargoStructure;
     };
     // produits: IProdStructures;
+}
+
+export interface ISubmitCargaison {
+    cityName1?: string,
+    cityName2?: string,
+    dateDepart?: string,
+    distance?: number,
+    duration?: number,
+    nbrProduitMax?: string,
+    poidsMax?: string,
+    typec?: string,
+    volume?: string
 }

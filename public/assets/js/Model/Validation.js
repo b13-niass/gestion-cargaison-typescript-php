@@ -52,7 +52,17 @@ export class Validation {
                 Validation.showError2(input, `${Validation.getInputName(input)} est requis`);
             }
             else {
-                Validation.showSuccees2(input);
+                if (input.name == "poidsMax") {
+                    console.log(input.name);
+                    valid = Validation.validerEntier(input);
+                }
+                else if (input.name == "nbrProduitMax") {
+                    console.log(input.name);
+                    valid = Validation.validerProduitMax(input);
+                }
+                else {
+                    Validation.showSuccees2(input);
+                }
             }
         });
         return valid;
@@ -76,7 +86,7 @@ export class Validation {
         if (input.value.trim() === "" || parseInt(input.value.trim()) < 0 || parseInt(input.value.trim()) > 10) {
             valid = false;
             parent.classList.add("error");
-            Validation.showError2(input, `${Validation.getInputName(input)} n'est pas valide`);
+            Validation.showError2(input, `${Validation.getInputName(input)} de 1 à 10`);
         }
         else {
             Validation.showSuccees2(input);
@@ -86,6 +96,7 @@ export class Validation {
     static validerEntier = (input) => {
         let valid = true;
         const parent = input.parentNode;
+        console.log(parseInt(input.value.trim()) < 0);
         if (parseInt(input.value.trim()) < 0) {
             valid = false;
             parent.classList.add("error");

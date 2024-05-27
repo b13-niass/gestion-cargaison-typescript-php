@@ -1,9 +1,13 @@
 import {DAO} from "./Model/DAO.js";
-import {DBStructure} from "./Interface/DataBinding.js";
+import {DBStructure, ISubmitCargaison} from "./Interface/DataBinding.js";
 import {DbQuery} from "./Model/DbQuery.js";
 import {Cargaison} from "./Model/Cargaison.js";
 import {Pagination} from "./Model/Pagination.js";
 import {FormHandler} from "./Model/CargoFormHandler.js";
+import {CargaisonBuilder} from "./Model/CargaisonBuilder.js";
+import {Maritime} from "./Model/Maritime.js";
+import {Routiere} from "./Model/Routiere.js";
+import {Aerienne} from "./Model/Aerienne.js";
 (async () => {
     /** Variable Declaration **/
     const dao = new DAO();
@@ -69,6 +73,36 @@ import {FormHandler} from "./Model/CargoFormHandler.js";
         })
     }
 
+    function generateRandomCode(): string {
+        // Function to generate a random number within a specified range
+        function getRandomNumber(min: number, max: number): number {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Function to generate a random uppercase letter
+        function getRandomLetter(): string {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            return letters.charAt(getRandomNumber(0, letters.length - 1));
+        }
+
+        // Generate the random code with the specific pattern "#1123SXF12"
+        let code = '#';
+        // Add 4 random digits
+        for (let i = 0; i < 4; i++) {
+            code += getRandomNumber(0, 9).toString();
+        }
+        // Add 3 random uppercase letters
+        for (let i = 0; i < 3; i++) {
+            code += getRandomLetter();
+        }
+        // Add 2 random digits
+        for (let i = 0; i < 2; i++) {
+            code += getRandomNumber(0, 9).toString();
+        }
+
+        return code;
+    }
+
     /** Initialisation **/
     filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
     paginationObject.setItems(filterListeCargaison);
@@ -95,8 +129,32 @@ import {FormHandler} from "./Model/CargoFormHandler.js";
         }
     })
 
-    formAddCargoHandle.handleSubmit((d) => {
-        console.log(d);
+    formAddCargoHandle.handleSubmit((d: ISubmitCargaison) => {
+        let cargaison! : CargaisonBuilder<Cargaison>;
+        if (d.typec == "maritime"){
+            cargaison = new CargaisonBuilder<Maritime>(new Maritime())
+        }else if (d.typec == "routiere"){
+            cargaison = new CargaisonBuilder<Routiere>(new Routiere())
+        }else if (d.typec == "aerienne"){
+            cargaison = new CargaisonBuilder<Aerienne>(new Aerienne())
+        }
+        cargaison.withDuree(d.duration!)
+            .withPoidsMax(isNaN(parseInt(d.poidsMax!))?0:parseInt(d.poidsMax!))
+            .withDistance(d.distance!)
+            .withEtatAvancement("EN ATTENTE")
+            .withEtatGlobal("OUVERT")
+            .withImage("https://placehold.co/500")
+            .withNbrProduitMax(isNaN(parseInt(d.nbrProduitMax!))? 0 :parseInt(d.nbrProduitMax!))
+            .withTypec(d.typec!)
+            .withLieuDepart(d.cityName1!)
+            .withLieuArrive(d.cityName2!)
+            .withMontantTotal(1000)
+            .withDateDepart(d.dateDepart!)
+            .withDateArrive("2024-10-01")
+            .withNumero(generateRandomCode());
+
+
+
     })
 
     volumeChange.addEventListener("change", (event: Event)=>{
