@@ -44,7 +44,7 @@
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT",
+                    "etatGlobal": "FERMER",
                     "coli": [
                         {
                             "code": "#YX2213",

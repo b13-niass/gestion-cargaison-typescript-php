@@ -258,10 +258,13 @@ export class DbQuery {
         if (cargo) {
             if (Object.keys(cargo).some(key => key == "coli")) {
                 cargo.coli?.forEach(c => {
-                    result.concat(c.produits);
+                    c.produits.forEach(p => {
+                        result.push(p);
+                    });
                 });
             }
         }
+        console.log(result);
         return result;
     }
     isCargaisonOpened(numero) {
@@ -375,11 +378,13 @@ export class DbQuery {
     }
     calculerFrais(produit, cargaison) {
         const frais = this.getAllFrais(cargaison.typec).find((frais) => frais.typep == produit.typep);
+        console.log(frais);
         return ((produit.poids / frais.poids) * (cargaison.distance / frais.param) * frais.tarif) + frais.autreFrais;
     }
     getCargoMontant(codeCargo) {
         let cargo = this.findAllTypeCargaisonInterfaces().find(c => c.numero == codeCargo);
         let somme = 0;
+        // console.log(1)
         this.findAllProduitByCargo(codeCargo).forEach((produit) => {
             let result = this.calculerFrais(produit, cargo);
             if (result < 10000)

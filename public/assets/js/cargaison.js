@@ -11,7 +11,7 @@ import { FormatDate } from "./Model/FormatDate.js";
     /** Variable Declaration **/
     const headText = document.getElementById("head-text");
     const dao = new DAO();
-    const DB = await dao.getData();
+    let DB = await dao.getData();
     const dbQuery = new DbQuery(DB);
     const AddCargaisonForm = document.getElementById("AddCargaisonForm");
     const listeCargaisonContent = document.getElementById("listeCargaisonContent");
@@ -26,6 +26,13 @@ import { FormatDate } from "./Model/FormatDate.js";
     const formAddCargo = document.getElementById("formAddCargo");
     const volumeChange = document.getElementById("volume");
     const volumeContent = document.getElementById("volumeContent");
+    const headInfoCargo = document.getElementById("headInfoCargo");
+    const volumeInfoCargo = document.getElementById("volumeInfoCargo");
+    const montantInfoCargo = document.getElementById("montantInfoCargo");
+    const dateDepartInfoCargo = document.getElementById("dateDepartInfoCargo");
+    const dateArriveInfoCargo = document.getElementById("dateArriveInfoCargo");
+    const changerEtatOuvert = document.getElementById("changerEtatOuvert");
+    const changerEtatFermer = document.getElementById("changerEtatFermer");
     const formAddCargoHandle = new FormHandler("#formAddCargo");
     let filterListeCargaison = [];
     let filterOptions = {};
@@ -141,6 +148,25 @@ import { FormatDate } from "./Model/FormatDate.js";
         btnInfos.forEach(btn => {
             btn.addEventListener("click", () => {
                 modalInfoCargo.classList.add("modal-open");
+                // console.log(btn.dataset.detailcargoinfo);
+                // console.log(dbQuery.findAllProduitByCargo(btn.dataset.detailcargoinfo!))
+                const cargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == btn.dataset.detailcargoinfo);
+                // console.log(cargaison)
+                headInfoCargo.innerHTML = "Une cargaison " + cargaison.typec;
+                volumeInfoCargo.innerHTML = "Volume: " + (cargaison.poidsMax > 0 ? cargaison.poidsMax + "Kg" : cargaison.nbrProduitMax) + " produits";
+                // montantInfoCargo.innerHTML = "Montant: "+ dbQuery.getCargoMontant(cargaison.numero!);
+                dateDepartInfoCargo.innerHTML = "Départ: " + cargaison.dateDepart;
+                dateArriveInfoCargo.innerHTML = "Arrivée: " + cargaison.dateArrive;
+                changerEtatOuvert.setAttribute("data-numeroCargo", cargaison.numero);
+                changerEtatFermer.setAttribute("data-numeroCargo", cargaison.numero);
+                if (cargaison.etatGlobal == "OUVERT") {
+                    changerEtatOuvert.classList.add("opacity-50", "cursor-not-allowed");
+                    changerEtatFermer.classList.remove("opacity-50", "cursor-not-allowed");
+                }
+                else {
+                    changerEtatOuvert.classList.remove("opacity-50", "cursor-not-allowed");
+                    changerEtatFermer.classList.add("opacity-50", "cursor-not-allowed");
+                }
             });
         });
     };
@@ -254,5 +280,31 @@ import { FormatDate } from "./Model/FormatDate.js";
     });
     dateArriveInit.addEventListener("change", (event) => {
         dateDepartInit.max = dateArriveInit.value;
+    });
+    changerEtatFermer.addEventListener("click", async (event) => {
+        DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo, "FERMER");
+        dbQuery.setDB(DB);
+        changerEtatOuvert.classList.remove("opacity-50", "cursor-not-allowed");
+        changerEtatFermer.classList.add("opacity-50", "cursor-not-allowed");
+        filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
+        paginationObject.setItems(filterListeCargaison);
+        updateCagaisonTable();
+        onFilterBar();
+        onClickPaginationNav();
+        onClickVoirPlus();
+        onClickInfoCargaison();
+    });
+    changerEtatOuvert.addEventListener("click", async (event) => {
+        DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo, "OUVERT");
+        dbQuery.setDB(DB);
+        changerEtatOuvert.classList.add("opacity-50", "cursor-not-allowed");
+        changerEtatFermer.classList.remove("opacity-50", "cursor-not-allowed");
+        filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
+        paginationObject.setItems(filterListeCargaison);
+        updateCagaisonTable();
+        onFilterBar();
+        onClickPaginationNav();
+        onClickVoirPlus();
+        onClickInfoCargaison();
     });
 })();

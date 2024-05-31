@@ -13,7 +13,7 @@ import {FormatDate} from "./Model/FormatDate.js";
     /** Variable Declaration **/
     const headText : HTMLHeadElement = document.getElementById("head-text") as HTMLHeadElement;
     const dao = new DAO();
-    const DB: DBStructure = await dao.getData();
+    let DB: DBStructure = await dao.getData();
     const dbQuery = new DbQuery(DB);
     const AddCargaisonForm  = document.getElementById("AddCargaisonForm") as HTMLFormElement;
     const listeCargaisonContent  = document.getElementById("listeCargaisonContent") as HTMLDivElement;
@@ -28,6 +28,15 @@ import {FormatDate} from "./Model/FormatDate.js";
     const formAddCargo = document.getElementById("formAddCargo") as HTMLButtonElement;
     const volumeChange = document.getElementById("volume") as HTMLSelectElement;
     const volumeContent = document.getElementById("volumeContent") as HTMLDivElement;
+    const headInfoCargo = document.getElementById("headInfoCargo") as HTMLDivElement;
+    const volumeInfoCargo = document.getElementById("volumeInfoCargo") as HTMLDivElement;
+    const montantInfoCargo = document.getElementById("montantInfoCargo") as HTMLDivElement;
+    const dateDepartInfoCargo = document.getElementById("dateDepartInfoCargo") as HTMLDivElement;
+    const dateArriveInfoCargo = document.getElementById("dateArriveInfoCargo") as HTMLDivElement;
+    const changerEtatOuvert = document.getElementById("changerEtatOuvert") as HTMLButtonElement;
+    const changerEtatFermer = document.getElementById("changerEtatFermer") as HTMLButtonElement;
+
+
     const formAddCargoHandle = new FormHandler("#formAddCargo");
 
     let filterListeCargaison: Cargaison[] = [];
@@ -160,6 +169,24 @@ import {FormatDate} from "./Model/FormatDate.js";
         btnInfos.forEach(btn => {
             btn.addEventListener("click", () => {
                 modalInfoCargo.classList.add("modal-open");
+                // console.log(btn.dataset.detailcargoinfo);
+                // console.log(dbQuery.findAllProduitByCargo(btn.dataset.detailcargoinfo!))
+                const cargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == btn.dataset.detailcargoinfo)!;
+                // console.log(cargaison)
+                headInfoCargo.innerHTML = "Une cargaison "+ cargaison.typec!;
+                volumeInfoCargo.innerHTML = "Volume: "+ (cargaison.poidsMax! > 0? cargaison.poidsMax+"Kg": cargaison.nbrProduitMax ) + " produits";
+                // montantInfoCargo.innerHTML = "Montant: "+ dbQuery.getCargoMontant(cargaison.numero!);
+                dateDepartInfoCargo.innerHTML = "Départ: "+ cargaison.dateDepart;
+                dateArriveInfoCargo.innerHTML = "Arrivée: "+ cargaison.dateArrive;
+                changerEtatOuvert.setAttribute("data-numeroCargo", cargaison.numero!);
+                changerEtatFermer.setAttribute("data-numeroCargo", cargaison.numero!);
+                if (cargaison.etatGlobal == "OUVERT"){
+                    changerEtatOuvert.classList.add("opacity-50" ,"cursor-not-allowed");
+                    changerEtatFermer.classList.remove("opacity-50" ,"cursor-not-allowed");
+                }else {
+                    changerEtatOuvert.classList.remove("opacity-50" ,"cursor-not-allowed");
+                    changerEtatFermer.classList.add("opacity-50" ,"cursor-not-allowed");
+                }
             })
         })
     }
@@ -282,6 +309,33 @@ import {FormatDate} from "./Model/FormatDate.js";
     });
     dateArriveInit.addEventListener("change", (event) => {
             dateDepartInit.max = dateArriveInit.value;
+    })
+
+    changerEtatFermer.addEventListener("click", async (event:Event) => {
+        DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo!, "FERMER");
+        dbQuery.setDB(DB);
+        changerEtatOuvert.classList.remove("opacity-50" ,"cursor-not-allowed");
+        changerEtatFermer.classList.add("opacity-50" ,"cursor-not-allowed");
+        filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
+        paginationObject.setItems(filterListeCargaison);
+        updateCagaisonTable();
+        onFilterBar();
+        onClickPaginationNav();
+        onClickVoirPlus();
+        onClickInfoCargaison();
+    })
+    changerEtatOuvert.addEventListener("click", async (event:Event) => {
+        DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo!, "OUVERT");
+        dbQuery.setDB(DB);
+        changerEtatOuvert.classList.add("opacity-50" ,"cursor-not-allowed");
+        changerEtatFermer.classList.remove("opacity-50" ,"cursor-not-allowed");
+        filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
+        paginationObject.setItems(filterListeCargaison);
+        updateCagaisonTable();
+        onFilterBar();
+        onClickPaginationNav();
+        onClickVoirPlus();
+        onClickInfoCargaison();
     })
 
 })()

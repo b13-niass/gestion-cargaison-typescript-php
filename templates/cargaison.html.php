@@ -229,32 +229,31 @@
 
                     <!-- Details Section -->
                     <div class="md:w-2/3 p-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Product Title</h3>
+                        <h3 id="headInfoCargo" class="text-xl font-semibold text-gray-800 mb-2">Product Title</h3>
                         <p class="text-gray-600 mb-4">This is a detailed description of the product. It includes all the necessary information about the product, its features, and any other relevant details that the customer might want to know.</p>
 
                         <!-- Badges Section -->
                         <div class="flex flex-wrap mb-4">
-                            <span class="inline-block bg-blue-200 text-blue-800 text-sm px-2 py-1 rounded-full mr-2 mb-2">2kg</span>
-                            <span class="inline-block bg-green-200 text-green-800 text-sm px-2 py-1 rounded-full mr-2 mb-2">Available</span>
-                            <span class="inline-block bg-yellow-200 text-yellow-800 text-sm px-2 py-1 rounded-full mb-2">Limited</span>
+                            <span id="volumeInfoCargo" class="inline-block bg-blue-200 text-blue-800 text-sm px-2 py-1 rounded-full mr-2 mb-2">Volume: </span>
+                            <span id="montantInfoCargo" class="inline-block bg-green-200 text-green-800 text-sm px-2 py-1 rounded-full mr-2 mb-2">Montant Total :</span>
                         </div>
 
                         <!-- Dates Section -->
                         <div class="flex mb-4">
                             <div class="mr-4">
-                                <p class="text-gray-600">Start Date:</p>
-                                <p class="text-gray-800 font-semibold">01/01/2024</p>
+                                <p class="text-gray-600">Date Départ:</p>
+                                <p id="dateDepartInfoCargo" class="text-gray-800 font-semibold">01/01/2024</p>
                             </div>
                             <div>
-                                <p class="text-gray-600">End Date:</p>
-                                <p class="text-gray-800 font-semibold">01/06/2024</p>
+                                <p class="text-gray-600">Date Arrivée:</p>
+                                <p id="dateArriveInfoCargo" class="text-gray-800 font-semibold">01/06/2024</p>
                             </div>
                         </div>
 
                         <div class="pb-2">
                             <h1>Cliquer pour changer l'état global</h1>
-                            <button class="w-[30%] bg-green-400 text-black font-semibold py-2 rounded-lg hover:bg-green-500 opacity-50 cursor-not-allowed transition duration-300">Ouvrir</button>
-                            <button class="w-[30%] bg-red-400 text-black font-semibold py-2 rounded-lg hover:bg-red-500 transition duration-300">Fermer</button>
+                            <button id="changerEtatOuvert" class="w-[30%] bg-green-400 text-black font-semibold py-2 rounded-lg hover:bg-green-500 transition duration-300">Ouvrir</button>
+                            <button id="changerEtatFermer" class="w-[30%] bg-red-400 text-black font-semibold py-2 rounded-lg hover:bg-red-500 transition duration-300">Fermer</button>
                         </div>
                         <div class="pt-2">
                             <h1>Cliquer pour changer l'état d'avancement</h1>
