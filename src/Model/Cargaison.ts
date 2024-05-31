@@ -1,4 +1,4 @@
-import {ICargaison} from "../Interface/DataBinding.js";
+import {ICargaison, IColi} from "../Interface/DataBinding.js";
 import {FormatDate} from "./FormatDate.js";
 
 export abstract class Cargaison {
@@ -17,6 +17,7 @@ export abstract class Cargaison {
     protected distance?: number;
     protected etatAvancement?: string;
     protected etatGlobal?: string;
+    // protected coli?: IColi[];
 
     constructor(init?: Partial<ICargaison>) {
         Object.assign(this, init);
@@ -137,9 +138,12 @@ export abstract class Cargaison {
          <td class="border border-gray-400 px-4 py-2">
             <span class="inline-block ${this.etatGlobal == "OUVERT"? "bg-green-200":"bg-red-200"} text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatGlobal}</span>
         </td>
-        <td class="border border-gray-400 px-4 py-2">
-            <a href="/detcargo/${this.numero}" class="bg-gray-800 font-semibold text-white py-1 px-2 border border-transparent rounded">
-                Détails
+        <td class="flex flex-col gap-y-3 border border-gray-400 px-4 py-2">
+           <a href="#" data-detailcargoInfo="${this.numero}" class="text-[0.8rem] text-center bg-gray-300 text-white py-1 px-1 border border-gray-800 rounded">
+                État Cargo
+            </a>
+            <a href="#" data-detailcargo="${this.numero}" class="${ this.etatGlobal == "FERMER" ? "hidden":""} text-[0.8rem] text-center bg-gray-800 text-white py-1 px-1 border border-transparent rounded">
+                Add Coli
             </a>
         </td>
         `;

@@ -15,6 +15,7 @@ if ($page == "api-gc"){
 } elseif ($page == 'login'){
     require_once WEBROOT."/templates/login.html.php";
 }else{
+    require_once WEBROOT."/controller/cargaison.controller.php";
     require_once WEBROOT."/templates/partials/header.html.php";
 
     require_once WEBROOT."/templates/$page.html.php";

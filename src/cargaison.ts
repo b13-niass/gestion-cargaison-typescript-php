@@ -11,6 +11,7 @@ import {Aerienne} from "./Model/Aerienne.js";
 import {FormatDate} from "./Model/FormatDate.js";
 (async () => {
     /** Variable Declaration **/
+    const headText : HTMLHeadElement = document.getElementById("head-text") as HTMLHeadElement;
     const dao = new DAO();
     const DB: DBStructure = await dao.getData();
     const dbQuery = new DbQuery(DB);
@@ -19,8 +20,10 @@ import {FormatDate} from "./Model/FormatDate.js";
     const filterBars = document.querySelectorAll(".filter-bar") as NodeListOf<HTMLInputElement>;
     const mapContainer = document.getElementById("mapContainer") as HTMLDivElement;
     const myMapDialog = document.getElementById("my-map-dialog") as HTMLDivElement;
+    const modalInfoCargo = document.getElementById("my_cargo_info") as HTMLDivElement;
     const showMyMap = document.getElementById("show-my-map") as HTMLDivElement;
     const btnCloseMap = document.querySelector(".btn-close-map") as HTMLButtonElement;
+    const btnCloseInfo = document.querySelector(".btn-close-info") as HTMLButtonElement;
     const btnEnregistrer = document.getElementById("btnEnregistrer") as HTMLButtonElement;
     const formAddCargo = document.getElementById("formAddCargo") as HTMLButtonElement;
     const volumeChange = document.getElementById("volume") as HTMLSelectElement;
@@ -59,6 +62,8 @@ import {FormatDate} from "./Model/FormatDate.js";
                 paginationObject.goToPage(1);
                 updateCagaisonTable();
                 onClickPaginationNav();
+                onClickVoirPlus();
+                onClickInfoCargaison();
             })
         })
     }
@@ -70,6 +75,8 @@ import {FormatDate} from "./Model/FormatDate.js";
                 paginationObject.goToPage(parseInt(btn.dataset.paginate!));
                 updateCagaisonTable();
                 onClickPaginationNav();
+                onClickVoirPlus();
+                onClickInfoCargaison();
             })
         })
     }
@@ -125,22 +132,69 @@ import {FormatDate} from "./Model/FormatDate.js";
             const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
             return differenceInMinutes;
     }
+    function getTodayDate(): string {
+        const today = new Date();
+        const year = today.getFullYear();
+
+        const month = (today.getMonth() + 1).toString();
+        const formattedMonth = month.length === 1 ? '0' + month : month;
+
+        const day = today.getDate().toString();
+        const formattedDay = day.length === 1 ? '0' + day : day;
+
+        return `${year}-${formattedMonth}-${formattedDay}`;
+    }
+
+    const onClickVoirPlus = () => {
+        const voirPlus: NodeListOf<HTMLLinkElement> = document.querySelectorAll("[data-detailcargo]");
+        voirPlus.forEach(vp => {
+            vp.addEventListener("click", (event: Event) => {
+                localStorage.setItem("detailcargo", vp.dataset.detailcargo!);
+                window.location.href = "/detcargo";
+            })
+        })
+    }
+
+    const onClickInfoCargaison = () => {
+        const btnInfos: NodeListOf<HTMLLinkElement> = document.querySelectorAll("[data-detailcargoInfo]");
+        btnInfos.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalInfoCargo.classList.add("modal-open");
+            })
+        })
+    }
 
     /** Initialisation **/
     filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
     paginationObject.setItems(filterListeCargaison);
-    updateCagaisonTable();
+    paginationObject.makeFooter();
+    // updateCagaisonTable();
     onFilterBar();
     onClickPaginationNav();
+    onClickVoirPlus();
+    onClickInfoCargaison();
 
-    // btnEnregistrer.disabled = btnEnregistrerStatus;
+    const dateDepartInit = document.getElementById("dateDepart") as HTMLInputElement;
+    const dateArriveInit = document.getElementById("dateArrive") as HTMLInputElement;
+    if (dateDepartInit) {
+        dateDepartInit.min = getTodayDate();
+    }
+    if (dateArriveInit) {
+        dateArriveInit.min = getTodayDate();
+    }
+
+
 
     /** Event Declaration **/
 
+    btnCloseInfo.addEventListener("click", (event: Event) => {
+        modalInfoCargo.classList.remove("modal-open");
+    })
+
     mapContainer.addEventListener("click", (event: Event) => {
         myMapDialog.classList.add("modal-open");
-
     })
+
     btnCloseMap.addEventListener("click", (event: Event) => {
         myMapDialog.classList.remove("modal-open");
 
@@ -199,6 +253,8 @@ import {FormatDate} from "./Model/FormatDate.js";
         updateCagaisonTable();
         onFilterBar();
         onClickPaginationNav();
+        onClickVoirPlus();
+        onClickInfoCargaison();
     })
 
     volumeChange.addEventListener("change", (event: Event)=>{
@@ -215,10 +271,17 @@ import {FormatDate} from "./Model/FormatDate.js";
         }
     })
 
-    const dateArrive = document.getElementById("dateArrive") as HTMLInputElement;
-    dateArrive.addEventListener("change", (e) => {
-        const dateDepart = document.getElementById("dateDepart") as HTMLInputElement;
-        console.log(betweenTwoDate(dateDepart.value, dateArrive.value));
+    // const dateArrive = document.getElementById("dateArrive") as HTMLInputElement;
+    // dateArrive.addEventListener("change", (e) => {
+    //     const dateDepart = document.getElementById("dateDepart") as HTMLInputElement;
+    //     console.log(betweenTwoDate(dateDepart.value, dateArrive.value));
+    // })
+
+    dateDepartInit.addEventListener("change", (event) => {
+            dateArriveInit.min = dateDepartInit.value;
+    });
+    dateArriveInit.addEventListener("change", (event) => {
+            dateDepartInit.max = dateArriveInit.value;
     })
 
 })()

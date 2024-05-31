@@ -17,6 +17,7 @@ export class DAO{
                 method: 'GET'
         }).then(response =>  response.json()).catch(error => error);
     }
+
     postData(db: DBStructure):Promise<DBStructure>{
         return fetch(this.url, {
                 method: 'POST',

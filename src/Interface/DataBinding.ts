@@ -1,5 +1,5 @@
 export interface FraisTransport {
-    typep: number;
+    typep: string;
     tarif: number;
     poids: number;
     param: number;
@@ -21,6 +21,7 @@ export interface ICargaison {
     distance?: number;
     etatAvancement?: string;
     etatGlobal?: string;
+    coli?: IColi[];
 }
 
 export interface ICargoStructure {
@@ -29,26 +30,22 @@ export interface ICargoStructure {
     values: ICargaison[];
 }
 
-export interface IProduit {
-
-}
-
-export interface IProdStructures {
-    alimentaire: any[];
-    chimique: any[];
-    materiel: {
-        incassable: any[];
-        fragile: any[];
-    };
-}
+// export interface IProdStructures {
+//     alimentaire: IProduit[];
+//     chimique: IProduit[];
+//     materiel: {
+//         incassable: IProduit[];
+//         fragile: IProduit[];
+//     };
+// }
 
 export interface DBStructure {
     cargaison: {
         maritime: ICargoStructure;
         routiere: ICargoStructure;
         aerienne: ICargoStructure;
+        produitsretirer?: IColi[];
     };
-    // produits: IProdStructures;
 }
 
 export interface ISubmitCargaison {
@@ -62,4 +59,31 @@ export interface ISubmitCargaison {
     poidsMax?: string,
     typec?: string,
     volume?: string
+}
+
+export interface IProduit{
+    code?: string;
+    libelle?: string;
+    typep?: string;
+    poids?: number;
+    cargaison?: string;
+    toxicite?: string;
+    status?: string;
+}
+
+export interface IColi{
+    code?: string;
+    produits?: IProduit[];
+    expediteur?: IClientStructures;
+    destinataire?: IClientStructures;
+}
+
+export interface IClientStructures{
+    nom?: string;
+    prenom?: string;
+    telephone?: string;
+    email?: string;
+    ville?: string;
+    pays?: string;
+    code?: string;
 }

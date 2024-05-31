@@ -25,12 +25,26 @@
         }
     </style>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>-->
+    <style>
+        .step-line {
+            height: 2px;
+            width: 100%;
+            background-color: #d1d5db; /* Tailwind's gray-300 */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+        .active-line {
+            background-color: #3b82f6; /* Tailwind's blue-500 */
+        }
+    </style>
 </head>
 <body class="h-full">
 
 <div class="min-h-full">
     <nav class="bg-gray-800">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto flex justify-between max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -40,11 +54,10 @@
                         <div class="ml-10 flex items-baseline space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="/cargo" data-page="cargaisons" class="hover:cursor-pointer <?= $page == 'cargaison' ? 'bg-gray-900 text-white' :'text-gray-300 hover:bg-gray-700 hover:text-white' ?>  rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Cargaison</a>
-                            <a href="/prod" data-page="produits" class="hover:cursor-pointer <?= $page == 'produit' ? 'bg-gray-900 text-white' :'text-gray-300 hover:bg-gray-700 hover:text-white' ?>  rounded-md px-3 py-2 text-sm font-medium">Produits</a>
+                            <a href="/prod" data-page="produits" class="hover:cursor-pointer <?= $page == 'produit' ? 'bg-gray-900 text-white' :'text-gray-300 hover:bg-gray-700 hover:text-white' ?>  rounded-md px-3 py-2 text-sm font-medium">Rechercher un coli</a>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="-mr-2 flex md:hidden">
                     <!-- Mobile menu button -->
@@ -62,6 +75,22 @@
                     </button>
                 </div>
             </div>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="mt-2 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                </div>
+                <ul tabindex="0" class="mt-2 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gray-800 rounded-box w-52">
+                    <li>
+                        <a class="justify-between">
+                            Profile (Admin)
+                            <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li><a>Logout</a></li>
+                </ul>
+            </div>
         </div>
 
         <!-- Mobile menu, show/hide based on menu state. -->
@@ -76,7 +105,7 @@
 
     <header class="bg-white shadow">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Cargaison</h1>
+            <h1 id="head-text" class="text-3xl font-bold tracking-tight text-gray-900">Cargaison</h1>
         </div>
     </header>
     <main id="main-content">

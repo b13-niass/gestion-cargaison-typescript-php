@@ -1,24 +1,28 @@
 {
     "cargaison": {
         "maritime": {
-            "produitsAccepter": ["chimique", "materiel", "alimentaire"],
+            "produitsAccepter": [
+                "chimique",
+                "materiel",
+                "alimentaire"
+            ],
             "fraisTransport": [
                 {
-                    "typep": 1,
+                    "typep": "alimentaire",
                     "tarif": 90,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 5000
                 },
                 {
-                    "typep": 2,
+                    "typep": "chimique",
                     "tarif": 500,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 10000
                 },
                 {
-                    "typep": 3,
+                    "typep": "materiel",
                     "tarif": 400,
                     "poids": 1,
                     "param": 1,
@@ -28,7 +32,7 @@
             "values": [
                 {
                     "numero": "#123",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -37,14 +41,86 @@
                     "dateArrive": "2024-11-01",
                     "duree": 1000,
                     "typec": "maritime",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
+                    "etatGlobal": "OUVERT",
+                    "coli": [
+                        {
+                            "code": "#YX2213",
+                            "produits": [
+                                {
+                                    "code": "#YXZYZSDF",
+                                    "libelle": "Lait",
+                                    "typep": "alimentaire",
+                                    "poids": 100,
+                                    "cargaison": "#123",
+                                    "status": "en attente"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Mohamed",
+                                "prenom": "Mohamed",
+                                "telephone": "772881122",
+                                "email": "mohamed@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#YX2213"
+                            },
+                            "destinataire": {
+                                "nom": "Ibrahima",
+                                "prenom": "Ibrahima",
+                                "telephone": "761872299",
+                                "email": "ibrahima@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#YX2213"
+                            }
+                        },
+                        {
+                            "code": "#pkkJKDY",
+                            "produits": [
+                                {
+                                    "libelle": "Ex vel eius voluptat",
+                                    "poids": "1",
+                                    "typep": "incassable",
+                                    "code": "#IXr7Fhq5Z",
+                                    "cargaison": "#123",
+                                    "status": "en attente"
+                                },
+                                {
+                                    "libelle": "Qui sit labore minim",
+                                    "poids": "10",
+                                    "typep": "alimentaire",
+                                    "code": "#7l2KIGJFU",
+                                    "cargaison": "#123",
+                                    "status": "en attente"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Qui iure qui aut duc",
+                                "prenom": "Qui culpa rerum est",
+                                "telephone": "771112211",
+                                "email": "gegobawac@mailinator.com",
+                                "ville": "Accusantium numquam ",
+                                "pays": "Autem nisi sapiente ",
+                                "code": "#pkkJKDY"
+                            },
+                            "destinataire": {
+                                "nom": "Dignissimos temporib",
+                                "prenom": "Ut est excepturi est",
+                                "telephone": "771112222",
+                                "email": "zikyto@mailinator.com",
+                                "ville": "A laboriosam nihil ",
+                                "pays": "Ad quidem accusantiu",
+                                "code": "#pkkJKDY"
+                            }
+                        }
+                    ]
                 },
                 {
                     "numero": "#129",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -53,14 +129,47 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "maritime",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
+                    "etatGlobal": "OUVERT",
+                    "coli": [
+                        {
+                            "code": "#YI2213",
+                            "produits": [
+                                {
+                                    "code": "#YIZYZSDF",
+                                    "libelle": "Lait",
+                                    "typep": "alimentaire",
+                                    "poids": 100,
+                                    "cargaison": "#129",
+                                    "status": "en attente"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Client1",
+                                "prenom": "Client1",
+                                "telephone": "772881122",
+                                "email": "client1@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#YI2213"
+                            },
+                            "destinataire": {
+                                "nom": "Client2",
+                                "prenom": "Client2",
+                                "telephone": "761872299",
+                                "email": "client2@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#YI2213"
+                            }
+                        }
+                    ]
                 },
                 {
                     "numero": "#130",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -69,7 +178,7 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "maritime",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
@@ -77,17 +186,20 @@
             ]
         },
         "aerienne": {
-            "produitsAccepter": ["materiel", "alimentaire"],
+            "produitsAccepter": [
+                "materiel",
+                "alimentaire"
+            ],
             "fraisTransport": [
                 {
-                    "typep": 1,
+                    "typep": "alimentaire",
                     "tarif": 300,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 5000
                 },
                 {
-                    "typep": 3,
+                    "typep": "materiel",
                     "tarif": 1000,
                     "poids": 1,
                     "param": 1,
@@ -97,7 +209,7 @@
             "values": [
                 {
                     "numero": "#124",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -106,14 +218,14 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "aerienne",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN COURS",
                     "etatGlobal": "OUVERT"
                 },
                 {
                     "numero": "#131",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -122,14 +234,14 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "aerienne",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"
                 },
                 {
                     "numero": "#132",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -138,7 +250,7 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "aerienne",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
@@ -146,17 +258,20 @@
             ]
         },
         "routiere": {
-            "produitsAccepter": ["materiel", "alimentaire"],
+            "produitsAccepter": [
+                "materiel",
+                "alimentaire"
+            ],
             "fraisTransport": [
                 {
-                    "typep": 1,
+                    "typep": "alimentaire",
                     "tarif": 100,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 5000
                 },
                 {
-                    "typep": 3,
+                    "typep": "materiel",
                     "tarif": 200,
                     "poids": 1,
                     "param": 1,
@@ -166,7 +281,7 @@
             "values": [
                 {
                     "numero": "#125",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Congo",
@@ -175,14 +290,14 @@
                     "dateArrive": "2024-09-01",
                     "duree": 1000,
                     "typec": "routiere",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
                 },
                 {
                     "numero": "#133",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -191,14 +306,14 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "routiere",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"
                 },
                 {
                     "numero": "#134",
-                    "poidsMax": 100,
+                    "poidsMax": 0,
                     "nbrProduitMax": 10,
                     "montantTotal": 100000,
                     "lieuDepart": "Dakar",
@@ -207,7 +322,7 @@
                     "dateArrive": "2024-07-01",
                     "duree": 1000,
                     "typec": "routiere",
-                    "image": "https://placehold.co/500",
+                    "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"

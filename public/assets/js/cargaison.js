@@ -9,6 +9,7 @@ import { Aerienne } from "./Model/Aerienne.js";
 import { FormatDate } from "./Model/FormatDate.js";
 (async () => {
     /** Variable Declaration **/
+    const headText = document.getElementById("head-text");
     const dao = new DAO();
     const DB = await dao.getData();
     const dbQuery = new DbQuery(DB);
@@ -17,8 +18,10 @@ import { FormatDate } from "./Model/FormatDate.js";
     const filterBars = document.querySelectorAll(".filter-bar");
     const mapContainer = document.getElementById("mapContainer");
     const myMapDialog = document.getElementById("my-map-dialog");
+    const modalInfoCargo = document.getElementById("my_cargo_info");
     const showMyMap = document.getElementById("show-my-map");
     const btnCloseMap = document.querySelector(".btn-close-map");
+    const btnCloseInfo = document.querySelector(".btn-close-info");
     const btnEnregistrer = document.getElementById("btnEnregistrer");
     const formAddCargo = document.getElementById("formAddCargo");
     const volumeChange = document.getElementById("volume");
@@ -55,6 +58,8 @@ import { FormatDate } from "./Model/FormatDate.js";
                 paginationObject.goToPage(1);
                 updateCagaisonTable();
                 onClickPaginationNav();
+                onClickVoirPlus();
+                onClickInfoCargaison();
             });
         });
     };
@@ -65,6 +70,8 @@ import { FormatDate } from "./Model/FormatDate.js";
                 paginationObject.goToPage(parseInt(btn.dataset.paginate));
                 updateCagaisonTable();
                 onClickPaginationNav();
+                onClickVoirPlus();
+                onClickInfoCargaison();
             });
         });
     };
@@ -111,14 +118,53 @@ import { FormatDate } from "./Model/FormatDate.js";
         const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
         return differenceInMinutes;
     }
+    function getTodayDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1).toString();
+        const formattedMonth = month.length === 1 ? '0' + month : month;
+        const day = today.getDate().toString();
+        const formattedDay = day.length === 1 ? '0' + day : day;
+        return `${year}-${formattedMonth}-${formattedDay}`;
+    }
+    const onClickVoirPlus = () => {
+        const voirPlus = document.querySelectorAll("[data-detailcargo]");
+        voirPlus.forEach(vp => {
+            vp.addEventListener("click", (event) => {
+                localStorage.setItem("detailcargo", vp.dataset.detailcargo);
+                window.location.href = "/detcargo";
+            });
+        });
+    };
+    const onClickInfoCargaison = () => {
+        const btnInfos = document.querySelectorAll("[data-detailcargoInfo]");
+        btnInfos.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalInfoCargo.classList.add("modal-open");
+            });
+        });
+    };
     /** Initialisation **/
     filterListeCargaison = dbQuery.filterForCargaison(filterOptions);
     paginationObject.setItems(filterListeCargaison);
-    updateCagaisonTable();
+    paginationObject.makeFooter();
+    // updateCagaisonTable();
     onFilterBar();
     onClickPaginationNav();
-    // btnEnregistrer.disabled = btnEnregistrerStatus;
+    onClickVoirPlus();
+    onClickInfoCargaison();
+    const dateDepartInit = document.getElementById("dateDepart");
+    const dateArriveInit = document.getElementById("dateArrive");
+    if (dateDepartInit) {
+        dateDepartInit.min = getTodayDate();
+    }
+    if (dateArriveInit) {
+        dateArriveInit.min = getTodayDate();
+    }
     /** Event Declaration **/
+    btnCloseInfo.addEventListener("click", (event) => {
+        modalInfoCargo.classList.remove("modal-open");
+    });
     mapContainer.addEventListener("click", (event) => {
         myMapDialog.classList.add("modal-open");
     });
@@ -180,6 +226,8 @@ import { FormatDate } from "./Model/FormatDate.js";
         updateCagaisonTable();
         onFilterBar();
         onClickPaginationNav();
+        onClickVoirPlus();
+        onClickInfoCargaison();
     });
     volumeChange.addEventListener("change", (event) => {
         if (volumeChange.value == "poids") {
@@ -196,9 +244,15 @@ import { FormatDate } from "./Model/FormatDate.js";
             volumeContent.innerHTML = '';
         }
     });
-    const dateArrive = document.getElementById("dateArrive");
-    dateArrive.addEventListener("change", (e) => {
-        const dateDepart = document.getElementById("dateDepart");
-        console.log(betweenTwoDate(dateDepart.value, dateArrive.value));
+    // const dateArrive = document.getElementById("dateArrive") as HTMLInputElement;
+    // dateArrive.addEventListener("change", (e) => {
+    //     const dateDepart = document.getElementById("dateDepart") as HTMLInputElement;
+    //     console.log(betweenTwoDate(dateDepart.value, dateArrive.value));
+    // })
+    dateDepartInit.addEventListener("change", (event) => {
+        dateArriveInit.min = dateDepartInit.value;
+    });
+    dateArriveInit.addEventListener("change", (event) => {
+        dateDepartInit.max = dateArriveInit.value;
     });
 })();

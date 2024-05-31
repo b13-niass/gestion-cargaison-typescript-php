@@ -67,6 +67,22 @@ export class Validation {
         });
         return valid;
     };
+    static checkRequireGlobal3 = (inputArray) => {
+        let valid = true;
+        inputArray.forEach((input) => {
+            const parent = input.parentNode;
+            if (input.value.trim() === "") {
+                valid = false;
+                parent.classList.add("error");
+                Validation.showError2(input, `${Validation.getInputName(input)} est requis`);
+            }
+            else {
+                Validation.showSuccees2(input);
+            }
+        });
+        valid = Validation.checkRequireGlobal3Supp1(inputArray);
+        return valid;
+    };
     static validerDateAddCargo = (input) => {
         let valid = true;
         const parent = input.parentNode;
@@ -107,4 +123,114 @@ export class Validation {
         }
         return valid;
     };
+    static checkRequireGlobal3Supp1 = (inputArray) => {
+        let valid = true;
+        inputArray.forEach((input) => {
+            const parent = input.parentNode;
+            if (input.name == 'telExpediteur' || input.name == 'telRecepteur') {
+                valid = Validation.telephone(input);
+            }
+            else if (input.name == 'prenomExpediteur' || input.name == 'prenomRecepteur'
+                || input.name == 'nomExpediteur' || input.name == 'nomRecepteur' || input.id == 'libelle'
+                || input.name == 'villeExpediteur' || input.name == 'paysExpediteur' ||
+                input.name == 'villeRecepteur' || input.name == 'paysRecepteur') {
+                valid = Validation.chaine(input);
+            }
+            else if (input.id == 'poids') {
+                valid = Validation.entier(input);
+            }
+            else if (input.id == 'toxicite') {
+                valid = Validation.toxicite(input);
+            }
+            else if (input.name == 'emailRecepteur' || input.name == 'emailExpediteur') {
+                valid = Validation.email(input);
+            }
+        });
+        return valid;
+    };
+    static telephoneRegex(input) {
+        const regex = /^(77|76|78|70)\d{7}$/;
+        return regex.test(input);
+    }
+    static telephone(input) {
+        let valid = true;
+        const parent = input.parentNode;
+        if (!Validation.telephoneRegex(input.value)) {
+            valid = false;
+            parent.classList.add("error");
+            Validation.showError2(input, `${Validation.getInputName(input)} pas correct`);
+        }
+        else {
+            Validation.showSuccees2(input);
+        }
+        return valid;
+    }
+    static chaineRegex(input) {
+        const regex = /^[a-zA-Z0-9 ]+$/;
+        return regex.test(input);
+    }
+    static chaine(input) {
+        let valid = true;
+        const parent = input.parentNode;
+        if (!Validation.chaineRegex(input.value)) {
+            valid = false;
+            parent.classList.add("error");
+            Validation.showError2(input, `${Validation.getInputName(input)} pas correct`);
+        }
+        else {
+            Validation.showSuccees2(input);
+        }
+        return valid;
+    }
+    static entierRegex(input) {
+        const regex = /^[0-9]+$/;
+        return regex.test(input);
+    }
+    static entier(input) {
+        let valid = true;
+        const parent = input.parentNode;
+        if (!Validation.entierRegex(input.value)) {
+            valid = false;
+            parent.classList.add("error");
+            Validation.showError2(input, `${Validation.getInputName(input)} pas correct`);
+        }
+        else {
+            Validation.showSuccees2(input);
+        }
+        return valid;
+    }
+    static toxiciteRegex(input) {
+        const regex = /^(10|[0-9])$/;
+        return regex.test(input);
+    }
+    static toxicite(input) {
+        let valid = true;
+        const parent = input.parentNode;
+        if (!Validation.toxiciteRegex(input.value)) {
+            valid = false;
+            parent.classList.add("error");
+            Validation.showError2(input, `${Validation.getInputName(input)} pas correct`);
+        }
+        else {
+            Validation.showSuccees2(input);
+        }
+        return valid;
+    }
+    static emailRegex(input) {
+        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regex.test(input);
+    }
+    static email(input) {
+        let valid = true;
+        const parent = input.parentNode;
+        if (!Validation.emailRegex(input.value)) {
+            valid = false;
+            parent.classList.add("error");
+            Validation.showError2(input, `${Validation.getInputName(input)} pas correct`);
+        }
+        else {
+            Validation.showSuccees2(input);
+        }
+        return valid;
+    }
 }

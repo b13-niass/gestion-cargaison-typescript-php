@@ -12,3 +12,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }elseif ($_SERVER["REQUEST_METHOD"] == "GET"){
     echo json_encode(findAllData());
 }
+
+function findAllCargaison(){
+    return findAllData();
+}
