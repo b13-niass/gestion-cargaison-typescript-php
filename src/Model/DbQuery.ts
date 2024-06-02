@@ -289,6 +289,20 @@ export class DbQuery{
         return result;
     }
 
+    findColiByProduit(codeProduit: string): IColi|undefined{
+        let produit: Produit | undefined = this.findProduitByCode(codeProduit);
+        let resultColi : IColi|undefined = undefined;
+        if (produit != undefined) {
+            let currentICargaison: ICargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison())!;
+            currentICargaison.coli?.forEach(coli => {
+                if (coli.produits!.some(p => p.code == produit.getCode())){
+                    resultColi = coli;
+                }
+            })
+        }
+        return resultColi;
+    }
+
     isCargaisonOpened(numero: string):boolean{
         const result : Cargaison|undefined = this.findAllTypeCargaison().find(c => c.getNumeros() == numero && c.getEtatGlobal() == "OUVERT");
         console.log(result);
@@ -580,6 +594,48 @@ export class DbQuery{
                 }
             })
         }
+        return await this.dao.postData(this.DB);
+    }
+
+    async supprimerProduitToCargaison(produit: Produit, cargaison: ICargaison): Promise<DBStructure>{
+        if (cargaison.typec == "maritime"){
+            this.DB.cargaison.maritime.values.forEach((cargo, key) => {
+                if (cargo.numero == cargaison.numero){
+                    this.DB.cargaison.maritime.values[key].coli!.forEach((coli, key2) => {
+                        this.DB.cargaison.maritime.values[key].coli![key2].produits!.forEach((produitValue, key3) => {
+                            if (produitValue.code == produit.getCode()){
+                                this.DB.cargaison.maritime.values[key].coli![key2].produits!.splice(key3, 1)
+                            }
+                        })
+                    })
+                }
+            })
+        }else if (cargaison.typec == "aerienne"){
+            this.DB.cargaison.aerienne.values.forEach((cargo, key) => {
+                if (cargo.numero == cargaison.numero){
+                    this.DB.cargaison.aerienne.values[key].coli!.forEach((coli, key2) => {
+                        this.DB.cargaison.aerienne.values[key].coli![key2].produits!.forEach((produitValue, key3) => {
+                            if (produitValue.code == produit.getCode()){
+                                this.DB.cargaison.aerienne.values[key].coli![key2].produits!.splice(key3, 1)
+                            }
+                        })
+                    })
+                }
+            })
+        }else if (cargaison.typec == "routiere"){
+            this.DB.cargaison.routiere.values.forEach((cargo, key) => {
+                if (cargo.numero == cargaison.numero){
+                    this.DB.cargaison.routiere.values[key].coli!.forEach((coli, key2) => {
+                        this.DB.cargaison.routiere.values[key].coli![key2].produits!.forEach((produitValue, key3) => {
+                            if (produitValue.code == produit.getCode()){
+                                this.DB.cargaison.routiere.values[key].coli![key2].produits!.splice(key3, 1)
+                            }
+                        })
+                    })
+                }
+            })
+        }
+
         return await this.dao.postData(this.DB);
     }
 }

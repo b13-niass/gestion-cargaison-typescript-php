@@ -270,6 +270,19 @@ export class DbQuery {
         console.log(result);
         return result;
     }
+    findColiByProduit(codeProduit) {
+        let produit = this.findProduitByCode(codeProduit);
+        let resultColi = undefined;
+        if (produit != undefined) {
+            let currentICargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison());
+            currentICargaison.coli?.forEach(coli => {
+                if (coli.produits.some(p => p.code == produit.getCode())) {
+                    resultColi = coli;
+                }
+            });
+        }
+        return resultColi;
+    }
     isCargaisonOpened(numero) {
         const result = this.findAllTypeCargaison().find(c => c.getNumeros() == numero && c.getEtatGlobal() == "OUVERT");
         console.log(result);
@@ -550,6 +563,48 @@ export class DbQuery {
                         this.DB.cargaison.aerienne.values[key]["coli"] = [];
                     }
                     this.DB.cargaison.aerienne.values[key].coli.push(coli);
+                }
+            });
+        }
+        return await this.dao.postData(this.DB);
+    }
+    async supprimerProduitToCargaison(produit, cargaison) {
+        if (cargaison.typec == "maritime") {
+            this.DB.cargaison.maritime.values.forEach((cargo, key) => {
+                if (cargo.numero == cargaison.numero) {
+                    this.DB.cargaison.maritime.values[key].coli.forEach((coli, key2) => {
+                        this.DB.cargaison.maritime.values[key].coli[key2].produits.forEach((produitValue, key3) => {
+                            if (produitValue.code == produit.getCode()) {
+                                this.DB.cargaison.maritime.values[key].coli[key2].produits.splice(key3, 1);
+                            }
+                        });
+                    });
+                }
+            });
+        }
+        else if (cargaison.typec == "aerienne") {
+            this.DB.cargaison.aerienne.values.forEach((cargo, key) => {
+                if (cargo.numero == cargaison.numero) {
+                    this.DB.cargaison.aerienne.values[key].coli.forEach((coli, key2) => {
+                        this.DB.cargaison.aerienne.values[key].coli[key2].produits.forEach((produitValue, key3) => {
+                            if (produitValue.code == produit.getCode()) {
+                                this.DB.cargaison.aerienne.values[key].coli[key2].produits.splice(key3, 1);
+                            }
+                        });
+                    });
+                }
+            });
+        }
+        else if (cargaison.typec == "routiere") {
+            this.DB.cargaison.routiere.values.forEach((cargo, key) => {
+                if (cargo.numero == cargaison.numero) {
+                    this.DB.cargaison.routiere.values[key].coli.forEach((coli, key2) => {
+                        this.DB.cargaison.routiere.values[key].coli[key2].produits.forEach((produitValue, key3) => {
+                            if (produitValue.code == produit.getCode()) {
+                                this.DB.cargaison.routiere.values[key].coli[key2].produits.splice(key3, 1);
+                            }
+                        });
+                    });
                 }
             });
         }

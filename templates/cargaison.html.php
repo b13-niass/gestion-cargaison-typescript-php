@@ -168,7 +168,7 @@
                             <td class="border border-gray-400 px-4 py-2">
                                 <span class="inline-block bg-blue-200 text-blue-800 text-sm px-2 rounded-full"><?= $cargo["poidsMax"] == 0? $cargo["nbrProduitMax"]." produits" : $cargo["poidsMax"]." Kg" ?></span>
                             </td>
-                            <td class="border border-gray-400 text-gray-900 px-4 py-2"><?= $cargo["dateDepart"]." au ".$cargo["dateArrive"] ?></td>
+                            <td class="border border-gray-400 text-gray-900 px-4 py-2"><?= formatDate($cargo["dateDepart"])." au ".formatDate($cargo["dateArrive"]) ?></td>
                             <td class="border border-gray-400 text-gray-900 px-4 py-2"><?= $cargo["lieuDepart"] ."-". $cargo["lieuArrive"] ?></td>
                             <td class="border border-gray-400 text-gray-900 px-4 py-2"><?= $cargo["distance"] ?></td>
                             <td class="border border-gray-400 text-gray-900 px-4 py-2"><?= $cargo["duree"] ?></td>
