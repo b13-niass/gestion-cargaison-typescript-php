@@ -9,7 +9,7 @@
 <div class="mx-2 w-[100%] flex gap-y-6 lg:flex-wrap md:flex-wrap sm:flex-wrap sm2:flex-wrap py-6 sm:px-6 lg:px-8 gap-x-5">
 
     <div role="tablist" class="tabs tabs-bordered">
-        <input type="radio" name="my_tabs_2" role="tab" style="width: 100px!important;" class="tab" aria-label="Ajoute" />
+        <input type="radio" name="my_tabs_2" role="tab" style="width: 200px!important;" class="tab" aria-label="Créer Cargaison" />
         <div role="tabpanel"  class="tab-content w-full flex-auto lg:w-[100%] md:w-[35%] sm:w-[100%] bg-white p-8 rounded-lg shadow-lg">
 
             <form method="POST" id="formAddCargo" class="w-[100%] gap-x-6 gap-y-3 flex flex-row flex-wrap items-center justify-between" id="AddCargaisonForm">
@@ -97,7 +97,7 @@
 
             </form>
         </div>
-        <input type="radio" name="my_tabs_2" role="tab" style="width: 100px!important;" class="tab w-[100px]" aria-label="Liste" checked />
+        <input type="radio" name="my_tabs_2" role="tab" style="width: 200px!important;" class="tab w-[100px]" aria-label="Lister Cargaison" checked />
         <div role="tabpanel"  class="tab-content lg:w-[112%] bg-white rounded-lg shadow-md">
             <!-- Header -->
             <div class="p-4 border-b border-gray-200">
@@ -178,12 +178,12 @@
                             <td class="border border-gray-400 px-4 py-2">
                                 <span class="inline-block <?= $cargo["etatGlobal"] == "OUVERT"? "bg-green-200":"bg-red-200" ?> text-green-800 font-bold text-[0.7rem] px-2 rounded-full"><?= $cargo["etatGlobal"] ?></span>
                             </td>
-                            <td class="flex flex-col gap-y-3 border border-gray-400 px-4 py-2">
-                                <a href="#" data-detailcargoInfo="<?=$cargo["numero"]?>" class="text-[0.8rem] text-center bg-gray-300 text-white py-1 px-1 border border-gray-800 rounded">
-                                    État Cargo
-                                </a>
-                                <a href="#" data-detailcargo="<?=$cargo["numero"]?>" class="<?= $cargo["etatGlobal"] == "FERMER" ? "hidden":""?> text-[0.8rem] text-center bg-gray-800 text-white py-1 px-1 border border-transparent rounded">
-                                    Add Coli
+                            <td class="border border-gray-400 px-4 py-2">
+<!--                                <a href="#" data-detailcargoInfo="--><?php //=$cargo["numero"]?><!--" class="text-[0.8rem] text-center bg-gray-300 text-white py-1 px-1 border border-gray-800 rounded">-->
+<!--                                    État Cargo-->
+<!--                                </a>-->
+                                <a href="#" data-detailcargo="<?=$cargo["numero"]?>" class="text-[0.8rem] text-center bg-gray-800 text-white py-2 px-3 border border-transparent rounded">
+                                    Plus..
                                 </a>
                             </td>
                         </tr>

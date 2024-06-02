@@ -60,9 +60,12 @@ export class DbQuery{
     }
 
     findInAllByNumero(numero: string): Cargaison{
-        if (this.findMaritimeByNumero(numero)){
+        // console.log(this.findMaritimeByNumero(numero))
+        // console.log(this.findAerienneByNumero(numero))
+        // console.log(this.findRoutiereByNumero(numero))
+        if (this.findMaritimeByNumero(numero).getNumeros()){
             return this.findMaritimeByNumero(numero)
-        }else if(this.findAerienneByNumero(numero)){
+        }else if(this.findAerienneByNumero(numero).getNumeros()){
             return this.findAerienneByNumero(numero);
         }else {
             return this.findRoutiereByNumero(numero);
@@ -288,6 +291,7 @@ export class DbQuery{
 
     isCargaisonOpened(numero: string):boolean{
         const result : Cargaison|undefined = this.findAllTypeCargaison().find(c => c.getNumeros() == numero && c.getEtatGlobal() == "OUVERT");
+        console.log(result);
         return !!result;
     }
 
@@ -368,6 +372,8 @@ export class DbQuery{
                     cargo.coli?.forEach(c => {
                         cpt += c.produits?.length!;
                     })
+                    console.log(cargo.nbrProduitMax!)
+                    console.log(cpt)
                     return cpt >= cargo.nbrProduitMax!;
                 }
             }else {
@@ -378,6 +384,7 @@ export class DbQuery{
                             cpt += p.poids!;
                         })
                     })
+                    console.log(cpt+"Kg")
                     return cpt >= cargo.poidsMax!;
                 }
             }
@@ -398,17 +405,23 @@ export class DbQuery{
     }
 
     calculerFrais(produit: IProduit, cargaison: ICargaison): number {
-        const frais: FraisTransport = this.getAllFrais(cargaison.typec!).find((frais) => frais.typep == produit.typep) as FraisTransport;
-        console.log(frais)
+        // console.log(this.getAllFrais(cargaison.typec!))
+        let search : string = produit.typep!;
+        if (search == 'fragile' || search == 'incassable') search = "materiel";
+
+        // console.log(search);
+        const frais: FraisTransport = this.getAllFrais(cargaison.typec!).find((frais) => frais.typep == search) as FraisTransport;
+        // console.log(frais)
         return ((produit.poids as number  / frais.poids) * (cargaison.distance as number/ frais.param) * frais.tarif)+frais.autreFrais;
+        // return 1;
     }
 
 
     getCargoMontant(codeCargo: string): number{
         let cargo: ICargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == codeCargo)!;
         let somme: number = 0;
-        // console.log(1)
         this.findAllProduitByCargo(codeCargo).forEach((produit) => {
+            // console.log(produit)
            let result: number = this.calculerFrais(produit, cargo)
             if (result < 10000) result = 10000;
             somme += result;
@@ -535,6 +548,7 @@ export class DbQuery{
 
     async addProduitToCargaison(numero: string, coli: IColi): Promise<DBStructure>{
         const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == numero)!;
+        console.log(cargaison);
         if (cargaison.typec == "maritime"){
             this.DB.cargaison.maritime.values.forEach((cargo, key) => {
                 if (cargo.numero == numero){
@@ -548,21 +562,21 @@ export class DbQuery{
         }else if (cargaison.typec == "routiere"){
             this.DB.cargaison.routiere.values.forEach((cargo, key) => {
                 if (cargo.numero == numero){
-                    if (this.DB.cargaison.maritime.values[key].coli == undefined)
+                    if (this.DB.cargaison.routiere.values[key].coli == undefined)
                     {
-                        this.DB.cargaison.maritime.values[key]["coli"] = [];
+                        this.DB.cargaison.routiere.values[key]["coli"] = [];
                     }
-                    this.DB.cargaison.maritime.values[key].coli!.push(coli)
+                    this.DB.cargaison.routiere.values[key].coli!.push(coli)
                 }
             })
         }else if (cargaison.typec == "aerienne"){
             this.DB.cargaison.aerienne.values.forEach((cargo, key) => {
                 if (cargo.numero == numero){
-                    if (this.DB.cargaison.maritime.values[key].coli == undefined)
+                    if (this.DB.cargaison.aerienne.values[key].coli == undefined)
                     {
-                        this.DB.cargaison.maritime.values[key]["coli"] = [];
+                        this.DB.cargaison.aerienne.values[key]["coli"] = [];
                     }
-                    this.DB.cargaison.maritime.values[key].coli!.push(coli)
+                    this.DB.cargaison.aerienne.values[key].coli!.push(coli)
                 }
             })
         }

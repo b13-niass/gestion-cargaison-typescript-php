@@ -74,6 +74,7 @@
                         </svg>
                     </button>
                 </div>
+
             </div>
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="mt-2 btn btn-ghost btn-circle avatar">
@@ -102,11 +103,68 @@
             </div>
         </div>
     </nav>
-
-    <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 id="head-text" class="text-3xl font-bold tracking-tight text-gray-900">Cargaison</h1>
+<?php     if ($page != 'cargaison' && $page != 'produit'){ ?>
+<!--        <script src="--><?php //=ASSETS_PATH?><!--/js/index.js"></script>-->
+    <header id="header-bar" class="bg-white shadow">
+        <div class="px-4 py-6 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-5 gap-6">
+                <div class="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer p-1 rounded-lg shadow flex items-center h-[50px]">
+                    <div class="text-gray-800 text-3xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            <path fill-rule="evenodd" d="M4 12a8 8 0 0116 0H4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p id="volumeRestant" class="text-gray-900"></p>
+                    </div>
+                </div>
+                <div class="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer p-1 rounded-lg shadow flex items-center h-[50px]">
+                    <div class="text-gray-800 text-3xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-11a1 1 0 10-2 0 1 1 0 002 0zm-4 0a1 1 0 10-2 0 1 1 0 002 0zm1 4a1 1 0 011-1h4a1 1 0 110 2h-4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p id="montantTotal" class="text-gray-900"></p>
+                    </div>
+                </div>
+                <div class="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer p-1 rounded-lg shadow flex items-center h-[50px]">
+                    <div class="text-gray-800 text-3xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5 3a3 3 0 013-3h4a3 3 0 013 3v2h-2V3a1 1 0 00-1-1H8a1 1 0 00-1 1v2H5V3z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M4 8h12v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8zm2 6a1 1 0 102 0 1 1 0 00-2 0zm6 0a1 1 0 102 0 1 1 0 00-2 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p id="etatVolume" class="text-gray-900"></p>
+                    </div>
+                </div>
+                <div class="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer p-1 rounded-lg shadow flex items-center h-[50px]">
+                    <div class="text-gray-800 text-3xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-11a1 1 0 10-2 0 1 1 0 002 0zm-4 0a1 1 0 10-2 0 1 1 0 002 0zm1 4a1 1 0 011-1h4a1 1 0 110 2h-4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p id="etatGlobal" class="text-gray-900"></p>
+                    </div>
+                </div>
+                <div class="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer p-1 rounded-lg shadow flex items-center h-[50px]">
+                    <div class="text-gray-800 text-3xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 3.172a4 4 0 015.656 0L10 4.343l1.172-1.171a4 4 0 115.656 5.656L10 16.343 3.172 9.515a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p id="etatAvancement" class="text-gray-900"></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
+    <?php
+        }
+    ?>
     <main id="main-content">
 

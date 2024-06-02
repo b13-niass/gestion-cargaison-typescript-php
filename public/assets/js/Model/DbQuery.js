@@ -49,10 +49,13 @@ export class DbQuery {
         return new Aerienne(this.DB.cargaison.aerienne.values.find((c) => c.numero === id));
     }
     findInAllByNumero(numero) {
-        if (this.findMaritimeByNumero(numero)) {
+        // console.log(this.findMaritimeByNumero(numero))
+        // console.log(this.findAerienneByNumero(numero))
+        // console.log(this.findRoutiereByNumero(numero))
+        if (this.findMaritimeByNumero(numero).getNumeros()) {
             return this.findMaritimeByNumero(numero);
         }
-        else if (this.findAerienneByNumero(numero)) {
+        else if (this.findAerienneByNumero(numero).getNumeros()) {
             return this.findAerienneByNumero(numero);
         }
         else {
@@ -269,6 +272,7 @@ export class DbQuery {
     }
     isCargaisonOpened(numero) {
         const result = this.findAllTypeCargaison().find(c => c.getNumeros() == numero && c.getEtatGlobal() == "OUVERT");
+        console.log(result);
         return !!result;
     }
     isCargaisonClosed(numero) {
@@ -345,6 +349,8 @@ export class DbQuery {
                     cargo.coli?.forEach(c => {
                         cpt += c.produits?.length;
                     });
+                    console.log(cargo.nbrProduitMax);
+                    console.log(cpt);
                     return cpt >= cargo.nbrProduitMax;
                 }
             }
@@ -356,6 +362,7 @@ export class DbQuery {
                             cpt += p.poids;
                         });
                     });
+                    console.log(cpt + "Kg");
                     return cpt >= cargo.poidsMax;
                 }
             }
@@ -377,15 +384,21 @@ export class DbQuery {
         }
     }
     calculerFrais(produit, cargaison) {
-        const frais = this.getAllFrais(cargaison.typec).find((frais) => frais.typep == produit.typep);
-        console.log(frais);
+        // console.log(this.getAllFrais(cargaison.typec!))
+        let search = produit.typep;
+        if (search == 'fragile' || search == 'incassable')
+            search = "materiel";
+        // console.log(search);
+        const frais = this.getAllFrais(cargaison.typec).find((frais) => frais.typep == search);
+        // console.log(frais)
         return ((produit.poids / frais.poids) * (cargaison.distance / frais.param) * frais.tarif) + frais.autreFrais;
+        // return 1;
     }
     getCargoMontant(codeCargo) {
         let cargo = this.findAllTypeCargaisonInterfaces().find(c => c.numero == codeCargo);
         let somme = 0;
-        // console.log(1)
         this.findAllProduitByCargo(codeCargo).forEach((produit) => {
+            // console.log(produit)
             let result = this.calculerFrais(produit, cargo);
             if (result < 10000)
                 result = 10000;
@@ -509,6 +522,7 @@ export class DbQuery {
     }
     async addProduitToCargaison(numero, coli) {
         const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == numero);
+        console.log(cargaison);
         if (cargaison.typec == "maritime") {
             this.DB.cargaison.maritime.values.forEach((cargo, key) => {
                 if (cargo.numero == numero) {
@@ -522,20 +536,20 @@ export class DbQuery {
         else if (cargaison.typec == "routiere") {
             this.DB.cargaison.routiere.values.forEach((cargo, key) => {
                 if (cargo.numero == numero) {
-                    if (this.DB.cargaison.maritime.values[key].coli == undefined) {
-                        this.DB.cargaison.maritime.values[key]["coli"] = [];
+                    if (this.DB.cargaison.routiere.values[key].coli == undefined) {
+                        this.DB.cargaison.routiere.values[key]["coli"] = [];
                     }
-                    this.DB.cargaison.maritime.values[key].coli.push(coli);
+                    this.DB.cargaison.routiere.values[key].coli.push(coli);
                 }
             });
         }
         else if (cargaison.typec == "aerienne") {
             this.DB.cargaison.aerienne.values.forEach((cargo, key) => {
                 if (cargo.numero == numero) {
-                    if (this.DB.cargaison.maritime.values[key].coli == undefined) {
-                        this.DB.cargaison.maritime.values[key]["coli"] = [];
+                    if (this.DB.cargaison.aerienne.values[key].coli == undefined) {
+                        this.DB.cargaison.aerienne.values[key]["coli"] = [];
                     }
-                    this.DB.cargaison.maritime.values[key].coli.push(coli);
+                    this.DB.cargaison.aerienne.values[key].coli.push(coli);
                 }
             });
         }

@@ -9,21 +9,26 @@
     </div>
 
     <div class="w-[100%] max-w-6xl bg-white rounded-lg shadow-md">
-        <!-- Table -->
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white">
-                <thead class="bg-gray-100 border-b">
-                <tr>
-                    <th class="w-24 px-4 py-2 text-left text-gray-600 font-semibold">Image</th>
-                    <th class="px-4 py-2 text-left text-gray-600 font-semibold">Libellé</th>
-                    <th class="px-4 py-2 text-left text-gray-600 font-semibold">Poids</th>
-                    <th class="px-4 py-2 text-left text-gray-600 font-semibold">Types</th>
-                    <th class="px-4 py-2 text-left text-gray-600 font-semibold">Action</th>
-                </tr>
-                </thead>
-                <tbody id="listeProduitContent">
-                </tbody>
-            </table>
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full">
+            <div class="mb-4">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    Coli - <span id="recipient-name">Destinataire: Jean Dupont</span> & <span id="sender-name">Expéditeur: Marie Dubois</span>
+                </h1>
+            </div>
+            <div id="product-list">
+                <div class="product flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
+                    <span class="text-gray-700">Produit 1: Libellé - Chimique - 2kg</span>
+                    <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                </div>
+                <div class="product flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
+                    <span class="text-gray-700">Produit 2: Alimentaire - 1kg</span>
+                    <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                </div>
+                <div class="product flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
+                    <span class="text-gray-700">Produit 3: Fragile - 0.5kg</span>
+                    <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                </div>
+            </div>
         </div>
 
         <!-- Footer (Pagination) -->

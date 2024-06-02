@@ -129,12 +129,9 @@ export class Cargaison {
          <td class="border border-gray-400 px-4 py-2">
             <span class="inline-block ${this.etatGlobal == "OUVERT" ? "bg-green-200" : "bg-red-200"} text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatGlobal}</span>
         </td>
-        <td class="flex flex-col gap-y-3 border border-gray-400 px-4 py-2">
-           <a href="#" data-detailcargoInfo="${this.numero}" class="text-[0.8rem] text-center bg-gray-300 text-white py-1 px-1 border border-gray-800 rounded">
-                État Cargo
-            </a>
-            <a href="#" data-detailcargo="${this.numero}" class="${this.etatGlobal == "FERMER" ? "hidden" : ""} text-[0.8rem] text-center bg-gray-800 text-white py-1 px-1 border border-transparent rounded">
-                Add Coli
+        <td class="border border-gray-400 px-4 py-2">
+            <a href="#" data-detailcargo="${this.numero}" class="text-[0.8rem] text-center bg-gray-800 text-white py-2 px-3 border border-transparent rounded">
+                Plus..
             </a>
         </td>
         `;

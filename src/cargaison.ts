@@ -11,7 +11,8 @@ import {Aerienne} from "./Model/Aerienne.js";
 import {FormatDate} from "./Model/FormatDate.js";
 (async () => {
     /** Variable Declaration **/
-    const headText : HTMLHeadElement = document.getElementById("head-text") as HTMLHeadElement;
+    // const headText : HTMLHeadElement = document.getElementById("head-text") as HTMLHeadElement;
+    const headerBar : HTMLHeadElement = document.getElementById("header-bar") as HTMLHeadElement;
     const dao = new DAO();
     let DB: DBStructure = await dao.getData();
     const dbQuery = new DbQuery(DB);
