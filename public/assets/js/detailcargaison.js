@@ -266,8 +266,8 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
     };
     const initialiserHeader = (currentICargaison) => {
         volumeRestant.innerHTML = currentICargaison.nbrProduitMax > 0
-            ? calculVolumeRestant(currentICargaison) + " produits restant"
-            : calculVolumeRestant(currentICargaison) + " Kg restant ";
+            ? calculVolumeRestant(currentICargaison) + " /produits restant"
+            : calculVolumeRestant(currentICargaison) + " /Kg restant ";
         montantTotal.innerHTML = dbQuery.getCargoMontant(currentCargaisonCode) + " Fcfa";
         etatVolume.innerHTML = showPleineOuPas(currentICargaison);
         etatGlobal.innerHTML = currentICargaison.etatGlobal;

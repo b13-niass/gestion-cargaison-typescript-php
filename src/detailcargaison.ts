@@ -296,6 +296,7 @@ interface infoAllAddProduit{
             disableFormAddProduit();
         }
     }
+
     const calculVolumeRestant = (currentICargaison: ICargaison): number =>{
         if (currentICargaison.nbrProduitMax! > 0){
             return currentICargaison.nbrProduitMax! - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
@@ -315,8 +316,8 @@ interface infoAllAddProduit{
     }
     const initialiserHeader = (currentICargaison: ICargaison) => {
         volumeRestant.innerHTML = currentICargaison.nbrProduitMax! > 0
-            ? calculVolumeRestant(currentICargaison) + " produits restant"
-            : calculVolumeRestant(currentICargaison)  + " Kg restant ";
+            ? calculVolumeRestant(currentICargaison) + " /produits restant"
+            : calculVolumeRestant(currentICargaison)  + " /Kg restant ";
         montantTotal.innerHTML = dbQuery.getCargoMontant(currentCargaisonCode)+" Fcfa"
         etatVolume.innerHTML = showPleineOuPas(currentICargaison);
         etatGlobal.innerHTML = currentICargaison.etatGlobal!;

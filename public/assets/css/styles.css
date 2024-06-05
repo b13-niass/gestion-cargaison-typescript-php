@@ -3099,6 +3099,14 @@ details.collapse summary::-webkit-details-marker {
   flex-wrap: wrap;
 }
 
+.content-start {
+  align-content: flex-start;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -3627,6 +3635,14 @@ details.collapse summary::-webkit-details-marker {
 
 .opacity-50 {
   opacity: 0.5;
+}
+
+.opacity-5 {
+  opacity: 0.05;
+}
+
+.opacity-90 {
+  opacity: 0.9;
 }
 
 .shadow {

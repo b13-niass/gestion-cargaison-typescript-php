@@ -49,6 +49,7 @@ import { DbQuery } from "./Model/DbQuery.js";
                        <i class="fa-solid fa-box-archive"></i> Archiver
                     </button>
                     <span class="badge bg-gray-800 text-white ${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" : "hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "" : "hidden"}">${produit.status}</span>
+                    <span class="badge bg-gray-800 text-white ${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "ARCHIVER" ? "" : "hidden"}">${produit.status}</span>
                 </div>`;
         productList.insertAdjacentHTML("beforeend", template);
     };
