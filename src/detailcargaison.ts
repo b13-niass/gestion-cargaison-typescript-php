@@ -79,6 +79,8 @@ interface infoAllAddProduit{
     const changerEtatPerdue = document.getElementById("changerEtatPerdue") as HTMLButtonElement;
     const changerEtatEnCours = document.getElementById("changerEtatEnCours") as HTMLButtonElement;
     const changerEtatTerminer = document.getElementById("changerEtatTerminer") as HTMLButtonElement;
+    const changerEtatEnArchiver = document.getElementById("changerEtatEnArchiver") as HTMLButtonElement;
+    const infoCargoArchiver = document.getElementById("info-cargo-archiver") as HTMLButtonElement;
 
     const volumeRestant = document.getElementById("volumeRestant") as HTMLPreElement;
     const montantTotal = document.getElementById("montantTotal") as HTMLPreElement;
@@ -225,6 +227,7 @@ interface infoAllAddProduit{
         changerEtatPerdue.setAttribute("data-numeroCargo", currentICargaison.numero!);
         changerEtatEnCours.setAttribute("data-numeroCargo", currentICargaison.numero!);
         changerEtatTerminer.setAttribute("data-numeroCargo", currentICargaison.numero!);
+        changerEtatEnArchiver.setAttribute("data-numeroCargo", currentICargaison.numero!);
 
         if (currentICargaison.etatGlobal == "OUVERT"){
             changerEtatOuvert.classList.add("opacity-50" ,"cursor-not-allowed");
@@ -280,11 +283,19 @@ interface infoAllAddProduit{
             changerEtatTerminer.classList.add("opacity-50" ,"cursor-not-allowed");
             changerEtatOuvert.classList.add("opacity-50" ,"cursor-not-allowed");
             changerEtatFermer.classList.add("opacity-50" ,"cursor-not-allowed");
+            changerEtatEnArchiver.classList.remove("hidden");
+            disableFormAddProduit();
+        }else if(currentICargaison.etatGlobal == "FERMER" && currentICargaison.etatAvancement == "ARCHIVER"){
+            changerEtatEnAttente.classList.add("opacity-50" ,"cursor-not-allowed");
+            changerEtatEnCours.classList.add("opacity-50" ,"cursor-not-allowed");
+            changerEtatPerdue.classList.add("opacity-50" ,"cursor-not-allowed");
+            changerEtatTerminer.classList.add("opacity-50" ,"cursor-not-allowed");
+            changerEtatOuvert.classList.add("opacity-50" ,"cursor-not-allowed");
+            changerEtatFermer.classList.add("opacity-50" ,"cursor-not-allowed");
+            infoCargoArchiver.classList.remove("hidden");
             disableFormAddProduit();
         }
-
     }
-    // console.log(dbQuery.comptVolumeContentCargo(currentCargaisonCode))
     const calculVolumeRestant = (currentICargaison: ICargaison): number =>{
         if (currentICargaison.nbrProduitMax! > 0){
             return currentICargaison.nbrProduitMax! - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
@@ -292,7 +303,6 @@ interface infoAllAddProduit{
             return parseInt(""+currentICargaison.poidsMax!) - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
         }
     }
-    // console.log(currentICargaison.nbrProduitMax)
     const showPleineOuPas = (currentICargaison: ICargaison):string => {
      if (dbQuery.comptVolumeContentCargo(currentCargaisonCode) == currentICargaison.nbrProduitMax && currentICargaison.nbrProduitMax > 0)
      {
@@ -314,7 +324,7 @@ interface infoAllAddProduit{
     }
     const onDataLigneproduits = () => {
         const dataLigneproduits = document.querySelectorAll("[data-ligneproduitbutton]") as NodeListOf<HTMLButtonElement>;
-        // console.log(dataLigneproduits);
+
         dataLigneproduits.forEach((dtL: HTMLButtonElement) => {
             dtL.addEventListener("click", (event: Event) => {
                 (dtL.parentElement as HTMLDivElement).remove();
@@ -489,6 +499,7 @@ interface infoAllAddProduit{
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     })
     changerEtatOuvert.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo!, "OUVERT");
@@ -500,6 +511,7 @@ interface infoAllAddProduit{
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     })
     changerEtatEnAttente.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnAttente.dataset.numerocargo!, "EN ATTENTE");
@@ -509,6 +521,7 @@ interface infoAllAddProduit{
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     })
     changerEtatPerdue.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatPerdue.dataset.numerocargo!, "PERDUE");
@@ -518,6 +531,7 @@ interface infoAllAddProduit{
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     })
     changerEtatEnCours.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnCours.dataset.numerocargo!, "EN COURS");
@@ -527,6 +541,7 @@ interface infoAllAddProduit{
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     })
     changerEtatTerminer.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatTerminer.dataset.numerocargo!, "TERMINER");
@@ -536,6 +551,18 @@ interface infoAllAddProduit{
         // console.log(currentICargaison);
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.remove("hidden");
+    })
+
+    changerEtatEnArchiver.addEventListener("click", async (event: Event) => {
+        DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnArchiver.dataset.numerocargo!, "ARCHIVER");
+        dbQuery.setDB(DB);
+        currentCargaison = dbQuery.findInAllByNumero(currentCargaisonCode);
+        currentICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == currentCargaisonCode)!;
+        initDetailCargoButton(currentICargaison);
+        initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
+        infoCargoArchiver.classList.remove("hidden");
     })
 
 })()

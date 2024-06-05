@@ -537,14 +537,15 @@ export class DbQuery {
         return await this.dao.postData(this.DB);
     }
     // InfoBIP
-    async changerStatusProduit(produit, etat) {
-        const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == produit.getCargaison());
+    async changerStatusProduit(produitParams, etat) {
+        const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == produitParams.getCargaison());
         if (cargaison.typec == "maritime") {
             this.DB.cargaison.maritime.values.forEach((c1, key) => {
                 if (c1.numero == cargaison.numero) {
                     this.DB.cargaison.maritime.values[key].coli.forEach((coliValue, key2) => {
                         this.DB.cargaison.maritime.values[key].coli[key2].produits?.map(produit => {
-                            if (produit.code == produit.code) {
+                            console.log(produit.code == produitParams.getCode());
+                            if (produit.code == produitParams.getCode()) {
                                 produit.status = etat;
                             }
                             return produit;
@@ -558,7 +559,7 @@ export class DbQuery {
                 if (c1.numero == cargaison.numero) {
                     this.DB.cargaison.routiere.values[key].coli.forEach((coliValue, key2) => {
                         this.DB.cargaison.routiere.values[key].coli[key2].produits?.map(produit => {
-                            if (produit.code == produit.code) {
+                            if (produit.code == produitParams.getCode()) {
                                 produit.status = etat;
                             }
                             return produit;
@@ -572,7 +573,7 @@ export class DbQuery {
                 if (c1.numero == cargaison.numero) {
                     this.DB.cargaison.aerienne.values[key].coli.forEach((coliValue, key2) => {
                         this.DB.cargaison.aerienne.values[key].coli[key2].produits?.map(produit => {
-                            if (produit.code == produit.code) {
+                            if (produit.code == produitParams.getCode()) {
                                 produit.status = etat;
                             }
                             return produit;

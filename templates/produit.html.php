@@ -39,3 +39,39 @@
         </div>
     </div>
 </dialog>
+
+<dialog id="my_modal_2" class="modal">
+    <div class="modal-box">
+        <p class="py-4">Voulez-vous archiver le produit</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn hover:border-2 hover:border-gray-200  btn-error btn-archiver-modal">Archiver</button>
+                <button class="btn hover:border-2 hover:border-gray-200 btn-close-archiver-modal">Annuler</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+        <p class="py-4">Voulez-vous marquer le produit comme recupérer</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn hover:border-2 hover:border-gray-200  btn-error btn-recuperer-modal">Recupérer</button>
+                <button class="btn hover:border-2 hover:border-gray-200 btn-close-recuperer-modal">Annuler</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="my_modal_4" class="modal">
+    <div class="modal-box">
+        <p class="py-4">Voulez-vous marquer le produit comme perdue</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn hover:border-2 hover:border-gray-200  btn-error btn-perdue-modal">Perdue</button>
+                <button class="btn hover:border-2 hover:border-gray-200 btn-close-perdue-modal">Annuler</button>
+            </form>
+        </div>
+    </div>
+</dialog>

@@ -27,8 +27,18 @@ import {DbQuery} from "./Model/DbQuery.js";
     const receiverName = document.getElementById("receiver-name") as HTMLDivElement;
     const coliCargaison = document.getElementById("coli-cargaison") as HTMLDivElement;
     const myModal1 = document.getElementById("my_modal_1") as HTMLDivElement;
+    const myModal2 = document.getElementById("my_modal_2") as HTMLDivElement;
+    const myModal3 = document.getElementById("my_modal_3") as HTMLDivElement;
+    const myModal4 = document.getElementById("my_modal_4") as HTMLDivElement;
+
     const btnDeleteModal = document.querySelector(".btn-delete-modal") as HTMLButtonElement;
     const btnCloseModal = document.querySelector(".btn-close-modal") as HTMLButtonElement;
+    const btnArchiverModal = document.querySelector(".btn-archiver-modal") as HTMLButtonElement;
+    const btnCloseArchiverModal = document.querySelector(".btn-close-archiver-modal") as HTMLButtonElement;
+    const btnRecupererModal = document.querySelector(".btn-recuperer-modal") as HTMLButtonElement;
+    const btnCloseRecupererModal = document.querySelector(".btn-close-recuperer-modal") as HTMLButtonElement;
+    const btnPerdueModal = document.querySelector(".btn-perdue-modal") as HTMLButtonElement;
+    const btnClosePerdueModal = document.querySelector(".btn-close-perdue-modal") as HTMLButtonElement;
     const inputLibellep = document.querySelector("[id='libellep']") as HTMLInputElement;
     let codeDuProduit : string = "";
 
@@ -37,7 +47,7 @@ import {DbQuery} from "./Model/DbQuery.js";
         const template: string = `<div class="product hover:cursor-pointer hover:bg-gray-200 flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
                     <span class="text-gray-700">${produit.libelle} - ${produit.typep} - ${produit.poids} kg</span>
                     <button data-codeProduit="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER"? "hidden" :""} text-red-500 hover:text-red-700">Supprimer</button>
-                    <span class="badge badge-success ${cargaison.etatGlobal == "FERMER"? "" :"hidden"}">${cargaison.etatAvancement}</span>
+<!--                    <span class="badge badge-success ${cargaison.etatGlobal == "FERMER"? "" :"hidden"}">${cargaison.etatAvancement}</span>-->
                     <button data-codeproduitperdu="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" :"hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden": ""}  btn bg-gray-700 hover:bg-gray-900 text-white">
                        <i class="fa-solid fa-circle-exclamation"></i> Perdu
                     </button>
@@ -62,10 +72,61 @@ import {DbQuery} from "./Model/DbQuery.js";
         })
     }
 
+    const onClickButtonArchiverColi = () => {
+        const dataCodeProduit = document.querySelectorAll("[data-codeproduitarchiver]") as NodeListOf<HTMLButtonElement>;
+        dataCodeProduit.forEach(dc => {
+            dc.addEventListener("click", (event: Event) => {
+                myModal2.classList.add("modal-open");
+                codeDuProduit = dc.dataset.codeproduitarchiver!;
+            })
+        })
+    }
+
+    const onClickButtonPerdueColi = () => {
+        const dataCodeProduit = document.querySelectorAll("[data-codeproduitperdu]") as NodeListOf<HTMLButtonElement>;
+        dataCodeProduit.forEach(dc => {
+            dc.addEventListener("click", (event: Event) => {
+                myModal4.classList.add("modal-open");
+                codeDuProduit = dc.dataset.codeproduitperdu!;
+            })
+        })
+    }
+
+    const onClickButtonRecupererColi = () => {
+        const dataCodeProduit = document.querySelectorAll("[data-codeproduitrecuperer]") as NodeListOf<HTMLButtonElement>;
+        dataCodeProduit.forEach(dc => {
+            dc.addEventListener("click", (event: Event) => {
+                myModal3.classList.add("modal-open");
+                codeDuProduit = dc.dataset.codeproduitrecuperer!;
+            })
+        })
+    }
+
+const reloadListProduit = () => {
+        productList.innerHTML = "";
+        let coli : IColi | undefined = dbQuery.findColiByCode(inputLibellep.value);
+        if (coli != undefined){
+            senderName.innerHTML = coli.expediteur?.nom!;
+            receiverName.innerHTML = coli.destinataire?.nom!;
+            let currentICargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == coli?.produits![0].cargaison!)!;
+            coliCargaison.innerHTML = currentICargaison.typec + ":" + currentICargaison.lieuDepart + "-"+ currentICargaison.lieuArrive
+            coli.produits?.forEach(produit => {
+                builTemplateProduitColi(produit, currentICargaison);
+            });
+
+            onClickButtonDeleteColi();
+            onClickButtonArchiverColi();
+            onClickButtonPerdueColi();
+            onClickButtonRecupererColi();
+
+        }
+}
+
     /** Initialisation **/
     // headText.innerHTML = "Liste des produits";
 
     /** Event Declaration **/
+
     inputLibellep.addEventListener("input", (event: Event)=>{
         if (inputLibellep.value.length > 3){
             let coli : IColi | undefined = dbQuery.findColiByCode(inputLibellep.value);
@@ -77,9 +138,24 @@ import {DbQuery} from "./Model/DbQuery.js";
                 coli.produits?.forEach(produit => {
                     builTemplateProduitColi(produit, currentICargaison);
                 });
+
                 onClickButtonDeleteColi();
+                onClickButtonArchiverColi();
+                onClickButtonPerdueColi();
+                onClickButtonRecupererColi();
 
             }else {
+                productList.innerHTML = '';
+                senderName.innerHTML = '';
+                receiverName.innerHTML = '';
+                coliCargaison.innerHTML = '';
+            }
+        }
+    })
+
+    inputLibellep.addEventListener("keydown", (e: KeyboardEvent) => {
+        if(e.key == "Backspace"){
+            if (inputLibellep.selectionStart === 0 && inputLibellep.selectionEnd === inputLibellep.value.length) {
                 productList.innerHTML = '';
                 senderName.innerHTML = '';
                 receiverName.innerHTML = '';
@@ -92,8 +168,6 @@ import {DbQuery} from "./Model/DbQuery.js";
         let produit: Produit | undefined = dbQuery.findProduitByCode(codeDuProduit);
         if (produit != undefined){
             let currentICargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison())!;
-            // console.log(currentICargaison)
-            // console.log(dbQuery.findColiByProduit(produit.getCode()))
             const DBresult = await dbQuery.supprimerProduitToCargaison(produit,currentICargaison);
             dbQuery.setDB(DB);
             const produitElement = document.querySelector(`[data-codeproduit="${produit.getCode()}"]`) as HTMLDivElement;
@@ -104,6 +178,52 @@ import {DbQuery} from "./Model/DbQuery.js";
 
     btnCloseModal.addEventListener("click", () => {
         myModal1.classList.remove("modal-open");
+    })
+
+    btnArchiverModal.addEventListener("click", async () => {
+        let produit: Produit | undefined = dbQuery.findProduitByCode(codeDuProduit);
+        if (produit != undefined){
+            let currentICargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison())!;
+            const DBresult = await dbQuery.changerStatusProduit(produit, "ARCHIVER");
+            dbQuery.setDB(DB);
+            myModal2.classList.remove("modal-open");
+            reloadListProduit();
+        }
+    })
+
+    btnCloseArchiverModal.addEventListener("click", () =>{
+        myModal2.classList.remove("modal-open");
+    })
+
+    btnPerdueModal.addEventListener("click", async () => {
+        let produit: Produit | undefined = dbQuery.findProduitByCode(codeDuProduit);
+        console.log(produit)
+        if (produit != undefined){
+            let currentICargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison())!;
+            const DBresult = await dbQuery.changerStatusProduit(produit, "PERDUE");
+            dbQuery.setDB(DB);
+            myModal4.classList.remove("modal-open");
+            reloadListProduit();
+        }
+    })
+
+    btnClosePerdueModal.addEventListener("click", () =>{
+        myModal4.classList.remove("modal-open");
+    })
+
+    btnRecupererModal.addEventListener("click", async() => {
+        let produit: Produit | undefined = dbQuery.findProduitByCode(codeDuProduit);
+        if (produit != undefined){
+            let currentICargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison())!;
+            const DBresult = await dbQuery.changerStatusProduit(produit, "RECUPERER");
+            dbQuery.setDB(DB);
+            myModal3.classList.remove("modal-open");
+            reloadListProduit();
+        }
+    })
+
+    btnCloseRecupererModal.addEventListener("click", () =>{
+        myModal3.classList.remove("modal-open");
     })
 
 })()

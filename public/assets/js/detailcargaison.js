@@ -36,6 +36,8 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
     const changerEtatPerdue = document.getElementById("changerEtatPerdue");
     const changerEtatEnCours = document.getElementById("changerEtatEnCours");
     const changerEtatTerminer = document.getElementById("changerEtatTerminer");
+    const changerEtatEnArchiver = document.getElementById("changerEtatEnArchiver");
+    const infoCargoArchiver = document.getElementById("info-cargo-archiver");
     const volumeRestant = document.getElementById("volumeRestant");
     const montantTotal = document.getElementById("montantTotal");
     const etatVolume = document.getElementById("etatVolume");
@@ -168,6 +170,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         changerEtatPerdue.setAttribute("data-numeroCargo", currentICargaison.numero);
         changerEtatEnCours.setAttribute("data-numeroCargo", currentICargaison.numero);
         changerEtatTerminer.setAttribute("data-numeroCargo", currentICargaison.numero);
+        changerEtatEnArchiver.setAttribute("data-numeroCargo", currentICargaison.numero);
         if (currentICargaison.etatGlobal == "OUVERT") {
             changerEtatOuvert.classList.add("opacity-50", "cursor-not-allowed");
             changerEtatFermer.classList.remove("opacity-50", "cursor-not-allowed");
@@ -228,10 +231,20 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
             changerEtatTerminer.classList.add("opacity-50", "cursor-not-allowed");
             changerEtatOuvert.classList.add("opacity-50", "cursor-not-allowed");
             changerEtatFermer.classList.add("opacity-50", "cursor-not-allowed");
+            changerEtatEnArchiver.classList.remove("hidden");
+            disableFormAddProduit();
+        }
+        else if (currentICargaison.etatGlobal == "FERMER" && currentICargaison.etatAvancement == "ARCHIVER") {
+            changerEtatEnAttente.classList.add("opacity-50", "cursor-not-allowed");
+            changerEtatEnCours.classList.add("opacity-50", "cursor-not-allowed");
+            changerEtatPerdue.classList.add("opacity-50", "cursor-not-allowed");
+            changerEtatTerminer.classList.add("opacity-50", "cursor-not-allowed");
+            changerEtatOuvert.classList.add("opacity-50", "cursor-not-allowed");
+            changerEtatFermer.classList.add("opacity-50", "cursor-not-allowed");
+            infoCargoArchiver.classList.remove("hidden");
             disableFormAddProduit();
         }
     };
-    // console.log(dbQuery.comptVolumeContentCargo(currentCargaisonCode))
     const calculVolumeRestant = (currentICargaison) => {
         if (currentICargaison.nbrProduitMax > 0) {
             return currentICargaison.nbrProduitMax - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
@@ -240,7 +253,6 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
             return parseInt("" + currentICargaison.poidsMax) - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
         }
     };
-    // console.log(currentICargaison.nbrProduitMax)
     const showPleineOuPas = (currentICargaison) => {
         if (dbQuery.comptVolumeContentCargo(currentCargaisonCode) == currentICargaison.nbrProduitMax && currentICargaison.nbrProduitMax > 0) {
             return "Pleine";
@@ -263,7 +275,6 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
     };
     const onDataLigneproduits = () => {
         const dataLigneproduits = document.querySelectorAll("[data-ligneproduitbutton]");
-        // console.log(dataLigneproduits);
         dataLigneproduits.forEach((dtL) => {
             dtL.addEventListener("click", (event) => {
                 dtL.parentElement.remove();
@@ -432,6 +443,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     });
     changerEtatOuvert.addEventListener("click", async (event) => {
         DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo, "OUVERT");
@@ -443,6 +455,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     });
     changerEtatEnAttente.addEventListener("click", async (event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnAttente.dataset.numerocargo, "EN ATTENTE");
@@ -452,6 +465,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     });
     changerEtatPerdue.addEventListener("click", async (event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatPerdue.dataset.numerocargo, "PERDUE");
@@ -461,6 +475,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     });
     changerEtatEnCours.addEventListener("click", async (event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnCours.dataset.numerocargo, "EN COURS");
@@ -470,6 +485,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         // console.log(currentICargaison)
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
     });
     changerEtatTerminer.addEventListener("click", async (event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatTerminer.dataset.numerocargo, "TERMINER");
@@ -479,5 +495,16 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
         // console.log(currentICargaison);
         initDetailCargoButton(currentICargaison);
         initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.remove("hidden");
+    });
+    changerEtatEnArchiver.addEventListener("click", async (event) => {
+        DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnArchiver.dataset.numerocargo, "ARCHIVER");
+        dbQuery.setDB(DB);
+        currentCargaison = dbQuery.findInAllByNumero(currentCargaisonCode);
+        currentICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == currentCargaisonCode);
+        initDetailCargoButton(currentICargaison);
+        initialiserHeader(currentICargaison);
+        changerEtatEnArchiver.classList.add("hidden");
+        infoCargoArchiver.classList.remove("hidden");
     });
 })();

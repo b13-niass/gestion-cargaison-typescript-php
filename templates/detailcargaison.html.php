@@ -16,7 +16,13 @@
             </div>
 
             <!-- Details Section -->
-            <div class="md:w-2/3 p-4">
+            <div class="relative md:w-2/3 p-4">
+                <button id="changerEtatEnArchiver" class="hidden absolute p-2 right-2 top-2 h-[57px] text-white btn bg-gray-800 rounded-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 35px;height: 40px;" viewBox="0 0 512 512">
+                        <path fill="#FFFFFF" d="M32 32H480c17.7 0 32 14.3 32 32V96c0 17.7-14.3 32-32 32H32C14.3 128 0 113.7 0 96V64C0 46.3 14.3 32 32 32zm0 128H480V416c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V160zm128 80c0 8.8 7.2 16 16 16H336c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z"/>
+                    </svg>
+                </button>
+                <span id="info-cargo-archiver" class="hidden absolute badge p-2 right-2 top-2 badge-info">La cargaison est archivée</span>
                 <h3 id="headInfoCargo" class="text-xl font-semibold text-gray-800 mb-2"></h3>
                 <p id="descInfoCargo" class="text-gray-600 mb-4"></p>
 

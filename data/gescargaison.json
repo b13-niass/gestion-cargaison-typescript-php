@@ -43,8 +43,8 @@
                     "typec": "maritime",
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT",
+                    "etatAvancement": "ARCHIVER",
+                    "etatGlobal": "FERMER",
                     "coli": [
                         {
                             "code": "#YX2213",
@@ -55,7 +55,7 @@
                                     "typep": "alimentaire",
                                     "poids": 100,
                                     "cargaison": "#123",
-                                    "status": "EN ATTENTE"
+                                    "status": "ARCHIVER"
                                 }
                             ],
                             "expediteur": {
@@ -86,7 +86,7 @@
                                     "typep": "incassable",
                                     "code": "#IXr7Fhq5Z",
                                     "cargaison": "#123",
-                                    "status": "TERMINER"
+                                    "status": "ARCHIVER"
                                 }
                             ],
                             "expediteur": {
@@ -229,7 +229,7 @@
                                     "toxicite": "1",
                                     "code": "#gAwUQBH8H",
                                     "cargaison": "#129",
-                                    "status": "TERMINER"
+                                    "status": "PERDUE"
                                 },
                                 {
                                     "libelle": "Molestias ullamco pr",
@@ -238,7 +238,7 @@
                                     "toxicite": "10",
                                     "code": "#u8S7sfzKM",
                                     "cargaison": "#129",
-                                    "status": "TERMINER"
+                                    "status": "RECUPERER"
                                 },
                                 {
                                     "libelle": "testeeeee",
@@ -246,7 +246,7 @@
                                     "typep": "alimentaire",
                                     "code": "#EYJTgb5tT",
                                     "cargaison": "#129",
-                                    "status": "TERMINER"
+                                    "status": "ARCHIVER"
                                 }
                             ],
                             "expediteur": {
