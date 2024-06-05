@@ -1,3 +1,8 @@
+export interface loginInformation{
+    email?: string;
+    nom?: string;
+}
+
 export interface FraisTransport {
     typep: string;
     tarif: number;
@@ -39,6 +44,18 @@ export interface ICargoStructure {
 //     };
 // }
 
+export interface IGestionnaire{
+    email?: string;
+    password?: string;
+    nom?: string;
+}
+export interface ILogin{
+    email?: string;
+    password?: string;
+    formulaires?: string;
+}
+
+
 export interface DBStructure {
     cargaison: {
         maritime: ICargoStructure;
@@ -46,6 +63,7 @@ export interface DBStructure {
         aerienne: ICargoStructure;
         produitsretirer?: IColi[];
     };
+    gestionnaire: IGestionnaire[];
 }
 
 export interface ISubmitCargaison {

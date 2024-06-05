@@ -267,7 +267,7 @@ export class DbQuery {
                 });
             }
         }
-        console.log(result);
+        // console.log(result);
         return result;
     }
     findColiByProduit(codeProduit) {
@@ -285,7 +285,7 @@ export class DbQuery {
     }
     isCargaisonOpened(numero) {
         const result = this.findAllTypeCargaison().find(c => c.getNumeros() == numero && c.getEtatGlobal() == "OUVERT");
-        console.log(result);
+        // console.log(result);
         return !!result;
     }
     isCargaisonClosed(numero) {
@@ -345,7 +345,7 @@ export class DbQuery {
                 if (Object.keys(cargo).some(key => key == "coli")) {
                     cargo.coli?.forEach(c => {
                         c.produits?.forEach(p => {
-                            cpt += p.poids;
+                            cpt += parseInt("" + p.poids);
                         });
                     });
                 }
@@ -362,8 +362,8 @@ export class DbQuery {
                     cargo.coli?.forEach(c => {
                         cpt += c.produits?.length;
                     });
-                    console.log(cargo.nbrProduitMax);
-                    console.log(cpt);
+                    // console.log(cargo.nbrProduitMax!)
+                    // console.log(cpt)
                     return cpt >= cargo.nbrProduitMax;
                 }
             }
@@ -372,10 +372,10 @@ export class DbQuery {
                 if (Object.keys(cargo).some(key => key == "coli")) {
                     cargo.coli?.forEach(c => {
                         c.produits?.forEach(p => {
-                            cpt += p.poids;
+                            cpt += parseInt("" + p.poids);
                         });
                     });
-                    console.log(cpt + "Kg");
+                    // console.log(cpt+"Kg")
                     return cpt >= cargo.poidsMax;
                 }
             }
@@ -404,7 +404,7 @@ export class DbQuery {
         // console.log(search);
         const frais = this.getAllFrais(cargaison.typec).find((frais) => frais.typep == search);
         // console.log(frais)
-        return ((produit.poids / frais.poids) * (cargaison.distance / frais.param) * frais.tarif) + frais.autreFrais;
+        return Math.ceil(((produit.poids / frais.poids) * (cargaison.distance / frais.param) * frais.tarif) + frais.autreFrais);
         // return 1;
     }
     getCargoMontant(codeCargo) {
@@ -459,34 +459,84 @@ export class DbQuery {
         }
         return await this.dao.postData(this.DB);
     }
+    // async changerEtatAvancementCargo(codeCargo: string, etat: string): Promise<DBStructure>{
+    //         const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == codeCargo)!;
+    //         if (cargaison.typec == "maritime") {
+    //         this.DB.cargaison.maritime.values.map(c => {
+    //             if (c.numero == codeCargo){
+    //                 c.etatAvancement = etat;
+    //                 return c;
+    //             }
+    //         })
+    //     }
+    // else if (cargaison.typec == "routiere") {
+    //         this.DB.cargaison.routiere.values.map(c => {
+    //             if (c.numero == codeCargo){
+    //                 c.etatAvancement = etat;
+    //                 return c;
+    //             }
+    //         })
+    //
+    //     }else {
+    //         this.DB.cargaison.aerienne.values.map(c => {
+    //             if (c.numero == codeCargo){
+    //                 c.etatAvancement = etat;
+    //             }
+    //             return c;
+    //         })
+    //     }
+    //     return await this.dao.postData(this.DB);
+    // }
     async changerEtatAvancementCargo(codeCargo, etat) {
         const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == codeCargo);
         if (cargaison.typec == "maritime") {
-            this.DB.cargaison.maritime.values.map(c => {
+            this.DB.cargaison.maritime.values.forEach((c, key) => {
                 if (c.numero == codeCargo) {
-                    c.etatAvancement = etat;
-                    return c;
+                    this.DB.cargaison.maritime.values[key].etatAvancement = etat;
+                    if (Object.keys(this.DB.cargaison.maritime.values[key]).some(keysColi => keysColi == "coli")) {
+                        this.DB.cargaison.maritime.values[key].coli.forEach((coli, keyToEdit) => {
+                            this.DB.cargaison.maritime.values[key].coli[keyToEdit].produits.map(prod => {
+                                prod.status = etat;
+                                return prod;
+                            });
+                        });
+                    }
                 }
             });
         }
         else if (cargaison.typec == "routiere") {
-            this.DB.cargaison.routiere.values.map(c => {
+            this.DB.cargaison.routiere.values.forEach((c, key) => {
                 if (c.numero == codeCargo) {
-                    c.etatAvancement = etat;
-                    return c;
+                    this.DB.cargaison.routiere.values[key].etatAvancement = etat;
+                    if (Object.keys(this.DB.cargaison.routiere.values[key]).some(keysColi => keysColi == "coli")) {
+                        this.DB.cargaison.routiere.values[key].coli.forEach((coli, keyToEdit) => {
+                            this.DB.cargaison.routiere.values[key].coli[keyToEdit].produits.map(prod => {
+                                prod.status = etat;
+                                return prod;
+                            });
+                        });
+                    }
                 }
             });
         }
         else {
-            this.DB.cargaison.aerienne.values.map(c => {
+            this.DB.cargaison.aerienne.values.forEach((c, key) => {
                 if (c.numero == codeCargo) {
-                    c.etatAvancement = etat;
+                    this.DB.cargaison.aerienne.values[key].etatAvancement = etat;
+                    if (Object.keys(this.DB.cargaison.aerienne.values[key]).some(keysColi => keysColi == "coli")) {
+                        this.DB.cargaison.aerienne.values[key].coli.forEach((coli, keyToEdit) => {
+                            this.DB.cargaison.aerienne.values[key].coli[keyToEdit].produits.map(prod => {
+                                prod.status = etat;
+                                return prod;
+                            });
+                        });
+                    }
                 }
-                return c;
             });
         }
         return await this.dao.postData(this.DB);
     }
+    // InfoBIP
     async changerStatusProduit(produit, etat) {
         const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == produit.getCargaison());
         if (cargaison.typec == "maritime") {

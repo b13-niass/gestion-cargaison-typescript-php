@@ -9,6 +9,14 @@ import { Aerienne } from "./Model/Aerienne.js";
 import { FormatDate } from "./Model/FormatDate.js";
 (async () => {
     /** Variable Declaration **/
+    const logoutEl = document.getElementById("logout");
+    const gestionaireName = document.getElementById("gestionaire-name");
+    const gestionnaire = JSON.parse(sessionStorage.getItem('ges'));
+    gestionaireName.innerText = gestionnaire.nom;
+    logoutEl.addEventListener("click", (event) => {
+        sessionStorage.removeItem('ges');
+        location.href = '/login';
+    });
     // const headText : HTMLHeadElement = document.getElementById("head-text") as HTMLHeadElement;
     const headerBar = document.getElementById("header-bar");
     const dao = new DAO();

@@ -92,6 +92,33 @@ export class Validation {
     return valid;
   };
 
+  static checkRequireLogin = (inputArray: NodeListOf<HTMLInputElement>) => {
+    let valid = true;
+    inputArray.forEach((input) => {
+      const parent = input.parentNode as HTMLElement;
+      if (input.value.trim() === "") {
+        valid = false;
+        parent.classList.add("error");
+        Validation.showError2(input, `${Validation.getInputName(input)} est requis`);
+      } else {
+        Validation.showSuccees2(input);
+      }
+    });
+    valid = Validation.checkRequireLoginSupp(inputArray);
+    return valid;
+  };
+
+  static checkRequireLoginSupp = (inputArray: NodeListOf<HTMLInputElement>) => {
+    let valid = true;
+    inputArray.forEach((input) => {
+      const parent = input.parentNode as HTMLElement;
+      if(input.name == 'email'){
+        valid = Validation.email(input)
+      }
+    });
+    return valid;
+  };
+
   static validerDateAddCargo = (input: HTMLInputElement) => {
     let valid = true;
     const parent = input.parentNode as HTMLElement;
@@ -242,5 +269,23 @@ export class Validation {
     }
     return valid;
   }
+
+  // static passwordRegex(input: string):boolean{
+  //   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return regex.test(input);
+  // }
+  //
+  // static password(input: HTMLInputElement): boolean {
+  //   let valid = true;
+  //   const parent = input.parentNode as HTMLElement;
+  //   if (!Validation.passwordRegex(input.value)) {
+  //     valid = false;
+  //     parent.classList.add("error");
+  //     Validation.showError2(input, `${Validation.getInputName(input)} pas correct`);
+  //   } else {
+  //     Validation.showSuccees2(input);
+  //   }
+  //   return valid;
+  // }
 
 }

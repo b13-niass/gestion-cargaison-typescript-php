@@ -1,2 +1,8 @@
 "use strict";
-const headerBar = document.getElementById("header-bar");
+const redirect = () => {
+    if (!sessionStorage.getItem('ges')) {
+        window.location.href = '/login';
+        return;
+    }
+};
+redirect();

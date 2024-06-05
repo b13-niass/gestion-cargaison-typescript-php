@@ -83,6 +83,32 @@ export class Validation {
         valid = Validation.checkRequireGlobal3Supp1(inputArray);
         return valid;
     };
+    static checkRequireLogin = (inputArray) => {
+        let valid = true;
+        inputArray.forEach((input) => {
+            const parent = input.parentNode;
+            if (input.value.trim() === "") {
+                valid = false;
+                parent.classList.add("error");
+                Validation.showError2(input, `${Validation.getInputName(input)} est requis`);
+            }
+            else {
+                Validation.showSuccees2(input);
+            }
+        });
+        valid = Validation.checkRequireLoginSupp(inputArray);
+        return valid;
+    };
+    static checkRequireLoginSupp = (inputArray) => {
+        let valid = true;
+        inputArray.forEach((input) => {
+            const parent = input.parentNode;
+            if (input.name == 'email') {
+                valid = Validation.email(input);
+            }
+        });
+        return valid;
+    };
     static validerDateAddCargo = (input) => {
         let valid = true;
         const parent = input.parentNode;

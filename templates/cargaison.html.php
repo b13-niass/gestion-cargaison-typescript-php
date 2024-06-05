@@ -98,7 +98,7 @@
             </form>
         </div>
         <input type="radio" name="my_tabs_2" role="tab" style="width: 200px!important;" class="tab w-[100px]" aria-label="Lister Cargaison" checked />
-        <div role="tabpanel"  class="tab-content lg:w-[112%] bg-white rounded-lg shadow-md">
+        <div role="tabpanel"  class="tab-content lg:w-[100%] bg-white rounded-lg shadow-md">
             <!-- Header -->
             <div class="p-4 border-b border-gray-200">
                 <h2 class="text-2xl font-semibold text-gray-700">Les Produits de la cargaison</h2>
@@ -290,7 +290,7 @@
     function fetchCityName(latlng) {
         return fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}`)
             .then(response => response.json())
-            .then(data => data.address.city || data.address.town || data.address.village || 'Unknown location');
+            .then(data => data.address.country || data.address.region || data.address.city || data.address.town || data.address.village || 'Unknown location');
     }
 
     function fetchTest(latlng) {

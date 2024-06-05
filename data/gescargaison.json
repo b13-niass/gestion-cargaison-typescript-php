@@ -55,7 +55,7 @@
                                     "typep": "alimentaire",
                                     "poids": 100,
                                     "cargaison": "#123",
-                                    "status": "en attente"
+                                    "status": "EN ATTENTE"
                                 }
                             ],
                             "expediteur": {
@@ -86,7 +86,7 @@
                                     "typep": "incassable",
                                     "code": "#IXr7Fhq5Z",
                                     "cargaison": "#123",
-                                    "status": "en attente"
+                                    "status": "TERMINER"
                                 }
                             ],
                             "expediteur": {
@@ -123,8 +123,8 @@
                     "typec": "maritime",
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT",
+                    "etatAvancement": "TERMINER",
+                    "etatGlobal": "FERMER",
                     "coli": [
                         {
                             "code": "#YI2213",
@@ -135,7 +135,7 @@
                                     "typep": "alimentaire",
                                     "poids": 100,
                                     "cargaison": "#129",
-                                    "status": "en attente"
+                                    "status": "TERMINER"
                                 }
                             ],
                             "expediteur": {
@@ -166,7 +166,7 @@
                                     "typep": "alimentaire",
                                     "poids": 100,
                                     "cargaison": "#129",
-                                    "status": "en attente"
+                                    "status": "TERMINER"
                                 }
                             ],
                             "expediteur": {
@@ -197,7 +197,7 @@
                                     "typep": "alimentaire",
                                     "poids": 100,
                                     "cargaison": "#129",
-                                    "status": "en attente"
+                                    "status": "TERMINER"
                                 }
                             ],
                             "expediteur": {
@@ -218,6 +218,55 @@
                                 "pays": "Senegal",
                                 "code": "#YU2313"
                             }
+                        },
+                        {
+                            "code": "#ZtWr5fL",
+                            "produits": [
+                                {
+                                    "libelle": "Dicta non cumque seq",
+                                    "poids": "4",
+                                    "typep": "chimique",
+                                    "toxicite": "1",
+                                    "code": "#gAwUQBH8H",
+                                    "cargaison": "#129",
+                                    "status": "TERMINER"
+                                },
+                                {
+                                    "libelle": "Molestias ullamco pr",
+                                    "poids": "3",
+                                    "typep": "chimique",
+                                    "toxicite": "10",
+                                    "code": "#u8S7sfzKM",
+                                    "cargaison": "#129",
+                                    "status": "TERMINER"
+                                },
+                                {
+                                    "libelle": "testeeeee",
+                                    "poids": "2",
+                                    "typep": "alimentaire",
+                                    "code": "#EYJTgb5tT",
+                                    "cargaison": "#129",
+                                    "status": "TERMINER"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Qui iure qui aut duc",
+                                "prenom": "Qui culpa rerum est",
+                                "telephone": "771112211",
+                                "email": "gegobawac@mailinator.com",
+                                "ville": "Accusantium numquam ",
+                                "pays": "Autem nisi sapiente ",
+                                "code": "#ZtWr5fL"
+                            },
+                            "destinataire": {
+                                "nom": "test2",
+                                "prenom": "test2",
+                                "telephone": "772221122",
+                                "email": "test2@test2.com",
+                                "ville": "teste",
+                                "pays": "teste",
+                                "code": "#ZtWr5fL"
+                            }
                         }
                     ]
                 },
@@ -234,6 +283,22 @@
                     "typec": "maritime",
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
+                    "etatAvancement": "EN ATTENTE",
+                    "etatGlobal": "OUVERT"
+                },
+                {
+                    "numero": "#1025RVQ76",
+                    "poidsMax": 10,
+                    "nbrProduitMax": 0,
+                    "montantTotal": 1000,
+                    "lieuDepart": "S\u00e9n\u00e9gal",
+                    "lieuArrive": "Br\u00e9sil",
+                    "dateDepart": "2024-06-06",
+                    "dateArrive": "2024-06-19",
+                    "duree": 18720,
+                    "typec": "maritime",
+                    "image": "https:\/\/placehold.co\/500",
+                    "distance": 4951.07769159671,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "OUVERT"
                 }
@@ -302,7 +367,7 @@
                                     "typep": "fragile",
                                     "code": "#5BL0740Ur",
                                     "cargaison": "#131",
-                                    "status": "en attente"
+                                    "status": "EN ATTENTE"
                                 },
                                 {
                                     "libelle": "Molestias ullamco pr",
@@ -310,7 +375,7 @@
                                     "typep": "alimentaire",
                                     "code": "#KlPTTkdpt",
                                     "cargaison": "#131",
-                                    "status": "en attente"
+                                    "status": "EN ATTENTE"
                                 }
                             ],
                             "expediteur": {
@@ -341,7 +406,7 @@
                                     "typep": "alimentaire",
                                     "code": "#ufYS0fyin",
                                     "cargaison": "#131",
-                                    "status": "en attente"
+                                    "status": "EN ATTENTE"
                                 },
                                 {
                                     "libelle": "Molestias ullamco pr",
@@ -349,7 +414,7 @@
                                     "typep": "fragile",
                                     "code": "#KsLeD8hf5",
                                     "cargaison": "#131",
-                                    "status": "en attente"
+                                    "status": "EN ATTENTE"
                                 }
                             ],
                             "expediteur": {
@@ -460,8 +525,72 @@
                     "distance": 1000,
                     "etatAvancement": "EN ATTENTE",
                     "etatGlobal": "FERMER"
+                },
+                {
+                    "numero": "#9375BPA72",
+                    "poidsMax": 10,
+                    "nbrProduitMax": 0,
+                    "montantTotal": 1000,
+                    "lieuDepart": "S\u00e9n\u00e9gal",
+                    "lieuArrive": "B\u00e9larus",
+                    "dateDepart": "2024-06-05",
+                    "dateArrive": "2024-06-08",
+                    "duree": 4320,
+                    "typec": "routiere",
+                    "image": "https:\/\/placehold.co\/500",
+                    "distance": 5530.620496479072,
+                    "etatAvancement": "EN ATTENTE",
+                    "etatGlobal": "OUVERT",
+                    "coli": [
+                        {
+                            "code": "#fqKsuTM",
+                            "produits": [
+                                {
+                                    "libelle": "Laboris quidem eum s",
+                                    "poids": "5",
+                                    "typep": "alimentaire",
+                                    "code": "#sRL8BGzyc",
+                                    "cargaison": "#9375BPA72",
+                                    "status": "EN ATTENTE"
+                                },
+                                {
+                                    "libelle": "Molestias ullamco pr",
+                                    "poids": "5",
+                                    "typep": "alimentaire",
+                                    "code": "#5MuPyXQCk",
+                                    "cargaison": "#9375BPA72",
+                                    "status": "EN ATTENTE"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Qui iure qui aut duc",
+                                "prenom": "Qui culpa rerum est",
+                                "telephone": "771112211",
+                                "email": "gegobawac@mailinator.com",
+                                "ville": "Accusantium numquam ",
+                                "pays": "Autem nisi sapiente ",
+                                "code": "#fqKsuTM"
+                            },
+                            "destinataire": {
+                                "nom": "test2",
+                                "prenom": "test2",
+                                "telephone": "772626611",
+                                "email": "test2@test2.com",
+                                "ville": "dakar",
+                                "pays": "Senegal",
+                                "code": "#fqKsuTM"
+                            }
+                        }
+                    ]
                 }
             ]
         }
-    }
+    },
+    "gestionaire": [
+        {
+            "email": "app@app.com",
+            "password": "$2y$10$75CYWMj.xyGQCX8.QkYEhOA31yZYafOaMT3rnTibQUS6WccTW32d6",
+            "nom": "Ousseynou Sane"
+        }
+    ]
 }

@@ -23,7 +23,7 @@ export class ProduitFormHandler {
     // : Record<string, any>
     getFormData(){
         const formData = new FormData(this.formElement);
-        console.log(formData);
+        // console.log(formData);
         const data: Record<string, any> = {};
         formData.forEach((value, key) => {
             const match = key.match(/produit\[(\d+)\]\[(\w+)\]/);
@@ -67,7 +67,7 @@ export class ProduitFormHandler {
                     // this.getFormData();
                     callback(dataFirst);
             }else {
-                console.log("Error")
+                console.log("Error");
             }
         });
     }

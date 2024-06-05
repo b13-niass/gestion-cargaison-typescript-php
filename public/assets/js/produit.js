@@ -2,6 +2,14 @@ import { DAO } from "./Model/DAO.js";
 import { DbQuery } from "./Model/DbQuery.js";
 (async () => {
     /** Variable Declaration **/
+    const logoutEl = document.getElementById("logout");
+    const gestionaireName = document.getElementById("gestionaire-name");
+    const gestionnaire = JSON.parse(sessionStorage.getItem('ges'));
+    gestionaireName.innerText = gestionnaire.nom;
+    logoutEl.addEventListener("click", (event) => {
+        sessionStorage.removeItem('ges');
+        location.href = '/login';
+    });
     // const headText : HTMLDivElement = document.getElementById("head-text") as HTMLDivElement;
     const headerBar = document.getElementById("header-bar");
     const dao = new DAO();
@@ -17,10 +25,21 @@ import { DbQuery } from "./Model/DbQuery.js";
     const inputLibellep = document.querySelector("[id='libellep']");
     let codeDuProduit = "";
     /** Function Declaration **/
-    const builTemplateProduitColi = (produit) => {
-        const template = `<div class="product hover:cursor-pointer hover:bg-gray-400 flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
+    const builTemplateProduitColi = (produit, cargaison) => {
+        const template = `<div class="product hover:cursor-pointer hover:bg-gray-200 flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
                     <span class="text-gray-700">${produit.libelle} - ${produit.typep} - ${produit.poids} kg</span>
-                    <button data-codeProduit="${produit.code}" class="text-red-500 hover:text-red-700">Supprimer</button>
+                    <button data-codeProduit="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" ? "hidden" : ""} text-red-500 hover:text-red-700">Supprimer</button>
+                    <span class="badge badge-success ${cargaison.etatGlobal == "FERMER" ? "" : "hidden"}">${cargaison.etatAvancement}</span>
+                    <button data-codeproduitperdu="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" : "hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden" : ""}  btn bg-gray-700 hover:bg-gray-900 text-white">
+                       <i class="fa-solid fa-circle-exclamation"></i> Perdu
+                    </button>
+                    <button data-codeproduitrecuperer="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" : "hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden" : ""} btn bg-gray-700 hover:bg-gray-900 text-white">
+                        <i class="fa-solid fa-box-open"></i> Recupérer
+                    </button>
+                    <button data-codeproduitarchiver="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" : "hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden" : ""} btn bg-gray-700 hover:bg-gray-900 text-white">
+                       <i class="fa-solid fa-box-archive"></i> Archiver
+                    </button>
+                    <span class="badge bg-gray-800 text-white ${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" : "hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "" : "hidden"}">${produit.status}</span>
                 </div>`;
         productList.insertAdjacentHTML("beforeend", template);
     };
@@ -45,7 +64,7 @@ import { DbQuery } from "./Model/DbQuery.js";
                 let currentICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == coli?.produits[0].cargaison);
                 coliCargaison.innerHTML = currentICargaison.typec + ":" + currentICargaison.lieuDepart + "-" + currentICargaison.lieuArrive;
                 coli.produits?.forEach(produit => {
-                    builTemplateProduitColi(produit);
+                    builTemplateProduitColi(produit, currentICargaison);
                 });
                 onClickButtonDeleteColi();
             }

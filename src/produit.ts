@@ -1,11 +1,21 @@
 import {DAO} from "./Model/DAO.js";
-import {DBStructure, ICargaison, IColi, IProduit} from "./Interface/DataBinding.js";
+import {DBStructure, ICargaison, IColi, IProduit, loginInformation} from "./Interface/DataBinding.js";
 import {ProduitFormHandler} from "./Model/ProduitFormHandler";
 import {Produit} from "./Model/Produit";
 import {DbQuery} from "./Model/DbQuery.js";
 
 (async () => {
      /** Variable Declaration **/
+     const logoutEl = document.getElementById("logout") as HTMLLinkElement;
+    const gestionaireName = document.getElementById("gestionaire-name") as HTMLLinkElement;
+    const gestionnaire: loginInformation = JSON.parse(sessionStorage.getItem('ges')!);
+
+    gestionaireName.innerText = gestionnaire.nom!;
+
+    logoutEl.addEventListener("click", (event: Event) => {
+        sessionStorage.removeItem('ges');
+        location.href = '/login';
+    })
 
     // const headText : HTMLDivElement = document.getElementById("head-text") as HTMLDivElement;
      const headerBar : HTMLHeadElement = document.getElementById("header-bar") as HTMLHeadElement;
@@ -23,10 +33,21 @@ import {DbQuery} from "./Model/DbQuery.js";
     let codeDuProduit : string = "";
 
     /** Function Declaration **/
-    const builTemplateProduitColi = (produit: IProduit) => {
-        const template: string = `<div class="product hover:cursor-pointer hover:bg-gray-400 flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
+    const builTemplateProduitColi = (produit: IProduit,cargaison: ICargaison) => {
+        const template: string = `<div class="product hover:cursor-pointer hover:bg-gray-200 flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg mb-2">
                     <span class="text-gray-700">${produit.libelle} - ${produit.typep} - ${produit.poids} kg</span>
-                    <button data-codeProduit="${produit.code}" class="text-red-500 hover:text-red-700">Supprimer</button>
+                    <button data-codeProduit="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER"? "hidden" :""} text-red-500 hover:text-red-700">Supprimer</button>
+                    <span class="badge badge-success ${cargaison.etatGlobal == "FERMER"? "" :"hidden"}">${cargaison.etatAvancement}</span>
+                    <button data-codeproduitperdu="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER" ? "" :"hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden": ""}  btn bg-gray-700 hover:bg-gray-900 text-white">
+                       <i class="fa-solid fa-circle-exclamation"></i> Perdu
+                    </button>
+                    <button data-codeproduitrecuperer="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER"? "" :"hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden": ""} btn bg-gray-700 hover:bg-gray-900 text-white">
+                        <i class="fa-solid fa-box-open"></i> Recupérer
+                    </button>
+                    <button data-codeproduitarchiver="${produit.code}" type="button" class="${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER"? "" :"hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "hidden": ""} btn bg-gray-700 hover:bg-gray-900 text-white">
+                       <i class="fa-solid fa-box-archive"></i> Archiver
+                    </button>
+                    <span class="badge bg-gray-800 text-white ${cargaison.etatGlobal == "FERMER" && cargaison.etatAvancement == "TERMINER"? "" :"hidden"} ${produit.status == "PERDUE" || produit.status == "RECUPERER" || produit.status == "ARCHIVER" ? "": "hidden"}">${produit.status}</span>
                 </div>`;
         productList.insertAdjacentHTML("beforeend", template);
     }
@@ -54,7 +75,7 @@ import {DbQuery} from "./Model/DbQuery.js";
                 let currentICargaison: ICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == coli?.produits![0].cargaison!)!;
                 coliCargaison.innerHTML = currentICargaison.typec + ":" + currentICargaison.lieuDepart + "-"+ currentICargaison.lieuArrive
                 coli.produits?.forEach(produit => {
-                    builTemplateProduitColi(produit);
+                    builTemplateProduitColi(produit, currentICargaison);
                 });
                 onClickButtonDeleteColi();
 

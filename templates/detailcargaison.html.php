@@ -143,12 +143,13 @@
                 </div>
                 <div class="collapse-content w-[100%] flex flex-col gap-y-2">
                     <div class="flex flex-row gap-x-3 justify-between items-center flex-wrap bg-gray-800 shadow-lg rounded-lg p-2 w-full">
-                        <button class="text-2xl text-gray-800 hover:bg-gray-200 btn btn-circle bg-white">+</button>
+                        <button id="addligneproduit" type="button" class="text-2xl text-gray-800 hover:bg-gray-200 btn btn-circle bg-white">+</button>
                     </div>
 
-                    <div class="flex flex-row gap-x-3 gap-y-2 items-center flex-wrap bg-white shadow-lg rounded-lg p-1 w-full">
-                        <div class="w-full p-3 bg-gray-100 rounded-lg flex gap-x-3 flex-wrap flex-row items-center">
+                    <div id="content-lignproduit" class="flex flex-row gap-x-3 gap-y-2 items-center flex-wrap bg-white shadow-lg rounded-lg p-1 w-full">
+                        <div class="relative w-full p-3 bg-gray-100 rounded-lg flex gap-x-3 flex-wrap flex-row items-center">
                             <h4 class="text-xl font-bold mb-4 w-[100%]">Produit 2</h4>
+                            <button type="button" data-ligneproduitbutton="2" id="ligneproduit" class="absolute text-2xl right-0 top-0 text-white hover:bg-gray-700 btn btn-circle bg-gray-800">X</button>
                             <div class="content mb-4 flex-1">
                                 <label for="libelle" class="block text-gray-700 mb-2">libelle:</label>
                                 <input type="text" id="libelle" name="produit[1][libelle]" class="w-full px-3 py-2 bg-white text-gray-800 border border-gray-300 rounded-lg">
@@ -176,6 +177,7 @@
                                 <!--                <span class="error-message text-[0.8rem]">error</span>-->
                             </div>
                         </div>
+
                         <div class="w-full p-3 bg-gray-100 rounded-lg flex gap-x-3 flex-wrap flex-row items-center">
                             <h4 class="text-xl font-bold mb-4 w-[100%]">Produit 1</h4>
                             <div class="content mb-4 flex-1">
@@ -215,7 +217,7 @@
 
             <div id="alertDanger" role="alert" class="hidden alert alert-error w-1/3">
                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span>Le Produit ne peux pas être ajouter.</span>
+                <span>volume restant non suffisant.</span>
             </div>
         </form>
     </div>

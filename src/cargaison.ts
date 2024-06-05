@@ -1,5 +1,5 @@
 import {DAO} from "./Model/DAO.js";
-import {DBStructure, ICargaison, ISubmitCargaison} from "./Interface/DataBinding.js";
+import {DBStructure, ICargaison, ISubmitCargaison, loginInformation} from "./Interface/DataBinding.js";
 import {DbQuery} from "./Model/DbQuery.js";
 import {Cargaison} from "./Model/Cargaison.js";
 import {Pagination} from "./Model/Pagination.js";
@@ -9,8 +9,20 @@ import {Maritime} from "./Model/Maritime.js";
 import {Routiere} from "./Model/Routiere.js";
 import {Aerienne} from "./Model/Aerienne.js";
 import {FormatDate} from "./Model/FormatDate.js";
+
 (async () => {
     /** Variable Declaration **/
+    const logoutEl = document.getElementById("logout") as HTMLLinkElement;
+    const gestionaireName = document.getElementById("gestionaire-name") as HTMLLinkElement;
+    const gestionnaire: loginInformation = JSON.parse(sessionStorage.getItem('ges')!);
+
+    gestionaireName.innerText = gestionnaire.nom!;
+
+    logoutEl.addEventListener("click", (event: Event) => {
+        sessionStorage.removeItem('ges');
+        location.href = '/login';
+    })
+
     // const headText : HTMLHeadElement = document.getElementById("head-text") as HTMLHeadElement;
     const headerBar : HTMLHeadElement = document.getElementById("header-bar") as HTMLHeadElement;
     const dao = new DAO();
@@ -210,8 +222,6 @@ import {FormatDate} from "./Model/FormatDate.js";
     if (dateArriveInit) {
         dateArriveInit.min = getTodayDate();
     }
-
-
 
     /** Event Declaration **/
 

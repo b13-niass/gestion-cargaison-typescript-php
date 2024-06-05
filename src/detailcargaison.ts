@@ -1,10 +1,17 @@
 import {DAO} from "./Model/DAO.js";
-import {DBStructure, ICargaison, IClientStructures, IColi, IProduit} from "./Interface/DataBinding.js";
+import {
+    DBStructure,
+    ICargaison,
+    IClientStructures,
+    IColi,
+    IProduit,
+    loginInformation
+} from "./Interface/DataBinding.js";
 import {DbQuery} from "./Model/DbQuery.js";
 import {Cargaison} from "./Model/Cargaison.js";
 import {ProduitFormHandler} from "./Model/ProduitFormHandler.js";
 import {Client} from "./Model/Client.js";
-import {Produit} from "./Model/Produit";
+import {Produit} from "./Model/Produit.js";
 
 interface infoProduit {
     libelle: string;
@@ -32,6 +39,18 @@ interface infoAllAddProduit{
 
 (async () => {
     /** Variable Declaration **/
+
+    const logoutEl = document.getElementById("logout") as HTMLLinkElement;
+    const gestionaireName = document.getElementById("gestionaire-name") as HTMLLinkElement;
+    const gestionnaire: loginInformation = JSON.parse(sessionStorage.getItem('ges')!);
+
+    gestionaireName.innerText = gestionnaire.nom!;
+
+    logoutEl.addEventListener("click", (event: Event) => {
+        sessionStorage.removeItem('ges');
+        location.href = '/login';
+    })
+
     // const headText : HTMLDivElement = document.getElementById("head-text") as HTMLDivElement;
     const headerBar : HTMLHeadElement = document.getElementById("header-bar") as HTMLHeadElement;
 
@@ -66,7 +85,12 @@ interface infoAllAddProduit{
     const etatVolume = document.getElementById("etatVolume") as HTMLPreElement;
     const etatGlobal = document.getElementById("etatGlobal") as HTMLPreElement;
     const etatAvancement = document.getElementById("etatAvancement") as HTMLPreElement;
+    const ligneproduit2 = document.getElementById("ligneproduit2") as HTMLDivElement;
+    const addligneproduit = document.getElementById("addligneproduit") as HTMLDivElement;
 
+    const contentLignproduit = document.getElementById("content-lignproduit") as HTMLDivElement;
+
+    let nbrLignProduit = 1;
 
     const templateToxicite = (numero: number) => {
         return `<label for="toxicite" class="block text-gray-700 mb-2">Toxicite:</label>
@@ -87,6 +111,44 @@ interface infoAllAddProduit{
     // const numeroCargaisonEl = document.getElementById("numeroCargaison") as HTMLInputElement;
 
     /** Function Declaration **/
+
+    const templateLigneProduit = () => {
+        ++nbrLignProduit;
+        return `
+        <div class="relative w-full p-3 bg-gray-100 rounded-lg flex gap-x-3 flex-wrap flex-row items-center">
+            <h4 class="text-xl font-bold mb-4 w-[100%]">Produit ${nbrLignProduit + 1}</h4>
+            <button type="button" data-ligneproduitbutton="${nbrLignProduit}" id="ligneproduit" class="absolute text-2xl right-0 top-0 text-white hover:bg-gray-700 btn btn-circle bg-gray-800">X</button>
+            <div class="content mb-4 flex-1">
+                <label for="libelle" class="block text-gray-700 mb-2">libelle:</label>
+                <input type="text" id="libelle" name="produit[${nbrLignProduit}][libelle]" class="w-full px-3 py-2 bg-white text-gray-800 border border-gray-300 rounded-lg">
+                <span class="error-message text-[0.8rem]">error</span>
+            </div>
+            <div class="content mb-4 flex-1">
+                <label for="poids" class="block text-gray-700 mb-2">Poids:</label>
+                <input type="text" id="poids" name="produit[${nbrLignProduit}][poids]" class="w-full bg-white text-gray-800 px-3 py-2 border border-gray-300 rounded-lg">
+                <span class="error-message text-[0.8rem]">error</span>
+            </div>
+            <div data-ligneproduit="1" class="content mb-4 flex-1">
+                <label for="typep" class="block text-gray-700">Type De produit</label>
+                <select id="typep" name="produit[${nbrLignProduit}][typep]" class="typeProduitContent filter-bar mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Sélectionner un type</option>
+                    <option value="chimique">Chimique</option>
+                    <option value="alimentaire">Alimentaire</option>
+                    <option value="fragile">Fragile</option>
+                    <option value="incassable">Incassable</option>
+                </select>
+                <span class="error-message text-[0.8rem]">error</span>
+            </div>
+            <div id="contentToxique" class="content mb-4 flex-1">
+
+            </div>
+        </div>
+        `;
+    }
+
+    const buildLigneProduit = () => {
+        contentLignproduit.insertAdjacentHTML("afterbegin", templateLigneProduit());
+    }
 
     const onChangeTypeProduit = () => {
         const typepAll = document.querySelectorAll("select[id='typep']") as NodeListOf<HTMLSelectElement>;
@@ -118,6 +180,7 @@ interface infoAllAddProduit{
     }
 
     const typeProduitInitOptions = () => {
+        const typeProduitContent = document.querySelectorAll(".typeProduitContent") as NodeListOf<HTMLSelectElement>;
         typeProduitContent.forEach(select => {
             if (currentCargaison.getTypec() == "maritime"){
                 select.innerHTML = `
@@ -226,21 +289,20 @@ interface infoAllAddProduit{
         if (currentICargaison.nbrProduitMax! > 0){
             return currentICargaison.nbrProduitMax! - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
         }else {
-            return currentICargaison.poidsMax! - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
+            return parseInt(""+currentICargaison.poidsMax!) - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
         }
     }
     // console.log(currentICargaison.nbrProduitMax)
-   const showPleineOuPas = (currentICargaison: ICargaison):string => {
+    const showPleineOuPas = (currentICargaison: ICargaison):string => {
      if (dbQuery.comptVolumeContentCargo(currentCargaisonCode) == currentICargaison.nbrProduitMax && currentICargaison.nbrProduitMax > 0)
      {
          return "Pleine";
-     }else if (dbQuery.comptVolumeContentCargo(currentCargaisonCode) == currentICargaison.poidsMax && currentICargaison.poidsMax > 0){
+     }else if (dbQuery.comptVolumeContentCargo(currentCargaisonCode) == parseInt(""+currentICargaison.poidsMax) && parseInt(""+currentICargaison.poidsMax) > 0){
          return "Pleine";
      }else {
          return "Pas Pleine";
      }
     }
-
     const initialiserHeader = (currentICargaison: ICargaison) => {
         volumeRestant.innerHTML = currentICargaison.nbrProduitMax! > 0
             ? calculVolumeRestant(currentICargaison) + " produits restant"
@@ -250,20 +312,32 @@ interface infoAllAddProduit{
         etatGlobal.innerHTML = currentICargaison.etatGlobal!;
         etatAvancement.innerHTML = currentICargaison.etatAvancement!;
     }
-
+    const onDataLigneproduits = () => {
+        const dataLigneproduits = document.querySelectorAll("[data-ligneproduitbutton]") as NodeListOf<HTMLButtonElement>;
+        // console.log(dataLigneproduits);
+        dataLigneproduits.forEach((dtL: HTMLButtonElement) => {
+            dtL.addEventListener("click", (event: Event) => {
+                (dtL.parentElement as HTMLDivElement).remove();
+                if (nbrLignProduit >= 1 ){
+                    nbrLignProduit = nbrLignProduit - 1;
+                }
+            })
+        })
+    }
     /** Initialisation **/
     // headText.innerHTML = "Ajouter un produit dans la cargaison";
     // numeroCargaisonEl.value = currentCargaisonCode;
 
     initialiserHeader(currentICargaison);
     headInfoCargo.innerHTML = "Une cargaison "+ currentICargaison.typec!;
-    volumeInfoCargo.innerHTML = "Volume: "+ (currentICargaison.poidsMax! > 0? currentICargaison.poidsMax+"Kg au Maximum": currentICargaison.nbrProduitMax ) + " produits au Maximum";
+    volumeInfoCargo.innerHTML = "Volume: "+ (currentICargaison.poidsMax! > 0? currentICargaison.poidsMax+"Kg au Maximum": (currentICargaison.nbrProduitMax + " produits au Maximum") );
     descInfoCargo.innerHTML = "Cette cargaison quitte " + currentICargaison.lieuDepart + " pour " + currentICargaison.lieuArrive;
     dateDepartInfoCargo.innerHTML = "Départ: "+ currentICargaison.dateDepart;
     dateArriveInfoCargo.innerHTML = "Arrivée: "+ currentICargaison.dateArrive;
     initDetailCargoButton(currentICargaison);
     onChangeTypeProduit();
     typeProduitInitOptions();
+    onDataLigneproduits()
 
     /** Event Declaration **/
     produitFormHandler.handleSubmit(async (data) => {
@@ -276,7 +350,7 @@ interface infoAllAddProduit{
             produits: formData.produit.map(p => {
                 p.code = generateRandomCode(9);
                 p.cargaison = currentICargaison.numero!;
-                p.status = "en attente";
+                p.status = "EN ATTENTE";
                 return p
             }),
             expediteur: {
@@ -301,16 +375,34 @@ interface infoAllAddProduit{
         if (dbQuery.isCargaisonOpened(currentICargaison.numero!) && dbQuery.isCargaisonEnAttente(currentICargaison.numero!)
             && !dbQuery.isCargoFull(currentICargaison.numero!)) {
             const volumeContent: number = dbQuery.comptVolumeContentCargo(currentICargaison.numero!);
+            // console.log("VolumeActuContenu: "+volumeContent)
+            // console.log("VolumeActu: "+currentCargaison.getPoidsMax())
             if (currentCargaison.getPoidsMax() > 0) {
                 let sommePoidsProduit: number = 0;
                 coli.produits!.forEach((p) => {
-                    sommePoidsProduit += p.poids!
+                    sommePoidsProduit += parseInt(""+p.poids!);
                 })
+                // console.log("sommePoidsProduit: "+ sommePoidsProduit )
+                // console.log("volumeContent: "+ volumeContent)
+                // console.log("Somme volume: "+ (sommePoidsProduit + volumeContent))
                 if ((sommePoidsProduit + volumeContent) <= currentCargaison.getPoidsMax()) {
                     alertSuccess.classList.remove("hidden");
                     alertDanger.classList.add("hidden");
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
+                    // console.log({...coli, ...{formulaires: "ajout_produits"}})
+                    await dao.postDataGenPDF(data = {...coli, ...{formulaires: "ajout_produits"}})
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'generated.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                            // console.log(blob)
+                        });
                     if (dbQuery.isCargoFull(currentICargaison.numero!)){
                         disableFormAddProduit();
                     }
@@ -328,6 +420,20 @@ interface infoAllAddProduit{
                     alertDanger.classList.add("hidden");
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
+                    // console.log({...coli, ...{formulaires: "ajout_produits"}})
+                    await dao.postDataGenPDF(data = {...coli, ...{formulaires: "ajout_produits"}})
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'generated.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                        });
+
+                    // console.log(result);
                     if (dbQuery.isCargoFull(currentICargaison.numero!)){
                         disableFormAddProduit();
                     }
@@ -360,6 +466,19 @@ interface infoAllAddProduit{
     telRecepteur.addEventListener("input", (event: Event)=>{
 
     })
+
+    // ligneproduit2.addEventListener("click", (event: Event) => {
+    //     (ligneproduit2.parentElement as HTMLDivElement).remove();
+    //     nbrLignProduit = nbrLignProduit - 1;
+    // })
+
+    addligneproduit.addEventListener("click", (event: Event)=> {
+        buildLigneProduit();
+        onDataLigneproduits();
+        typeProduitInitOptions();
+        onChangeTypeProduit();
+    })
+
     changerEtatFermer.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtaGlobalCargo(changerEtatFermer.dataset.numerocargo!, "FERMER");
         dbQuery.setDB(DB);
