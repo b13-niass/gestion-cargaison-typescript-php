@@ -386,34 +386,20 @@ interface infoAllAddProduit{
         if (dbQuery.isCargaisonOpened(currentICargaison.numero!) && dbQuery.isCargaisonEnAttente(currentICargaison.numero!)
             && !dbQuery.isCargoFull(currentICargaison.numero!)) {
             const volumeContent: number = dbQuery.comptVolumeContentCargo(currentICargaison.numero!);
-            // console.log("VolumeActuContenu: "+volumeContent)
-            // console.log("VolumeActu: "+currentCargaison.getPoidsMax())
             if (currentCargaison.getPoidsMax() > 0) {
                 let sommePoidsProduit: number = 0;
                 coli.produits!.forEach((p) => {
                     sommePoidsProduit += parseInt(""+p.poids!);
                 })
-                // console.log("sommePoidsProduit: "+ sommePoidsProduit )
-                // console.log("volumeContent: "+ volumeContent)
-                // console.log("Somme volume: "+ (sommePoidsProduit + volumeContent))
                 if ((sommePoidsProduit + volumeContent) <= currentCargaison.getPoidsMax()) {
                     alertSuccess.classList.remove("hidden");
                     alertDanger.classList.add("hidden");
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
-                    // console.log({...coli, ...{formulaires: "ajout_produits"}})
-                    await dao.postDataGenPDF(data = {...coli, ...{formulaires: "ajout_produits"}})
-                        .then(blob => {
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = 'generated.pdf';
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                            // console.log(blob)
-                        });
+
+                    const result = await dao.postDataOther(data = {...coli, ...{formulaires: "ajout_produits"}});
+                    console.log(result);
+
                     if (dbQuery.isCargoFull(currentICargaison.numero!)){
                         disableFormAddProduit();
                     }
@@ -431,20 +417,10 @@ interface infoAllAddProduit{
                     alertDanger.classList.add("hidden");
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
-                    // console.log({...coli, ...{formulaires: "ajout_produits"}})
-                    await dao.postDataGenPDF(data = {...coli, ...{formulaires: "ajout_produits"}})
-                        .then(blob => {
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = 'generated.pdf';
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                        });
 
-                    // console.log(result);
+                    const result = await dao.postDataOther(data = {...coli, ...{formulaires: "ajout_produits"}});
+                    console.log(result);
+
                     if (dbQuery.isCargoFull(currentICargaison.numero!)){
                         disableFormAddProduit();
                     }

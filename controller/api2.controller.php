@@ -14,34 +14,103 @@ require_once  WEBROOT."/config/Twilio/Rest/Client.php";
 require_once WEBROOT."/model/api2.model.php";
 require_once WEBROOT."/config/TCPDF/tcpdf.php";
 
-function generatePDF($sender, $recipient, $products, $totalAmount) {
-    $pdf = new Tcpdf();
 
-    // Définir les informations du document
+/** Déclaration des Variables **/
+
+$data = findAllData();
+
+/** Déclaration des Fonctions **/
+
+function findCargaison($numero) {
+    $file_data = findAllData();
+    foreach ($file_data["cargaison"]["maritime"]["values"] as $key => $cargo) {
+        if ($cargo["numero"] == $numero){
+            return $cargo;
+        }
+    }
+    foreach ($file_data["cargaison"]["aerienne"]["values"] as $key => $cargo) {
+        if ($cargo["numero"] == $numero){
+            return $cargo;
+        }
+    }
+    foreach ($file_data["cargaison"]["routiere"]["values"] as $key => $cargo) {
+        if ($cargo["numero"] == $numero){
+            return $cargo;
+        }
+    }
+    return [];
+}
+
+function findFrais($type, $typep){
+    $cargaisons = findAllData()["cargaison"];
+    if ($type == "maritime"){
+        if ($typep == "alimentaire")
+            return $cargaisons["maritime"]["fraisTransport"][0];
+        else if ($typep == "chimique")
+            return $cargaisons["maritime"]["fraisTransport"][1];
+        else
+            return $cargaisons["maritime"]["fraisTransport"][2];
+    }else if ($type == "routiere"){
+        if ($typep == "alimentaire")
+            return $cargaisons["routiere"]["fraisTransport"][0];
+        else
+            return $cargaisons["routiere"]["fraisTransport"][1];
+    }else{
+        if ($typep == "alimentaire")
+            return $cargaisons["aerienne"]["fraisTransport"][0];
+        else
+            return $cargaisons["aerienne"]["fraisTransport"][1];
+    }
+}
+
+function calculerMontantUnique($produit){
+    $cargo = findCargaison($produit["cargaison"]);
+    $frais = findFrais($cargo["typec"],$produit["typep"]);
+    return ceil((($produit["poids"] / $frais["poids"]) * ($cargo["distance"]/ $frais["param"]) * $frais["tarif"])+ $frais["autreFrais"]);
+}
+
+function calculerMontantTotal($produits){
+    $somme = 0;
+    foreach ($produits as $produit){
+        $somme += calculerMontantUnique($produit);
+    }
+    return $somme;
+}
+
+function generatePDF($sender, $recipient, $products, $cargaison, $uniqueCode, $emails) {
+    $pdf = new TCPDF();
+
+    // Set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('Votre Nom');
     $pdf->SetTitle('Informations sur le reçu');
     $pdf->SetSubject('Détails du Colis');
 
-    // Ajouter une page
+    // Add a page
     $pdf->AddPage();
 
-    // Titre
+    // Title
     $pdf->SetFont('helvetica', 'B', 20);
     $pdf->Cell(0, 15, 'Informations du Colis', 0, 1, 'C');
     $pdf->Ln(10);
 
-    // Informations sur l'expéditeur et le destinataire
+    // Sender and recipient information
     $pdf->SetFont('helvetica', '', 12);
-    $pdf->Cell(0, 10, 'Expéditeur:', 0, 1);
-    $pdf->MultiCell(0, 10, $sender, 0, 1);
-    $pdf->Ln(5);
 
-    $pdf->Cell(0, 10, 'Destinataire:', 0, 1);
-    $pdf->MultiCell(0, 10, $recipient, 0, 1);
+    // Sender (left side)
+    $pdf->SetX(15);
+    $pdf->MultiCell(90, 10, 'Expéditeur:' . "\n" . $sender, 0, 'L');
+
+    // Recipient (right side)
+    $pdf->SetXY(105, 45); // Adjust position for right side
+    $pdf->MultiCell(90, 10, 'Destinataire:' . "\n" . $recipient, 0, 'R');
+    $pdf->Ln(20);
+
     $pdf->Ln(10);
+    $pdf->SetFont('helvetica', '', 12);
+    $pdf->Cell(0, 10, 'Cargaison: ' . $cargaison["lieuDepart"]."-". $cargaison["lieuArrive"], 0, 1, 'C');
 
-    // Table des produits
+    // Table of products
     $pdf->SetFont('helvetica', 'B', 12);
     $pdf->Cell(60, 10, 'Produit', 1);
     $pdf->Cell(40, 10, 'Poids (kg)', 1);
@@ -54,47 +123,56 @@ function generatePDF($sender, $recipient, $products, $totalAmount) {
         $pdf->Cell(60, 10, $product['libelle'], 1);
         $pdf->Cell(40, 10, $product['poids'], 1);
         $pdf->Cell(40, 10, $product['typep'], 1);
-        $pdf->Cell(40, 10, 0, 1);
+        $pdf->Cell(40, 10, calculerMontantUnique($product), 1);
         $pdf->Ln();
     }
 
-    // Montant total
+    // Total amount
     $pdf->Ln(10);
     $pdf->SetFont('helvetica', 'B', 12);
-    $pdf->Cell(0, 10, 'Montant total: ' . $totalAmount . ' EUR', 0, 1, 'R');
+    $pdf->Cell(0, 10, 'Montant total: ' . calculerMontantTotal($products) . ' Fcfa', 0, 1, 'R');
 
-    // Générer le PDF
-//    $pdf->Output('colis.pdf', 'I');
-    $pdfString = $pdf->Output('generated.pdf', 'S');
+    // Shipment information and unique code at the bottom
+    $pdf->Ln(10);
+    $pdf->SetFont('helvetica', 'I', 12);
+    $pdf->Cell(0, 10, 'Code unique du Colis: ' . $uniqueCode, 0, 1, 'C');
 
-    // Send the PDF to the browser
-    header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename="generated.pdf"');
-    echo $pdfString;
+    // Generate the PDF
+    $pdfString = $pdf->Output('information_coli.pdf', 'S');
+
+    // Send the PDF via email
+    foreach ($emails as $email) {
+        sendSingleEmail($pdfString, $email);
+    }
 }
 
-function sendSMSWithTwilio( $message, $sender="",$receiver=""){
+function sendSMSWithTwilio( $message, $receiver){
     $sid = "AC72176a0f4ef9ef1f7c5123604cec1c5d";
     $token = "cef68799eb282b06811c85e4f019ab65";
     $client = new Client($sid, $token);
 
-// Use the Client to make requests to the Twilio REST API
-    $client->messages->create(
-    // The number you'd like to send the message to
-        '+221767819339',
-        [
-            'from' => '+13346860878',
-            'body' => "Le code du coli est : ".$message
-        ]
-    );
+//    foreach ($receiver as $key => $value){
+        $client->messages->create(
+            "+221767819339",
+            [
+                'from' => '+13346860878',
+                'body' => "Votre coli a été ajouté et Le code du coli est : ".$message
+            ]
+        );
+//    }
+
 }
 
-function sendSingleEmail($email, $code){
-    $result = sendMailToApprenant($code, 'codev13.sendmail@gmail.com', $email);
+//function sendSMSWith(){
+//    $dd = curl
+//}
+
+function sendSingleEmail($pdf,$email){
+    $result = sendMailToApprenant($pdf, $email, 'codev13.sendmail@gmail.com');
     return $result;
 }
 
-function sendMailToApprenant($code, $email_from, $email_to){
+function sendMailToApprenant($pdf, $email_to, $email_from){
 
     $mail = new PHPMailer();
     // configure an SMTP
@@ -107,12 +185,15 @@ function sendMailToApprenant($code, $email_from, $email_to){
     // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->SMTPDebug = 0;
-    $mail->setFrom($email_from, 'Orange Digital Center');
+    $mail->setFrom($email_from, 'GP du Monde');
     $mail->addAddress($email_to, 'Me');
-    $mail->Subject = 'Connecter-vous pour marquer votre présence';
+    $mail->Subject = 'Information du Coli';
+    $mail->addStringAttachment($pdf, "information_coli.pdf");
+
     // // Set HTML
     $mail->isHTML(TRUE);
-    $mail->Body = $code;
+    $mail->Body = "Veuillez trouver ci-joint le PDF avec les informations du colis.";
+
     try{
         if(!$mail->send()){
             return false;
@@ -138,16 +219,24 @@ function login($email, $password)
     return false;
 }
 
+/** Création des Controles **/
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $coli = json_decode(file_get_contents("php://input"), true);
-//  echo json_encode($coli['destinataire']['prenom']);
     if ($coli["formulaires"] == "ajout_produits"){
-        sendSMSWithTwilio($coli['code'],"","");
-        sendSingleEmail($coli['expediteur']['email'],$coli['code']);
-        sendSingleEmail($coli['destinataire']['email'],$coli['code']);
+        $numbers = ["expediteur" => $coli['expediteur']['telephone'], "destinataire" => $coli['destinataire']['telephone']];
+        sendSMSWithTwilio($coli['code'],$numbers);
+
+        $cargaison = findCargaison($coli["produits"][0]["cargaison"]);
+//        echo json_encode($cargaison);
+
+        $emails = ["email" => $coli['expediteur']['email'],"email" => $coli['destinataire']['email'] ];
         $sender = $coli['expediteur']['prenom']."\n".$coli['expediteur']['nom']."\n".$coli['expediteur']['email']."\n".$coli['expediteur']['pays'];
         $recipient =  $coli['destinataire']['prenom']."\n".$coli['destinataire']['nom']."\n".$coli['destinataire']['email']."\n".$coli['destinataire']['pays'];
-        generatePDF($sender, $recipient, $coli["produits"], 0);
+
+        generatePDF($sender, $recipient, $coli["produits"], $cargaison, $coli["code"], $emails);
+        echo json_encode(["result" => "success"]);
+
     }else if ($coli["formulaires"] == "login"){
 //        echo password_hash("passer", PASSWORD_BCRYPT);
         $email = $coli["email"];

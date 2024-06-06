@@ -43,72 +43,9 @@
                     "typec": "maritime",
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
-                    "etatAvancement": "ARCHIVER",
-                    "etatGlobal": "FERMER",
-                    "coli": [
-                        {
-                            "code": "#YX2213",
-                            "produits": [
-                                {
-                                    "code": "#YXZYZSDF",
-                                    "libelle": "Lait",
-                                    "typep": "alimentaire",
-                                    "poids": 100,
-                                    "cargaison": "#123",
-                                    "status": "ARCHIVER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Mohamed",
-                                "prenom": "Mohamed",
-                                "telephone": "772881122",
-                                "email": "mohamed@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YX2213"
-                            },
-                            "destinataire": {
-                                "nom": "Ibrahima",
-                                "prenom": "Ibrahima",
-                                "telephone": "761872299",
-                                "email": "ibrahima@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YX2213"
-                            }
-                        },
-                        {
-                            "code": "#pkkJKDY",
-                            "produits": [
-                                {
-                                    "libelle": "Ex vel eius voluptat",
-                                    "poids": "1",
-                                    "typep": "incassable",
-                                    "code": "#IXr7Fhq5Z",
-                                    "cargaison": "#123",
-                                    "status": "ARCHIVER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Qui iure qui aut duc",
-                                "prenom": "Qui culpa rerum est",
-                                "telephone": "771112211",
-                                "email": "gegobawac@mailinator.com",
-                                "ville": "Accusantium numquam ",
-                                "pays": "Autem nisi sapiente ",
-                                "code": "#pkkJKDY"
-                            },
-                            "destinataire": {
-                                "nom": "Dignissimos temporib",
-                                "prenom": "Ut est excepturi est",
-                                "telephone": "771112222",
-                                "email": "zikyto@mailinator.com",
-                                "ville": "A laboriosam nihil ",
-                                "pays": "Ad quidem accusantiu",
-                                "code": "#pkkJKDY"
-                            }
-                        }
-                    ]
+                    "etatAvancement": "EN ATTENTE",
+                    "etatGlobal": "OUVERT",
+                    "coli": []
                 },
                 {
                     "numero": "#129",
