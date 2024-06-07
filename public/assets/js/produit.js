@@ -160,11 +160,13 @@ import { DbQuery } from "./Model/DbQuery.js";
     btnArchiverModal.addEventListener("click", async () => {
         let produit = dbQuery.findProduitByCode(codeDuProduit);
         if (produit != undefined) {
+            let coli = dbQuery.findColiByProduit(produit?.getCode());
             let currentICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison());
             const DBresult = await dbQuery.changerStatusProduit(produit, "ARCHIVER");
             dbQuery.setDB(DB);
             myModal2.classList.remove("modal-open");
             reloadListProduit();
+            await dao.postDataOther({ formulaires: "archiver_produit", ...coli });
         }
     });
     btnCloseArchiverModal.addEventListener("click", () => {
@@ -174,11 +176,13 @@ import { DbQuery } from "./Model/DbQuery.js";
         let produit = dbQuery.findProduitByCode(codeDuProduit);
         console.log(produit);
         if (produit != undefined) {
+            let coli = dbQuery.findColiByProduit(produit?.getCode());
             let currentICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison());
             const DBresult = await dbQuery.changerStatusProduit(produit, "PERDUE");
             dbQuery.setDB(DB);
             myModal4.classList.remove("modal-open");
             reloadListProduit();
+            await dao.postDataOther({ formulaires: "perdu_produit", ...coli });
         }
     });
     btnClosePerdueModal.addEventListener("click", () => {
@@ -187,11 +191,13 @@ import { DbQuery } from "./Model/DbQuery.js";
     btnRecupererModal.addEventListener("click", async () => {
         let produit = dbQuery.findProduitByCode(codeDuProduit);
         if (produit != undefined) {
+            let coli = dbQuery.findColiByProduit(produit?.getCode());
             let currentICargaison = dbQuery.findAllTypeCargaisonInterfaces().find(c => c.numero == produit?.getCargaison());
             const DBresult = await dbQuery.changerStatusProduit(produit, "RECUPERER");
             dbQuery.setDB(DB);
             myModal3.classList.remove("modal-open");
             reloadListProduit();
+            await dao.postDataOther({ formulaires: "recuperer_produit", ...coli });
         }
     });
     btnCloseRecupererModal.addEventListener("click", () => {

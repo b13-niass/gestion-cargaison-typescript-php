@@ -43,7 +43,7 @@
                     "typec": "maritime",
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
-                    "etatAvancement": "ARCHIVER",
+                    "etatAvancement": "TERMINER",
                     "etatGlobal": "FERMER",
                     "coli": [
                         {

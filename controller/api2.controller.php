@@ -328,6 +328,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $from = 'GpDuMonde';
         $to = '+221767819339'; // Numéro de téléphone du destinataire
         $message = 'Votre Coli a est perdu';
+
+        $expediteur = "+221".$coli['expediteur']['telephone'];
+        $destinataire = "+221".$coli['destinataire']['telephone'];
+
+        $response = sendSms($apiKey, $from, $expediteur, $message);
+        $response = sendSms($apiKey, $from, $destinataire, $message);
+
+        if ($response){
+            echo json_encode(["result" => "success"]);
+        }else{
+            echo json_encode(["result" => "error"]);
+        }
+    }else if ($coli["formulaires"] == "recuperer_produit"){
+        $apiKey = 'a014fefbed4d32e2e92913edb18951df-14f03bc0-5c29-46bc-9131-839f9a021861';
+        $from = 'GpDuMonde';
+        $to = '+221767819339'; // Numéro de téléphone du destinataire
+        $message = 'Votre Coli a est recupéré';
+
         $expediteur = "+221".$coli['expediteur']['telephone'];
         $destinataire = "+221".$coli['destinataire']['telephone'];
 
