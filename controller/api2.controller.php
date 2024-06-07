@@ -146,26 +146,61 @@ function generatePDF($sender, $recipient, $products, $cargaison, $uniqueCode, $e
     }
 }
 
-function sendSMSWithTwilio( $message, $receiver){
+function sendSMSWithTwilio($message, $receiver){
     $sid = "AC72176a0f4ef9ef1f7c5123604cec1c5d";
     $token = "cef68799eb282b06811c85e4f019ab65";
     $client = new Client($sid, $token);
 
-//    foreach ($receiver as $key => $value){
+    foreach ($receiver as $key => $value){
         $client->messages->create(
-            "+221767819339",
+            "+221".$value,
             [
                 'from' => '+13346860878',
-                'body' => "Votre coli a été ajouté et Le code du coli est : ".$message
+                'body' => $message
             ]
         );
-//    }
+    }
 
 }
 
-//function sendSMSWith(){
-//    $dd = curl
-//}
+function sendSms($apiKey, $from, $to, $message) {
+        $url = "https://w1qx2q.api.infobip.com/sms/2/text/advanced";
+
+        $postData = [
+            "messages" => [
+                [
+                    "from" => $from,
+                    "destinations" => [
+                        ["to" => $to]
+                    ],
+                    "text" => $message
+                ]
+            ]
+        ];
+
+        $ch = curl_init($url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: App ' . $apiKey,
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if ($httpCode != 200) {
+            // Handle error
+            return "HTTP Error: " . $httpCode . " Response: " . $response;
+        }
+
+        curl_close($ch);
+
+        return json_decode($response, true);
+    }
 
 function sendSingleEmail($pdf,$email){
     $result = sendMailToApprenant($pdf, $email, 'codev13.sendmail@gmail.com');
@@ -224,11 +259,17 @@ function login($email, $password)
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $coli = json_decode(file_get_contents("php://input"), true);
     if ($coli["formulaires"] == "ajout_produits"){
-        $numbers = ["expediteur" => $coli['expediteur']['telephone'], "destinataire" => $coli['destinataire']['telephone']];
-        sendSMSWithTwilio($coli['code'],$numbers);
+        $message = "Votre coli a été ajouté et Le code du coli est : ".$coli['code'];
+        $apiKey = 'a014fefbed4d32e2e92913edb18951df-14f03bc0-5c29-46bc-9131-839f9a021861';
+        $from = 'GpDuMonde';
+        $expediteur = "+221".$coli['expediteur']['telephone'];
+        $destinataire = "+221".$coli['destinataire']['telephone'];
+//        sendSMSWithTwilio($message,$numbers);
+
+        sendSms($apiKey, $from, $expediteur, $message);
+        sendSms($apiKey, $from, $destinataire, $message);
 
         $cargaison = findCargaison($coli["produits"][0]["cargaison"]);
-//        echo json_encode($cargaison);
 
         $emails = ["email" => $coli['expediteur']['email'],"email" => $coli['destinataire']['email'] ];
         $sender = $coli['expediteur']['prenom']."\n".$coli['expediteur']['nom']."\n".$coli['expediteur']['email']."\n".$coli['expediteur']['pays'];
@@ -246,6 +287,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             echo json_encode($result);
         }else{
             echo json_encode(false);
+        }
+    }else if ($coli["formulaires"] == "arrive_produit"){
+        $apiKey = 'a014fefbed4d32e2e92913edb18951df-14f03bc0-5c29-46bc-9131-839f9a021861';
+        $from = 'GpDuMonde';
+        $to = '+221767819339';
+        $message = 'Votre Coli est arriver';
+        $expediteur = "+221".$coli['expediteur']['telephone'];
+        $destinataire = "+221".$coli['destinataire']['telephone'];
+
+        $response = sendSms($apiKey, $from, $expediteur, $message);
+        $response = sendSms($apiKey, $from, $destinataire, $message);
+
+        if ($response){
+            echo json_encode(["result" => "success"]);
+        }else{
+            echo json_encode(["result" => "error"]);
+        }
+
+    }else if ($coli["formulaires"] == "archiver_produit"){
+
+        $apiKey = 'a014fefbed4d32e2e92913edb18951df-14f03bc0-5c29-46bc-9131-839f9a021861';
+        $from = 'GpDuMonde';
+        $to = '+221767819339'; // Numéro de téléphone du destinataire
+        $message = 'Votre Coli a été archiver';
+        $expediteur = "+221".$coli['expediteur']['telephone'];
+        $destinataire = "+221".$coli['destinataire']['telephone'];
+
+        $response = sendSms($apiKey, $from, $expediteur, $message);
+        $response = sendSms($apiKey, $from, $destinataire, $message);
+
+        if ($response){
+            echo json_encode(["result" => "success"]);
+        }else{
+            echo json_encode(["result" => "error"]);
+        }
+
+    }else if ($coli["formulaires"] == "perdu_produit"){
+        $apiKey = 'a014fefbed4d32e2e92913edb18951df-14f03bc0-5c29-46bc-9131-839f9a021861';
+        $from = 'GpDuMonde';
+        $to = '+221767819339'; // Numéro de téléphone du destinataire
+        $message = 'Votre Coli a est perdu';
+        $expediteur = "+221".$coli['expediteur']['telephone'];
+        $destinataire = "+221".$coli['destinataire']['telephone'];
+
+        $response = sendSms($apiKey, $from, $expediteur, $message);
+        $response = sendSms($apiKey, $from, $destinataire, $message);
+
+        if ($response){
+            echo json_encode(["result" => "success"]);
+        }else{
+            echo json_encode(["result" => "error"]);
         }
     }
 }

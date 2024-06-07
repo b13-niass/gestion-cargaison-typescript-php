@@ -39,6 +39,7 @@ export class DAO{
         }).then( response => response.blob())
         .catch(error => error);
     }
+
     async postDataOther(data: any = null): Promise<any>{
         return await fetch("http://www.cheikh.ibrahima.dieng:8100/api2", {
             method: 'POST',

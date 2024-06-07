@@ -488,6 +488,7 @@ export class DbQuery {
     //     return await this.dao.postData(this.DB);
     // }
     async changerEtatAvancementCargo(codeCargo, etat) {
+        const etatKey = etat == "PERDUE" ? "perdu_produit" : etat == "ARCHIVER" ? "archiver_produit" : etat == "TERMINER" ? "arrive_produit" : "";
         const cargaison = this.findAllTypeCargaisonInterfaces().find(c => c.numero == codeCargo);
         if (cargaison.typec == "maritime") {
             this.DB.cargaison.maritime.values.forEach((c, key) => {
@@ -495,8 +496,10 @@ export class DbQuery {
                     this.DB.cargaison.maritime.values[key].etatAvancement = etat;
                     if (Object.keys(this.DB.cargaison.maritime.values[key]).some(keysColi => keysColi == "coli")) {
                         this.DB.cargaison.maritime.values[key].coli.forEach((coli, keyToEdit) => {
-                            this.DB.cargaison.maritime.values[key].coli[keyToEdit].produits.map(prod => {
+                            this.DB.cargaison.maritime.values[key].coli[keyToEdit].produits.map(async (prod) => {
                                 prod.status = etat;
+                                if (etat == "PERDUE" || etat == "ARCHIVER" || etat == "TERMINER")
+                                    await this.dao.postDataOther({ formulaires: etatKey, ...this.DB.cargaison.maritime.values[key].coli[keyToEdit] });
                                 return prod;
                             });
                         });
@@ -510,8 +513,10 @@ export class DbQuery {
                     this.DB.cargaison.routiere.values[key].etatAvancement = etat;
                     if (Object.keys(this.DB.cargaison.routiere.values[key]).some(keysColi => keysColi == "coli")) {
                         this.DB.cargaison.routiere.values[key].coli.forEach((coli, keyToEdit) => {
-                            this.DB.cargaison.routiere.values[key].coli[keyToEdit].produits.map(prod => {
+                            this.DB.cargaison.routiere.values[key].coli[keyToEdit].produits.map(async (prod) => {
                                 prod.status = etat;
+                                if (etat == "PERDUE" || etat == "ARCHIVER" || etat == "TERMINER")
+                                    await this.dao.postDataOther({ formulaires: etatKey, ...this.DB.cargaison.maritime.values[key].coli[keyToEdit] });
                                 return prod;
                             });
                         });
@@ -525,8 +530,10 @@ export class DbQuery {
                     this.DB.cargaison.aerienne.values[key].etatAvancement = etat;
                     if (Object.keys(this.DB.cargaison.aerienne.values[key]).some(keysColi => keysColi == "coli")) {
                         this.DB.cargaison.aerienne.values[key].coli.forEach((coli, keyToEdit) => {
-                            this.DB.cargaison.aerienne.values[key].coli[keyToEdit].produits.map(prod => {
+                            this.DB.cargaison.aerienne.values[key].coli[keyToEdit].produits.map(async (prod) => {
                                 prod.status = etat;
+                                if (etat == "PERDUE" || etat == "ARCHIVER" || etat == "TERMINER")
+                                    await this.dao.postDataOther({ formulaires: etatKey, ...this.DB.cargaison.maritime.values[key].coli[keyToEdit] });
                                 return prod;
                             });
                         });

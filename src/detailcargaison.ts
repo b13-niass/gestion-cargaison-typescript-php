@@ -500,6 +500,7 @@ interface infoAllAddProduit{
         initialiserHeader(currentICargaison);
         changerEtatEnArchiver.classList.add("hidden");
     })
+
     changerEtatPerdue.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatPerdue.dataset.numerocargo!, "PERDUE");
         dbQuery.setDB(DB);
@@ -510,6 +511,7 @@ interface infoAllAddProduit{
         initialiserHeader(currentICargaison);
         changerEtatEnArchiver.classList.add("hidden");
     })
+
     changerEtatEnCours.addEventListener("click", async (event:Event) => {
         DB = await dbQuery.changerEtatAvancementCargo(changerEtatEnCours.dataset.numerocargo!, "EN COURS");
         dbQuery.setDB(DB);

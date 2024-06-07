@@ -43,9 +43,41 @@
                     "typec": "maritime",
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT",
-                    "coli": []
+                    "etatAvancement": "ARCHIVER",
+                    "etatGlobal": "FERMER",
+                    "coli": [
+                        {
+                            "code": "#w64TfvG",
+                            "produits": [
+                                {
+                                    "libelle": "Modi consequuntur qu",
+                                    "poids": "4",
+                                    "typep": "alimentaire",
+                                    "code": "#kmeZK1fQq",
+                                    "cargaison": "#123",
+                                    "status": "ARCHIVER"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#w64TfvG"
+                            },
+                            "destinataire": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Ratione velit ducimu",
+                                "code": "#w64TfvG"
+                            }
+                        }
+                    ]
                 },
                 {
                     "numero": "#129",
