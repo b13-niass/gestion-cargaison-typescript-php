@@ -29,249 +29,7 @@
                     "autreFrais": 0
                 }
             ],
-            "values": [
-                {
-                    "numero": "#123",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Paris",
-                    "dateDepart": "2024-10-01",
-                    "dateArrive": "2024-11-01",
-                    "duree": 1000,
-                    "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "TERMINER",
-                    "etatGlobal": "FERMER",
-                    "coli": [
-                        {
-                            "code": "#w64TfvG",
-                            "produits": [
-                                {
-                                    "libelle": "Modi consequuntur qu",
-                                    "poids": "4",
-                                    "typep": "alimentaire",
-                                    "code": "#kmeZK1fQq",
-                                    "cargaison": "#123",
-                                    "status": "ARCHIVER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Dieng",
-                                "prenom": "Cheikh Ibrahima",
-                                "telephone": "767819339",
-                                "email": "barhamadieng66@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#w64TfvG"
-                            },
-                            "destinataire": {
-                                "nom": "Dieng",
-                                "prenom": "Cheikh Ibrahima",
-                                "telephone": "767819339",
-                                "email": "barhamadieng66@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Ratione velit ducimu",
-                                "code": "#w64TfvG"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "numero": "#129",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "TERMINER",
-                    "etatGlobal": "FERMER",
-                    "coli": [
-                        {
-                            "code": "#YI2213",
-                            "produits": [
-                                {
-                                    "code": "#YIZYZSDF",
-                                    "libelle": "Lait",
-                                    "typep": "alimentaire",
-                                    "poids": 100,
-                                    "cargaison": "#129",
-                                    "status": "TERMINER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Client1",
-                                "prenom": "Client1",
-                                "telephone": "772881122",
-                                "email": "client1@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YI2213"
-                            },
-                            "destinataire": {
-                                "nom": "Client2",
-                                "prenom": "Client2",
-                                "telephone": "761872299",
-                                "email": "client2@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YI2213"
-                            }
-                        },
-                        {
-                            "code": "#YI2313",
-                            "produits": [
-                                {
-                                    "code": "#YIZ4ZSDF",
-                                    "libelle": "Lait",
-                                    "typep": "alimentaire",
-                                    "poids": 100,
-                                    "cargaison": "#129",
-                                    "status": "TERMINER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Client3",
-                                "prenom": "Client3",
-                                "telephone": "772881122",
-                                "email": "client3@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YI2313"
-                            },
-                            "destinataire": {
-                                "nom": "Client4",
-                                "prenom": "Client4",
-                                "telephone": "761872299",
-                                "email": "client4@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YI2313"
-                            }
-                        },
-                        {
-                            "code": "#YU2313",
-                            "produits": [
-                                {
-                                    "code": "#YOZ4ZSDF",
-                                    "libelle": "Lait",
-                                    "typep": "alimentaire",
-                                    "poids": 100,
-                                    "cargaison": "#129",
-                                    "status": "TERMINER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Client5",
-                                "prenom": "Client5",
-                                "telephone": "772881122",
-                                "email": "client5@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YU2313"
-                            },
-                            "destinataire": {
-                                "nom": "Client6",
-                                "prenom": "Client6",
-                                "telephone": "761872299",
-                                "email": "client6@gmail.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#YU2313"
-                            }
-                        },
-                        {
-                            "code": "#ZtWr5fL",
-                            "produits": [
-                                {
-                                    "libelle": "Dicta non cumque seq",
-                                    "poids": "4",
-                                    "typep": "chimique",
-                                    "toxicite": "1",
-                                    "code": "#gAwUQBH8H",
-                                    "cargaison": "#129",
-                                    "status": "PERDUE"
-                                },
-                                {
-                                    "libelle": "Molestias ullamco pr",
-                                    "poids": "3",
-                                    "typep": "chimique",
-                                    "toxicite": "10",
-                                    "code": "#u8S7sfzKM",
-                                    "cargaison": "#129",
-                                    "status": "RECUPERER"
-                                },
-                                {
-                                    "libelle": "testeeeee",
-                                    "poids": "2",
-                                    "typep": "alimentaire",
-                                    "code": "#EYJTgb5tT",
-                                    "cargaison": "#129",
-                                    "status": "ARCHIVER"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Qui iure qui aut duc",
-                                "prenom": "Qui culpa rerum est",
-                                "telephone": "771112211",
-                                "email": "gegobawac@mailinator.com",
-                                "ville": "Accusantium numquam ",
-                                "pays": "Autem nisi sapiente ",
-                                "code": "#ZtWr5fL"
-                            },
-                            "destinataire": {
-                                "nom": "test2",
-                                "prenom": "test2",
-                                "telephone": "772221122",
-                                "email": "test2@test2.com",
-                                "ville": "teste",
-                                "pays": "teste",
-                                "code": "#ZtWr5fL"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "numero": "#130",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#1025RVQ76",
-                    "poidsMax": 10,
-                    "nbrProduitMax": 0,
-                    "montantTotal": 1000,
-                    "lieuDepart": "S\u00e9n\u00e9gal",
-                    "lieuArrive": "Br\u00e9sil",
-                    "dateDepart": "2024-06-06",
-                    "dateArrive": "2024-06-19",
-                    "duree": 18720,
-                    "typec": "maritime",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 4951.07769159671,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                }
-            ]
+            "values": []
         },
         "aerienne": {
             "produitsAccepter": [
@@ -294,136 +52,7 @@
                     "autreFrais": 0
                 }
             ],
-            "values": [
-                {
-                    "numero": "#124",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "aerienne",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN COURS",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#131",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 4,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "aerienne",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "TERMINER",
-                    "etatGlobal": "FERMER",
-                    "coli": [
-                        {
-                            "code": "#AxGxbPV",
-                            "produits": [
-                                {
-                                    "libelle": "Dolores cum odit omn",
-                                    "poids": "11",
-                                    "typep": "fragile",
-                                    "code": "#5BL0740Ur",
-                                    "cargaison": "#131",
-                                    "status": "EN ATTENTE"
-                                },
-                                {
-                                    "libelle": "Molestias ullamco pr",
-                                    "poids": "12",
-                                    "typep": "alimentaire",
-                                    "code": "#KlPTTkdpt",
-                                    "cargaison": "#131",
-                                    "status": "EN ATTENTE"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "test1",
-                                "prenom": "test1",
-                                "telephone": "772221122",
-                                "email": "test1@test1.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#AxGxbPV"
-                            },
-                            "destinataire": {
-                                "nom": "test2",
-                                "prenom": "test2",
-                                "telephone": "771112211",
-                                "email": "test2@test2.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#AxGxbPV"
-                            }
-                        },
-                        {
-                            "code": "#Wtx2B1S",
-                            "produits": [
-                                {
-                                    "libelle": "Laboris quidem eum s",
-                                    "poids": "11",
-                                    "typep": "alimentaire",
-                                    "code": "#ufYS0fyin",
-                                    "cargaison": "#131",
-                                    "status": "EN ATTENTE"
-                                },
-                                {
-                                    "libelle": "Molestias ullamco pr",
-                                    "poids": "11",
-                                    "typep": "fragile",
-                                    "code": "#KsLeD8hf5",
-                                    "cargaison": "#131",
-                                    "status": "EN ATTENTE"
-                                }
-                            ],
-                            "expediteur": {
-                                "nom": "Qui iure qui aut duc",
-                                "prenom": "Qui culpa rerum est",
-                                "telephone": "771112211",
-                                "email": "gegobawac@mailinator.com",
-                                "ville": "Accusantium numquam ",
-                                "pays": "Autem nisi sapiente ",
-                                "code": "#Wtx2B1S"
-                            },
-                            "destinataire": {
-                                "nom": "Tempore dolor moles",
-                                "prenom": "test2",
-                                "telephone": "777112233",
-                                "email": "test2@test2.com",
-                                "ville": "Dakar",
-                                "pays": "Senegal",
-                                "code": "#Wtx2B1S"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "numero": "#132",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "aerienne",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                }
-            ]
+            "values": []
         },
         "routiere": {
             "produitsAccepter": [
@@ -448,106 +77,89 @@
             ],
             "values": [
                 {
-                    "numero": "#125",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Congo",
-                    "lieuArrive": "Paris",
-                    "dateDepart": "2024-08-01",
-                    "dateArrive": "2024-09-01",
-                    "duree": 1000,
-                    "typec": "routiere",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#133",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "routiere",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "FERMER"
-                },
-                {
-                    "numero": "#134",
-                    "poidsMax": 0,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "duree": 1000,
-                    "typec": "routiere",
-                    "image": "https:\/\/placehold.co\/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "FERMER"
-                },
-                {
-                    "numero": "#9375BPA72",
-                    "poidsMax": 10,
+                    "numero": "#2335MMI57",
+                    "poidsMax": 5,
                     "nbrProduitMax": 0,
                     "montantTotal": 1000,
                     "lieuDepart": "S\u00e9n\u00e9gal",
-                    "lieuArrive": "B\u00e9larus",
-                    "dateDepart": "2024-06-05",
-                    "dateArrive": "2024-06-08",
-                    "duree": 4320,
+                    "lieuArrive": "Espagne",
+                    "dateDepart": "2024-06-14",
+                    "dateArrive": "2024-06-18",
+                    "duree": 5760,
                     "typec": "routiere",
                     "image": "https:\/\/placehold.co\/500",
-                    "distance": 5530.620496479072,
+                    "distance": 3040.8764957210637,
                     "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT",
+                    "etatGlobal": "FERMER",
                     "coli": [
                         {
-                            "code": "#fqKsuTM",
+                            "code": "#p1ayIA4",
                             "produits": [
                                 {
                                     "libelle": "Laboris quidem eum s",
-                                    "poids": "5",
+                                    "poids": "3",
                                     "typep": "alimentaire",
-                                    "code": "#sRL8BGzyc",
-                                    "cargaison": "#9375BPA72",
-                                    "status": "EN ATTENTE"
-                                },
-                                {
-                                    "libelle": "Molestias ullamco pr",
-                                    "poids": "5",
-                                    "typep": "alimentaire",
-                                    "code": "#5MuPyXQCk",
-                                    "cargaison": "#9375BPA72",
+                                    "code": "#ihqRP2kIV",
+                                    "cargaison": "#2335MMI57",
                                     "status": "EN ATTENTE"
                                 }
                             ],
                             "expediteur": {
-                                "nom": "Qui iure qui aut duc",
-                                "prenom": "Qui culpa rerum est",
-                                "telephone": "771112211",
-                                "email": "gegobawac@mailinator.com",
-                                "ville": "Accusantium numquam ",
-                                "pays": "Autem nisi sapiente ",
-                                "code": "#fqKsuTM"
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#p1ayIA4"
                             },
                             "destinataire": {
-                                "nom": "test2",
-                                "prenom": "test2",
-                                "telephone": "772626611",
-                                "email": "test2@test2.com",
-                                "ville": "dakar",
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Espagne",
+                                "code": "#p1ayIA4"
+                            }
+                        },
+                        {
+                            "code": "#bhAToKe",
+                            "produits": [
+                                {
+                                    "libelle": "Dolores cum odit omn",
+                                    "poids": "1",
+                                    "typep": "alimentaire",
+                                    "code": "#LppRelifC",
+                                    "cargaison": "#2335MMI57",
+                                    "status": "EN ATTENTE"
+                                },
+                                {
+                                    "libelle": "Molestias ullamco pr",
+                                    "poids": "1",
+                                    "typep": "alimentaire",
+                                    "code": "#rZTWbBx90",
+                                    "cargaison": "#2335MMI57",
+                                    "status": "EN ATTENTE"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
                                 "pays": "Senegal",
-                                "code": "#fqKsuTM"
+                                "code": "#bhAToKe"
+                            },
+                            "destinataire": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Consequat Dolore ut",
+                                "code": "#bhAToKe"
                             }
                         }
                     ]

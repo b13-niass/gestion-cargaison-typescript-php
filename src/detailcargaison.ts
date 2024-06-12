@@ -127,12 +127,12 @@ interface infoAllAddProduit{
             </div>
             <div class="content mb-4 flex-1">
                 <label for="poids" class="block text-gray-700 mb-2">Poids:</label>
-                <input type="text" id="poids" name="produit[${nbrLignProduit}][poids]" class="w-full bg-white text-gray-800 px-3 py-2 border border-gray-300 rounded-lg">
+                <input type="text" id="poids" name="produit[${nbrLignProduit}][poids]" class="w-full poidsToMontant bg-white text-gray-800 px-3 py-2 border border-gray-300 rounded-lg">
                 <span class="error-message text-[0.8rem]">error</span>
             </div>
             <div data-ligneproduit="1" class="content mb-4 flex-1">
                 <label for="typep" class="block text-gray-700">Type De produit</label>
-                <select id="typep" name="produit[${nbrLignProduit}][typep]" class="typeProduitContent filter-bar mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <select id="typep" name="produit[${nbrLignProduit}][typep]" class="typeProduitContent typeToMontant filter-bar mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Sélectionner un type</option>
                     <option value="chimique">Chimique</option>
                     <option value="alimentaire">Alimentaire</option>
@@ -168,6 +168,23 @@ interface infoAllAddProduit{
             })
         })
     }
+
+    // const onChangePoidsProduit = () => {
+    //     const poidsToMontant = document.querySelectorAll("poidsToMontant") as NodeListOf<HTMLInputElement>;
+    //     const typeToMontant = document.querySelectorAll("typeToMontant") as NodeListOf<HTMLInputElement>;
+    //
+    //     const montantColi = document.getElementById("montantColi") as HTMLSpanElement;
+    //
+    //     poidsToMontant.forEach(poidsInput => {
+    //         let type = poidsInput.nextElementSibling as HTMLInputElement;
+    //         poidsInput.addEventListener("input", () => {
+    //             if(poidsInput.value.trim() && type.value.trim()){
+    //
+    //             }
+    //         })
+    //     })
+    //
+    // }
 
     function generateRandomCode(length: number) : string {
         const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -256,7 +273,12 @@ interface infoAllAddProduit{
             changerEtatTerminer.classList.add("opacity-50" ,"cursor-not-allowed");
         }else if(currentICargaison.etatGlobal == "FERMER" && currentICargaison.etatAvancement == "EN ATTENTE"){
             changerEtatEnAttente.classList.add("opacity-50" ,"cursor-not-allowed");
-            changerEtatEnCours.classList.remove("opacity-50" ,"cursor-not-allowed");
+            if(dbQuery.comptVolumeContentCargo(currentCargaisonCode) == 0){
+                changerEtatEnCours.classList.add("opacity-50" ,"cursor-not-allowed");
+            }else{
+                changerEtatEnCours.classList.remove("opacity-50" ,"cursor-not-allowed");
+            }
+
             changerEtatPerdue.classList.add("opacity-50" ,"cursor-not-allowed");
             changerEtatTerminer.classList.add("opacity-50" ,"cursor-not-allowed");
             disableFormAddProduit();
@@ -304,6 +326,7 @@ interface infoAllAddProduit{
             return parseInt(""+currentICargaison.poidsMax!) - dbQuery.comptVolumeContentCargo(currentCargaisonCode);
         }
     }
+
     const showPleineOuPas = (currentICargaison: ICargaison):string => {
      if (dbQuery.comptVolumeContentCargo(currentCargaisonCode) == currentICargaison.nbrProduitMax && currentICargaison.nbrProduitMax > 0)
      {

@@ -1646,15 +1646,6 @@ input.tab:checked + .tab-content,
   border-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-border-opacity)));
 }
 
-.badge-accent {
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-a,oklch(var(--a)/var(--tw-border-opacity)));
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
-  --tw-text-opacity: 1;
-  color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
-}
-
 .badge-info {
   border-color: transparent;
   --tw-bg-opacity: 1;
@@ -1669,11 +1660,6 @@ input.tab:checked + .tab-content,
   background-color: var(--fallback-su,oklch(var(--su)/var(--tw-bg-opacity)));
   --tw-text-opacity: 1;
   color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
-}
-
-.badge-outline.badge-accent {
-  --tw-text-opacity: 1;
-  color: var(--fallback-a,oklch(var(--a)/var(--tw-text-opacity)));
 }
 
 .badge-outline.badge-info {
@@ -2943,16 +2929,16 @@ details.collapse summary::-webkit-details-marker {
   height: 50px;
 }
 
+.h-\[57px\] {
+  height: 57px;
+}
+
 .h-full {
   height: 100%;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[57px\] {
-  height: 57px;
 }
 
 .min-h-full {
@@ -3027,10 +3013,6 @@ details.collapse summary::-webkit-details-marker {
   width: 100%;
 }
 
-.w-\[35px\] {
-  width: 35px;
-}
-
 .min-w-full {
   min-width: 100%;
 }
@@ -3103,10 +3085,6 @@ details.collapse summary::-webkit-details-marker {
   align-content: flex-start;
 }
 
-.items-start {
-  align-items: flex-start;
-}
-
 .items-center {
   align-items: center;
 }
@@ -3129,6 +3107,10 @@ details.collapse summary::-webkit-details-marker {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
 }
 
 .gap-4 {
@@ -3637,14 +3619,6 @@ details.collapse summary::-webkit-details-marker {
   opacity: 0.5;
 }
 
-.opacity-5 {
-  opacity: 0.05;
-}
-
-.opacity-90 {
-  opacity: 0.9;
-}
-
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -3762,16 +3736,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .content {
   flex-wrap: wrap;
-}
-
-.before\:w-\[50px\]::before {
-  content: var(--tw-content);
-  width: 50px;
-}
-
-.before\:w-\[100px\]::before {
-  content: var(--tw-content);
-  width: 100px;
 }
 
 .hover\:cursor-pointer:hover {
