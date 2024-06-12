@@ -90,7 +90,7 @@
                     "image": "https:\/\/placehold.co\/500",
                     "distance": 3040.8764957210637,
                     "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "FERMER",
+                    "etatGlobal": "OUVERT",
                     "coli": [
                         {
                             "code": "#p1ayIA4",
@@ -126,14 +126,6 @@
                         {
                             "code": "#bhAToKe",
                             "produits": [
-                                {
-                                    "libelle": "Dolores cum odit omn",
-                                    "poids": "1",
-                                    "typep": "alimentaire",
-                                    "code": "#LppRelifC",
-                                    "cargaison": "#2335MMI57",
-                                    "status": "EN ATTENTE"
-                                },
                                 {
                                     "libelle": "Molestias ullamco pr",
                                     "poids": "1",

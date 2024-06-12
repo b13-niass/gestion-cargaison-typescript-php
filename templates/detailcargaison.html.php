@@ -4,7 +4,9 @@
     }
 
 </style>
-
+<div class="loader-box">
+    <span class="loader"></span>
+</div>
 <div role="tablist" class="tabs tabs-bordered px-6 py-4">
 
     <input type="radio" name="my_tabs_2" style="width: 200px!important;" role="tab" class="tab" aria-label="Détail Cargaison" checked />

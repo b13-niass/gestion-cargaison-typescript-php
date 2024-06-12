@@ -45,7 +45,9 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
     const etatAvancement = document.getElementById("etatAvancement");
     const ligneproduit2 = document.getElementById("ligneproduit2");
     const addligneproduit = document.getElementById("addligneproduit");
+    const loaderBox = document.querySelector(".loader-box");
     const contentLignproduit = document.getElementById("content-lignproduit");
+    // loaderBox.style.display = "flex";
     let nbrLignProduit = 1;
     const templateToxicite = (numero) => {
         return `<label for="toxicite" class="block text-gray-700 mb-2">Toxicite:</label>
@@ -360,8 +362,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
                     sommePoidsProduit += parseInt("" + p.poids);
                 });
                 if ((sommePoidsProduit + volumeContent) <= currentCargaison.getPoidsMax()) {
-                    alertSuccess.classList.remove("hidden");
-                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "flex";
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
                     const result = await dao.postDataOther(data = { ...coli, ...{ formulaires: "ajout_produits" } });
@@ -371,6 +372,9 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
                     }
                     initialiserHeader(currentICargaison);
                     produitFormHandler.resetForm();
+                    alertSuccess.classList.remove("hidden");
+                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "none";
                 }
                 else {
                     alertSuccess.classList.add("hidden");
@@ -380,8 +384,7 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
             else {
                 let cpt = coli.produits.length;
                 if ((cpt + volumeContent) <= currentCargaison.getNbrProduitMax()) {
-                    alertSuccess.classList.remove("hidden");
-                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "flex!important";
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
                     const result = await dao.postDataOther(data = { ...coli, ...{ formulaires: "ajout_produits" } });
@@ -391,6 +394,9 @@ import { ProduitFormHandler } from "./Model/ProduitFormHandler.js";
                     }
                     initialiserHeader(currentICargaison);
                     produitFormHandler.resetForm();
+                    alertSuccess.classList.remove("hidden");
+                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "none";
                 }
                 else {
                     alertSuccess.classList.add("hidden");

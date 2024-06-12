@@ -90,8 +90,9 @@ interface infoAllAddProduit{
     const ligneproduit2 = document.getElementById("ligneproduit2") as HTMLDivElement;
     const addligneproduit = document.getElementById("addligneproduit") as HTMLDivElement;
 
+    const loaderBox = document.querySelector(".loader-box") as HTMLDivElement;
     const contentLignproduit = document.getElementById("content-lignproduit") as HTMLDivElement;
-
+    // loaderBox.style.display = "flex";
     let nbrLignProduit = 1;
 
     const templateToxicite = (numero: number) => {
@@ -415,8 +416,7 @@ interface infoAllAddProduit{
                     sommePoidsProduit += parseInt(""+p.poids!);
                 })
                 if ((sommePoidsProduit + volumeContent) <= currentCargaison.getPoidsMax()) {
-                    alertSuccess.classList.remove("hidden");
-                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "flex";
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
 
@@ -428,6 +428,9 @@ interface infoAllAddProduit{
                     }
                     initialiserHeader(currentICargaison);
                     produitFormHandler.resetForm();
+                    alertSuccess.classList.remove("hidden");
+                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "none";
                 } else {
                     alertSuccess.classList.add("hidden");
                     alertDanger.classList.remove("hidden");
@@ -436,8 +439,7 @@ interface infoAllAddProduit{
             } else {
                 let cpt: number = coli.produits!.length;
                 if ((cpt + volumeContent) <= currentCargaison.getNbrProduitMax()) {
-                    alertSuccess.classList.remove("hidden");
-                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "flex!important";
                     DB = await dbQuery.addProduitToCargaison(currentCargaisonCode, coli);
                     dbQuery.setDB(DB);
 
@@ -449,6 +451,9 @@ interface infoAllAddProduit{
                     }
                     initialiserHeader(currentICargaison);
                     produitFormHandler.resetForm();
+                    alertSuccess.classList.remove("hidden");
+                    alertDanger.classList.add("hidden");
+                    loaderBox.style.display = "none";
                 } else {
                     alertSuccess.classList.add("hidden");
                     alertDanger.classList.remove("hidden");
