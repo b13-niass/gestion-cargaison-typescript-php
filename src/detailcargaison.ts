@@ -100,6 +100,7 @@ interface infoAllAddProduit{
                 <input type="text" id="toxicite" name="produit[${numero}][toxicite]" class="w-full bg-white text-gray-800 px-3 py-2 border border-gray-300 rounded-lg">
                 <span class="error-message text-[0.8rem]">error</span>`;
     }
+
     if (localStorage.getItem("detailcargo")){
         currentCargaisonCode = localStorage.getItem("detailcargo")!;
         // localStorage.removeItem("detailcargo");
