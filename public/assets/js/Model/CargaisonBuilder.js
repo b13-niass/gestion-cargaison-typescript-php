@@ -19,20 +19,16 @@ export class CargaisonBuilder {
         this.cargaison.setMontantTotal(montantTotal);
         return this;
     }
-    withDepartX(departX) {
-        this.cargaison.setDepartX(departX);
+    withDuree(duree) {
+        this.cargaison.setDuree(duree);
         return this;
     }
-    withDepartY(departY) {
-        this.cargaison.setDepartY(departY);
+    withLieuDepart(lieuDepart) {
+        this.cargaison.setLieuDepart(lieuDepart);
         return this;
     }
-    withArriveX(arriveX) {
-        this.cargaison.setArriveX(arriveX);
-        return this;
-    }
-    withArriveY(arriveY) {
-        this.cargaison.setArriveY(arriveY);
+    withLieuArrive(lieuArrive) {
+        this.cargaison.setLieuArrive(lieuArrive);
         return this;
     }
     withTypec(typec) {
@@ -53,6 +49,14 @@ export class CargaisonBuilder {
     }
     withEtatGlobal(etatGlobal) {
         this.cargaison.setEtatGlobal(etatGlobal);
+        return this;
+    }
+    withDateDepart(dateDepart) {
+        this.cargaison.setDateDepart(dateDepart);
+        return this;
+    }
+    withDateArrive(dateArrive) {
+        this.cargaison.setDateArrive(dateArrive);
         return this;
     }
     build() {

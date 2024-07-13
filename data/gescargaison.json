@@ -8,86 +8,28 @@
             ],
             "fraisTransport": [
                 {
-                    "typep": 1,
+                    "typep": "alimentaire",
                     "tarif": 90,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 5000
                 },
                 {
-                    "typep": 2,
+                    "typep": "chimique",
                     "tarif": 500,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 10000
                 },
                 {
-                    "typep": 3,
+                    "typep": "materiel",
                     "tarif": 400,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 0
                 }
             ],
-            "values": [
-                {
-                    "numero": "#123",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Paris",
-                    "dateDepart": "2024-10-01",
-                    "dateArrive": "2024-11-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "maritime",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#129",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "maritime",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#130",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "maritime",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                }
-            ]
+            "values": []
         },
         "aerienne": {
             "produitsAccepter": [
@@ -96,79 +38,21 @@
             ],
             "fraisTransport": [
                 {
-                    "typep": 1,
+                    "typep": "alimentaire",
                     "tarif": 300,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 5000
                 },
                 {
-                    "typep": 3,
+                    "typep": "materiel",
                     "tarif": 1000,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 0
                 }
             ],
-            "values": [
-                {
-                    "numero": "#124",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "aerienne",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN COURS",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#131",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "aerienne",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "FERMER"
-                },
-                {
-                    "numero": "#132",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "aerienne",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                }
-            ]
+            "values": []
         },
         "routiere": {
             "produitsAccepter": [
@@ -177,14 +61,14 @@
             ],
             "fraisTransport": [
                 {
-                    "typep": 1,
+                    "typep": "alimentaire",
                     "tarif": 100,
                     "poids": 1,
                     "param": 1,
                     "autreFrais": 5000
                 },
                 {
-                    "typep": 3,
+                    "typep": "materiel",
                     "tarif": 200,
                     "poids": 1,
                     "param": 1,
@@ -193,63 +77,93 @@
             ],
             "values": [
                 {
-                    "numero": "#125",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Congo",
-                    "lieuArrive": "Paris",
-                    "dateDepart": "2024-08-01",
-                    "dateArrive": "2024-09-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
+                    "numero": "#2335MMI57",
+                    "poidsMax": 5,
+                    "nbrProduitMax": 0,
+                    "montantTotal": 1000,
+                    "lieuDepart": "S\u00e9n\u00e9gal",
+                    "lieuArrive": "Espagne",
+                    "dateDepart": "2024-06-14",
+                    "dateArrive": "2024-06-18",
+                    "duree": 5760,
                     "typec": "routiere",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
+                    "image": "https:\/\/placehold.co\/500",
+                    "distance": 3040.8764957210637,
                     "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "OUVERT"
-                },
-                {
-                    "numero": "#133",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "routiere",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "FERMER"
-                },
-                {
-                    "numero": "#134",
-                    "poidsMax": 100,
-                    "nbrProduitMax": 10,
-                    "montantTotal": 100000,
-                    "lieuDepart": "Dakar",
-                    "lieuArrive": "Italie",
-                    "dateDepart": "2024-06-01",
-                    "dateArrive": "2024-07-01",
-                    "departX": 0,
-                    "departY": 0,
-                    "arriveX": 0,
-                    "arriveY": 0,
-                    "typec": "routiere",
-                    "image": "https://placehold.co/500",
-                    "distance": 1000,
-                    "etatAvancement": "EN ATTENTE",
-                    "etatGlobal": "FERMER"
+                    "etatGlobal": "OUVERT",
+                    "coli": [
+                        {
+                            "code": "#p1ayIA4",
+                            "produits": [
+                                {
+                                    "libelle": "Laboris quidem eum s",
+                                    "poids": "3",
+                                    "typep": "alimentaire",
+                                    "code": "#ihqRP2kIV",
+                                    "cargaison": "#2335MMI57",
+                                    "status": "EN ATTENTE"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#p1ayIA4"
+                            },
+                            "destinataire": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Espagne",
+                                "code": "#p1ayIA4"
+                            }
+                        },
+                        {
+                            "code": "#bhAToKe",
+                            "produits": [
+                                {
+                                    "libelle": "Molestias ullamco pr",
+                                    "poids": "1",
+                                    "typep": "alimentaire",
+                                    "code": "#rZTWbBx90",
+                                    "cargaison": "#2335MMI57",
+                                    "status": "EN ATTENTE"
+                                }
+                            ],
+                            "expediteur": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Senegal",
+                                "code": "#bhAToKe"
+                            },
+                            "destinataire": {
+                                "nom": "Dieng",
+                                "prenom": "Cheikh Ibrahima",
+                                "telephone": "767819339",
+                                "email": "barhamadieng66@gmail.com",
+                                "ville": "Dakar",
+                                "pays": "Consequat Dolore ut",
+                                "code": "#bhAToKe"
+                            }
+                        }
+                    ]
                 }
             ]
         }
-    }
+    },
+    "gestionaire": [
+        {
+            "email": "app@app.com",
+            "password": "$2y$10$75CYWMj.xyGQCX8.QkYEhOA31yZYafOaMT3rnTibQUS6WccTW32d6",
+            "nom": "Ousseynou Sane"
+        }
+    ]
 }

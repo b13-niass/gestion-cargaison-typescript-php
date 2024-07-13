@@ -1,4 +1,4 @@
-import {ICargaison} from "../Interface/DataBinding.js";
+import {ICargaison, IColi} from "../Interface/DataBinding.js";
 import {FormatDate} from "./FormatDate.js";
 
 export abstract class Cargaison {
@@ -11,15 +11,13 @@ export abstract class Cargaison {
     protected lieuArrive?: string;
     protected dateDepart?: string;
     protected dateArrive?: string;
-    protected departX?: number;
-    protected departY?: number;
-    protected arriveX?: number;
-    protected arriveY?: number;
+    protected duree?: number;
     protected typec?: string;
     protected image?: string;
     protected distance?: number;
     protected etatAvancement?: string;
     protected etatGlobal?: string;
+    // protected coli?: IColi[];
 
     constructor(init?: Partial<ICargaison>) {
         Object.assign(this, init);
@@ -73,30 +71,13 @@ export abstract class Cargaison {
     setDateArrive(dateArrive: string){
         this.dateArrive = dateArrive;
     }
-    getDepartX(): number {
-        return this.departX!;
+    getDuree(): number {
+        return this.duree!;
     }
-    setDepartX(departX: number){
-        this.departX = departX;
+    setDuree(duree: number){
+        this.duree = duree;
     }
-    getDepartY(): number {
-        return this.departY!;
-    }
-    setDepartY(departY: number){
-        this.departY = departY;
-    }
-    getArriveX(): number {
-        return this.arriveX!;
-    }
-    setArriveX(arriveX: number){
-        this.arriveX = arriveX;
-    }
-    getArriveY(): number {
-        return this.arriveY!;
-    }
-    setArriveY(arriveY: number){
-        this.arriveY = arriveY;
-    }
+
     getTypec(): string {
         return this.typec!;
     }
@@ -129,6 +110,11 @@ export abstract class Cargaison {
     setEtatGlobal(etatGlobal: string){
         this.etatGlobal = etatGlobal;
     }
+    convertMinutesToHours(minutes: number): string {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        return `${hours} h-${remainingMinutes}min`;
+    }
 
     info(): HTMLTableRowElement {
         const formatDate = new FormatDate();
@@ -138,14 +124,14 @@ export abstract class Cargaison {
          <td class="border border-gray-400 w-24 px-4 py-2">
             <img src="https://via.placeholder.com/50" alt="Product Image" class="rounded">
         </td>
-        <td class="border border-gray-400 px-4 py-2">${this.typec}</td>
+        <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.typec}</td>
         <td class="border border-gray-400 px-4 py-2">
             <span class="inline-block bg-blue-200 text-blue-800 text-sm px-2 rounded-full">${this.poidsMax == 0? this.nbrProduitMax +"produits" : this.poidsMax+"Kg"}</span>
         </td>
-        <td class="border border-gray-400 px-4 py-2">${formatDate.formatDate3(this.dateDepart!) +" au "+formatDate.formatDate3(this.dateArrive!)}</td>
-        <td class="border border-gray-400 px-4 py-2">${this.lieuDepart} - ${this.lieuArrive}</td>
-        <td class="border border-gray-400 px-4 py-2">${this.distance}</td>
-        <td class="border border-gray-400 px-4 py-2">5h</td>
+        <td class="border border-gray-400 text-gray-900 px-4 py-2">${formatDate.formatDate3(this.dateDepart!) +" au "+formatDate.formatDate3(this.dateArrive!)}</td>
+        <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.lieuDepart} - ${this.lieuArrive}</td>
+        <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.distance}</td>
+        <td class="border border-gray-400 text-gray-900 px-4 py-2">${this.convertMinutesToHours(this.duree!)}</td>
         <td class="border border-gray-400 px-4 py-2">
             <span class="inline-block ${(this.etatAvancement == "EN ATTENTE")? "bg-gray-200":(this.etatAvancement == "EN COURS")?"bg-orange-200":"bg-green-200"}  text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatAvancement}</span>
         </td>
@@ -153,8 +139,8 @@ export abstract class Cargaison {
             <span class="inline-block ${this.etatGlobal == "OUVERT"? "bg-green-200":"bg-red-200"} text-green-800 font-bold text-[0.7rem] px-2 rounded-full">${this.etatGlobal}</span>
         </td>
         <td class="border border-gray-400 px-4 py-2">
-            <a href="/detcargo/${this.numero}" class="bg-gray-800 font-semibold text-white py-1 px-2 border border-transparent rounded">
-                Détails
+            <a href="#" data-detailcargo="${this.numero}" class="text-[0.8rem] text-center bg-gray-800 text-white py-2 px-3 border border-transparent rounded">
+                Plus..
             </a>
         </td>
         `;

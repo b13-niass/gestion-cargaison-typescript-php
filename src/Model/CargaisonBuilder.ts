@@ -22,22 +22,20 @@ export class CargaisonBuilder<T extends Cargaison> {
         this.cargaison.setMontantTotal(montantTotal);
         return this;
     }
-    withDepartX(departX: number): CargaisonBuilder<T> {
-        this.cargaison.setDepartX(departX);
+    withDuree(duree: number): CargaisonBuilder<T> {
+        this.cargaison.setDuree(duree);
         return this;
     }
-    withDepartY(departY: number): CargaisonBuilder<T> {
-        this.cargaison.setDepartY(departY);
+
+    withLieuDepart(lieuDepart: string): CargaisonBuilder<T> {
+        this.cargaison.setLieuDepart(lieuDepart);
         return this;
     }
-    withArriveX(arriveX: number): CargaisonBuilder<T> {
-        this.cargaison.setArriveX(arriveX);
+    withLieuArrive(lieuArrive: string): CargaisonBuilder<T> {
+        this.cargaison.setLieuArrive(lieuArrive);
         return this;
     }
-    withArriveY(arriveY: number): CargaisonBuilder<T> {
-        this.cargaison.setArriveY(arriveY);
-        return this;
-    }
+
     withTypec(typec: string): CargaisonBuilder<T> {
         this.cargaison.setTypec(typec);
         return this;
@@ -56,6 +54,14 @@ export class CargaisonBuilder<T extends Cargaison> {
     }
     withEtatGlobal(etatGlobal: string): CargaisonBuilder<T> {
         this.cargaison.setEtatGlobal(etatGlobal);
+        return this;
+    }
+    withDateDepart(dateDepart: string): CargaisonBuilder<T>{
+        this.cargaison.setDateDepart(dateDepart)
+        return this;
+    }
+    withDateArrive(dateArrive: string): CargaisonBuilder<T>{
+        this.cargaison.setDateArrive(dateArrive)
         return this;
     }
 
